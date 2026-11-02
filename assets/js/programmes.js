@@ -4,7 +4,8 @@
 // It works like a simple app with screens, one at a time:
 //   1. LEVEL      "What's your level?"            (3 big cards)
 //   2. GOAL       "What do you want to improve?"  (3 big cards)
-//   3. PLAN       Your plan: next session, progress, 4-week grid
+//   3. PLAN       Your plan: today's session, then the 4 weeks
+//                 (pick a week to see its 3 sessions)
 //   4. SESSION    Step-by-step session with a timer
 //   5. CELEBRATE  Well done! Saved to the tracker.
 //
@@ -38,7 +39,7 @@ const GOAL_CARDS = {
 const app = document.getElementById("app");
 
 // What we're showing right now
-const state = { screen: "level", level: null, programmeId: null, session: null };
+const state = { screen: "level", level: null, programmeId: null, session: null, viewWeek: null };
 
 // =========================================================
 // Saved data helpers
@@ -189,12 +190,58 @@ function ringHTML(done, total) {
   const circumference = 2 * Math.PI * 52;
   return `
     <svg class="ring" viewBox="0 0 120 120" role="img" aria-label="${done} of ${total} sessions done">
-      <circle cx="60" cy="60" r="52" fill="none" stroke="#1B2D40" stroke-width="12"/>
-      <circle class="ring__bar" cx="60" cy="60" r="52" fill="none" stroke="#FFC857" stroke-width="12" stroke-linecap="round"
+      <circle cx="60" cy="60" r="52" fill="none" stroke="#132C5A" stroke-width="12"/>
+      <circle class="ring__bar" cx="60" cy="60" r="52" fill="none" stroke="#A9DCFA" stroke-width="12" stroke-linecap="round"
         stroke-dasharray="${circumference}" stroke-dashoffset="${circumference * (1 - done / total)}" transform="rotate(-90 60 60)"/>
-      <text x="60" y="58" text-anchor="middle" font-size="28" font-weight="900" fill="#F7F9FA">${done}</text>
+      <text x="60" y="58" text-anchor="middle" font-size="28" font-weight="900" fill="#F6F8FB">${done}</text>
       <text x="60" y="80" text-anchor="middle" font-size="12" fill="#B8C4CF">of ${total} done</text>
     </svg>`;
+}
+
+// "A" -> 1, "B" -> 2, "C" -> 3 (players see numbers, not letters)
+function sessionNumber(letter) { return LETTERS.indexOf(letter) + 1; }
+
+// The 4 weeks as simple buttons. The chosen week shows its 3 sessions.
+function weekPickerHTML(programme, viewWeek) {
+  return programme.weeks.map((_, w) => {
+    const week = w + 1;
+    const allDone = LETTERS.every((letter) => isDone(programme, week, letter));
+    return `<button type="button" class="week-pick ${allDone ? "is-done" : ""}" data-view-week="${week}"
+      aria-pressed="${week === viewWeek}">${allDone ? "✓ " : ""}Week ${week}</button>`;
+  }).join("");
+}
+
+// One row per session: number, aim, minutes and a clear status
+function sessionRowsHTML(programme, week, next) {
+  return LETTERS.map((letter) => {
+    const { session, total } = buildSteps(programme, week, letter);
+    const finished = isDone(programme, week, letter);
+    const isNext = next && next.week === week && next.letter === letter;
+    const status = finished ? "Done" : isNext ? "Up next" : "Later";
+    const action = finished
+      ? `<button type="button" class="session-row__undo" data-undo="${week}-${letter}">Undo</button>`
+      : `<button type="button" class="btn ${isNext ? "btn--primary" : "btn--outline"} btn--small" data-start="${week}-${letter}"
+          aria-label="Start week ${week}, session ${sessionNumber(letter)}: ${escapeHTML(session.aim)}">${isNext ? "Start" : "Open"}</button>`;
+    return `
+      <li class="session-row ${finished ? "is-done" : ""} ${isNext ? "is-next" : ""}">
+        <span class="session-row__num" aria-hidden="true">${finished ? "✓" : sessionNumber(letter)}</span>
+        <span class="session-row__text">
+          <span class="session-row__aim">${escapeHTML(session.aim)}</span>
+          <span class="session-row__meta">Session ${sessionNumber(letter)} · ${total} min · <span class="pill pill--${status === "Done" ? "done" : status === "Up next" ? "next" : "later"}">${status}</span></span>
+        </span>
+        ${action}
+      </li>`;
+  }).join("");
+}
+
+// The week buttons, what changes that week, and its 3 sessions
+function weekViewHTML(programme, viewWeek, next) {
+  // This week's change, in plain words (the text after "Week 1:")
+  const weekChange = programme.weeks[viewWeek - 1].split(":").slice(1).join(":").trim();
+  return `
+    <div class="week-picks" role="group" aria-label="Choose a week">${weekPickerHTML(programme, viewWeek)}</div>
+    <p class="week-note"><strong>Week ${viewWeek}:</strong> ${escapeHTML(weekChange)}</p>
+    <ol class="session-rows">${sessionRowsHTML(programme, viewWeek, next)}</ol>`;
 }
 
 function planScreenHTML() {
@@ -204,44 +251,37 @@ function planScreenHTML() {
   const total = programme.weeks.length * LETTERS.length;
   const done = doneCount(programme);
   const next = nextSession(programme);
+  const viewWeek = state.viewWeek || (next ? next.week : programme.weeks.length);
 
   let nextCard;
   if (next) {
-    const { session, total: minutes } = buildSteps(programme, next.week, next.letter);
-    const weekChange = programme.weeks[next.week - 1].split(":").slice(1).join(":").trim();
+    const { session, steps, total: minutes } = buildSteps(programme, next.week, next.letter);
+    // A short "what you'll do" timeline: warm-up, each activity, cool-down
+    const timeline = steps.map((step) => `<li><span>${escapeHTML(step.title)}</span><span class="today__min">${step.minutes} min</span></li>`).join("");
     nextCard = `
-      <div class="next-card">
-        <p class="next-card__label">Your next session · Week ${next.week}, Session ${next.letter}</p>
-        <h3 class="next-card__title">${escapeHTML(session.aim)}</h3>
-        <p class="next-card__meta">⏱ ${minutes} minutes · warm-up, ${session.activities.length} activities, cool-down</p>
-        <p class="next-card__week">This week: ${escapeHTML(weekChange)}</p>
-        <button type="button" class="btn btn--primary btn--big btn--arrow" data-start="${next.week}-${next.letter}">Start session</button>
-      </div>`;
+      <section class="today" aria-labelledby="today-title">
+        <div class="today__head">
+          <p class="today__label">Today · Week ${next.week}, session ${sessionNumber(next.letter)} of 3</p>
+          <h3 class="today__title" id="today-title">${escapeHTML(session.aim)}</h3>
+          <p class="today__meta">⏱ ${minutes} minutes in total</p>
+          <button type="button" class="btn btn--primary btn--big btn--arrow" data-start="${next.week}-${next.letter}">Start session</button>
+        </div>
+        <div class="today__plan">
+          <p class="today__plan-title">What you'll do</p>
+          <ol class="today__steps">${timeline}</ol>
+        </div>
+      </section>`;
   } else {
     nextCard = `
-      <div class="next-card next-card--complete">
-        <p class="next-card__label">Plan complete</p>
-        <h3 class="next-card__title">🏆 You finished all 12 sessions!</h3>
-        <p>Check the level-up list below. If you can tick everything, move up a level.</p>
-        <button type="button" class="btn btn--primary" data-go="level">Choose a new plan</button>
-      </div>`;
+      <section class="today today--complete">
+        <div class="today__head">
+          <p class="today__label">Plan complete</p>
+          <h3 class="today__title">🏆 You finished all 12 sessions!</h3>
+          <p>Open the level-up checklist below. If you can tick everything, move up a level.</p>
+          <button type="button" class="btn btn--primary" data-go="level">Choose a new plan</button>
+        </div>
+      </section>`;
   }
-
-  // 4 weeks x 3 sessions as a simple grid of tiles
-  const weeks = programme.weeks.map((_, w) => {
-    const week = w + 1;
-    const tiles = LETTERS.map((letter) => {
-      const isNext = next && next.week === week && next.letter === letter;
-      const finished = isDone(programme, week, letter);
-      const label = finished ? "Done" : isNext ? "Next" : "To do";
-      return `<button type="button" class="session-tile ${finished ? "is-done" : ""} ${isNext ? "is-next" : ""}"
-        data-start="${week}-${letter}" aria-label="Week ${week}, session ${letter}: ${label}">
-        <span class="session-tile__icon" aria-hidden="true">${finished ? "✓" : letter}</span>
-        <span class="session-tile__label" aria-hidden="true">${label}</span>
-      </button>`;
-    }).join("");
-    return `<div class="week-row"><span class="week-row__name">Week ${week}</span><div class="week-row__tiles">${tiles}</div></div>`;
-  }).join("");
 
   const saved = loadData(CHECKLIST_KEY, {});
   const checklist = level.levelUp.map((item, i) => {
@@ -263,10 +303,10 @@ function planScreenHTML() {
 
       ${nextCard}
 
-      <section class="plan-section" aria-labelledby="all-sessions-title">
-        <h3 id="all-sessions-title">All sessions</h3>
-        <p class="muted">3 sessions a week, with a rest day in between. Tap any session to open it.</p>
-        <div class="week-grid">${weeks}</div>
+      <section class="plan-section" aria-labelledby="weeks-title">
+        <h3 id="weeks-title">Your 4 weeks</h3>
+        <div id="week-view">${weekViewHTML(programme, viewWeek, next)}</div>
+        <p class="muted">Do 3 sessions a week with a rest day in between.</p>
       </section>
 
       <details class="plan-extra">
@@ -308,7 +348,7 @@ function sessionScreenHTML() {
     <div class="session-mode">
       <div class="session-mode__top">
         <button type="button" class="back-link" data-go="plan">← Back to my plan</button>
-        <p class="session-mode__name">Week ${week} · Session ${letter}: ${escapeHTML(session.aim)}</p>
+        <p class="session-mode__name">Week ${week} · Session ${sessionNumber(letter)}: ${escapeHTML(session.aim)}</p>
         <div class="step-dots" aria-hidden="true">${dots}</div>
       </div>
 
@@ -374,7 +414,7 @@ function finishSession(effort) {
     duration: total,
     effort,
     position: "",
-    notes: `${LEVELS[state.level].label} · ${programme.title} · Week ${week} Session ${letter}`,
+    notes: `${LEVELS[state.level].label} · ${programme.title} · Week ${week} Session ${sessionNumber(letter)}`,
   };
   const tracker = loadData(TRACKER_KEY, null) || {
     version: 1, profile: { nickname: "", position: "", level: "", weeklyGoal: 3 }, sessions: [], ratings: [],
@@ -391,7 +431,7 @@ function finishSession(effort) {
 
 function celebrateHTML() {
   const done = doneCount(getProgramme());
-  const colours = ["#F26B21", "#FFC857", "#0B6E4F", "#F7F9FA"];
+  const colours = ["#7CC6F2", "#A9DCFA", "#1565C0", "#F6F8FB"];
   const confetti = Array.from({ length: 28 }, (_, i) =>
     `<span class="confetti" style="--x:${(i * 37) % 100}%;--d:${(i % 7) * 110}ms;--c:${colours[i % 4]}"></span>`).join("");
   return `
@@ -428,7 +468,7 @@ function setEffort(effort) {
 }
 
 async function undoSession(week, letter) {
-  const ok = await askToConfirm("You've already done this session. Mark it as not done? It will also be removed from your tracker.", "Mark as not done");
+  const ok = await askToConfirm("Mark this session as not done? It will also be removed from your tracker.", "Mark as not done");
   if (!ok) return;
   const key = sessionKey(getProgramme(), week, letter);
   const progress = loadProgress();
@@ -502,14 +542,24 @@ app.addEventListener("click", (event) => {
     go("goal");
   } else if (b.dataset.chooseProgramme) {
     state.programmeId = b.dataset.chooseProgramme;
+    state.viewWeek = null;
     saveData(PLAN_KEY, { level: state.level, programmeId: state.programmeId });
     go("plan");
   } else if (b.dataset.go) {
     if (b.dataset.go === "level") removeData(PLAN_KEY);
     go(b.dataset.go);
+  } else if (b.dataset.viewWeek) {
+    // Only redraw the week part, so the page doesn't jump
+    state.viewWeek = Number(b.dataset.viewWeek);
+    const programme = getProgramme();
+    document.getElementById("week-view").innerHTML = weekViewHTML(programme, state.viewWeek, nextSession(programme));
+    const picked = app.querySelector(`[data-view-week="${state.viewWeek}"]`);
+    if (picked) picked.focus();
+  } else if (b.dataset.undo) {
+    const [week, letter] = b.dataset.undo.split("-");
+    undoSession(Number(week), letter);
   } else if (b.dataset.start) {
     const [week, letter] = b.dataset.start.split("-");
-    if (isDone(getProgramme(), Number(week), letter)) { undoSession(Number(week), letter); return; }
     state.session = { week: Number(week), letter, stepIndex: 0 };
     go("session");
   } else if (b.dataset.step) {
@@ -517,6 +567,7 @@ app.addEventListener("click", (event) => {
     render();
   } else if (b.dataset.finish !== undefined) {
     finishSession(6);
+    state.viewWeek = null; // back on the plan, show the week of the next session
     go("celebrate");
   } else if (b.dataset.effort) {
     setEffort(Number(b.dataset.effort));

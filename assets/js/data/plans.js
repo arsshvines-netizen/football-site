@@ -22,7 +22,7 @@ export const PLANS = [
     highlight: false,
     features: [
       "All 9 training programmes (3 levels)",
-      "All 40 position drills with diagrams",
+      "All 25 position drills with diagrams",
       "Fitness and nutrition guides",
       "Progress tracker with charts",
       "Monthly challenge and badges",

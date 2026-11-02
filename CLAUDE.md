@@ -11,7 +11,7 @@ Full spec: `website-spec.md`. Read it before big changes.
 6. Users are 12-15. No personal data collection, nothing sent anywhere (localStorage only). No weight-loss, calorie, dieting or supplement advice, no maximal lifting, no training through pain.
 7. Brand lives in ONE place: `assets/js/config.js` (name, tagline, nav) and `assets/css/variables.css` (colours, fonts).
 8. Don't invent facts. Keep fitness/nutrition general and conservative, list sources in `assets/js/data/sources.js`, and flag anything uncertain for the coach to check.
-9. Every text/background pair must meet WCAG 2.2 AA (4.5:1). White text on orange FAILS: use navy text on orange buttons and #B8460C for orange text.
+9. Every text/background pair must meet WCAG 2.2 AA (4.5:1). Palette is "Sky & Navy": white text on sky blue FAILS, so use navy text on sky-blue buttons and #0B5C8E for sky-coloured text.
 10. All paths relative. Run `python3 tools/check_site.py` after changes.
 
 ## Structure
@@ -33,7 +33,7 @@ Full spec: `website-spec.md`. Read it before big changes.
 - Photos: only licensed images (own photos, or Unsplash / Pexels / Wikimedia Commons with a free licence), saved in `assets/img` (never hot-linked), compressed under ~200KB, credited on the Sources page. Never real professional players' photos or club crests.
 
 ## Programmes page flow
-A simple app, one screen at a time (programmes.js): 1) "What's your level?" 2) "What do you want to get better at?" 3) My plan (next session button, progress ring, 4x3 session grid, level-up checklist) 4) Session mode (one step at a time with a timer: warm-up, activities, cool-down) 5) Celebration (saved to tracker, effort pick). The chosen plan is remembered in localStorage (pitchpath-my-plan). Keep it simple: one question or one task per screen.
+A simple app, one screen at a time (programmes.js): 1) "What's your level?" 2) "What do you want to get better at?" 3) My plan (a "Today" card with Start button and a short timeline, then "Your 4 weeks": week buttons, each showing 3 session rows with Done / Up next / Later, plus the level-up checklist) 4) Session mode (one step at a time with a timer: warm-up, activities, cool-down) 5) Celebration (saved to tracker, effort pick). The chosen plan is remembered in localStorage (pitchpath-my-plan). Keep it simple: one question or one task per screen.
 
 ## Public vs creator content
 Public pages are customer-facing only. Brand kit, colours, marketing strategy and positioning belong in studio.html, not on About. About is the founder's football story (Arssh Gupta: Mumbai City FC club footballer, school team captain, represented Mumbai and ISSO at the SGFI National Games). Don't invent specific stats, dates or trophies.

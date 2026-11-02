@@ -28,7 +28,7 @@
     <!-- HERO -->
     <section class="hero on-dark" aria-labelledby="hero-title">
       <svg class="hero__pitch" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
-        <g fill="none" stroke="#F7F9FA" stroke-width="4">
+        <g fill="none" stroke="#F6F8FB" stroke-width="4">
           <rect class="draw" x="40" y="40" width="1120" height="520"/>
           <line class="draw" x1="600" y1="40" x2="600" y2="560"/>
           <circle class="draw" cx="600" cy="300" r="110"/>
@@ -45,25 +45,36 @@
             <a class="btn btn--primary btn--arrow" href="programmes.html">Start Training</a>
             <a class="btn btn--outline" href="tracker.html">Track My Progress</a>
           </div>
-          <p class="hero__proof hero-in" style="--delay:480ms">Free to start · No sign-up · No adverts</p>
+          <ul class="hero__proof hero-in" style="--delay:480ms" aria-label="Why PITCHPATH"><li>✓ Free to start</li><li>✓ No sign-up</li><li>✓ No adverts</li></ul>
         </div>
-        <!-- Animated illustration: the ball rolls along the "path" -->
+        <!-- Hero visual: the animated ball path, with floating "app" cards
+             that show what using PITCHPATH looks like -->
+        <div class="hero__visual" aria-hidden="true">
         <svg class="hero__art" viewBox="0 0 380 380" aria-hidden="true" focusable="false">
-          <circle cx="190" cy="190" r="170" fill="#0B6E4F"/>
-          <circle class="spin-slow" cx="190" cy="190" r="110" fill="none" stroke="#F7F9FA" stroke-width="6" opacity="0.5" stroke-dasharray="40 18"/>
-          <line x1="190" y1="20" x2="190" y2="360" stroke="#F7F9FA" stroke-width="5" opacity="0.3"/>
-          <path id="ball-path" d="M70 290 C130 280 140 200 200 170 S280 120 300 90" fill="none" stroke="#F26B21" stroke-width="16" stroke-linecap="round" stroke-dasharray="2 26" class="dash-move"/>
-          <polygon class="arrow-pulse" points="280,60 330,70 305,115" fill="#F26B21"/>
-          <polygon points="120,250 108,276 132,276" fill="#FFC857" stroke="#0D1B2A" stroke-width="3"/>
-          <polygon points="200,150 188,176 212,176" fill="#FFC857" stroke="#0D1B2A" stroke-width="3"/>
-          <g class="rolling-ball">
-            <circle r="22" fill="#F7F9FA" stroke="#0D1B2A" stroke-width="4"/>
-            <polygon points="0,-11 10,-4 6,9 -6,9 -10,-4" fill="#0D1B2A"/>
-            <animateMotion dur="3.6s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.75;1" calcMode="linear" rotate="auto">
-              <mpath href="#ball-path"/>
-            </animateMotion>
-          </g>
-        </svg>
+            <circle cx="190" cy="190" r="170" fill="#1565C0"/>
+            <circle class="spin-slow" cx="190" cy="190" r="110" fill="none" stroke="#F6F8FB" stroke-width="6" opacity="0.5" stroke-dasharray="40 18"/>
+            <line x1="190" y1="20" x2="190" y2="360" stroke="#F6F8FB" stroke-width="5" opacity="0.3"/>
+            <path id="ball-path" d="M70 290 C130 280 140 200 200 170 S280 120 300 90" fill="none" stroke="#7CC6F2" stroke-width="16" stroke-linecap="round" stroke-dasharray="2 26" class="dash-move"/>
+            <polygon class="arrow-pulse" points="280,60 330,70 305,115" fill="#7CC6F2"/>
+            <polygon points="120,250 108,276 132,276" fill="#A9DCFA" stroke="#0A1F44" stroke-width="3"/>
+            <polygon points="200,150 188,176 212,176" fill="#A9DCFA" stroke="#0A1F44" stroke-width="3"/>
+            <g class="rolling-ball">
+              <circle r="22" fill="#F6F8FB" stroke="#0A1F44" stroke-width="4"/>
+              <polygon points="0,-11 10,-4 6,9 -6,9 -10,-4" fill="#0A1F44"/>
+              <animateMotion dur="3.6s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.75;1" calcMode="linear" rotate="auto">
+                <mpath href="#ball-path"/>
+              </animateMotion>
+            </g>
+          </svg>
+          <div class="float-card float-card--plan">
+            <span class="float-card__label">Today's session</span>
+            <strong>Receiving and turning</strong>
+            <span class="float-card__meta">⏱ 55 min · Week 1</span>
+            <span class="float-card__bar"><span></span></span>
+          </div>
+          <div class="float-chip float-chip--done">✓ Session done!</div>
+          <div class="float-chip float-chip--streak">🔥 3 in a row</div>
+        </div>
       </div>
     </section>
 
@@ -71,7 +82,7 @@
     <section class="stats-strip" aria-label="PITCHPATH in numbers">
       <div class="container stats-strip__grid">
         <div class="count-stat" data-reveal><span class="count-stat__value" data-count="9">9</span><span class="count-stat__label">Programmes</span></div>
-        <div class="count-stat" data-reveal><span class="count-stat__value" data-count="40">40</span><span class="count-stat__label">Position drills</span></div>
+        <div class="count-stat" data-reveal><span class="count-stat__value" data-count="25">25</span><span class="count-stat__label">Position drills</span></div>
         <div class="count-stat" data-reveal><span class="count-stat__value" data-count="108">108</span><span class="count-stat__label">Planned sessions</span></div>
         <div class="count-stat" data-reveal><span class="count-stat__value" data-count="5">5</span><span class="count-stat__label">Positions covered</span></div>
       </div>
@@ -88,6 +99,7 @@
     <!-- HOW IT WORKS: three quick steps -->
     <section class="section section--compact" aria-labelledby="how-title">
       <div class="container">
+        <p class="kicker" data-reveal>Simple as 1, 2, 3</p>
         <h2 id="how-title" data-reveal>How it works</h2>
         <ol class="how-steps" data-in-view>
           <li data-reveal><span class="how-steps__num" aria-hidden="true">1</span><strong>Choose your level</strong><span>Beginner, Intermediate or Advanced</span></li>
@@ -100,13 +112,14 @@
     <!-- FIVE CONTENT AREAS -->
     <section class="band band--tint" aria-labelledby="areas-title">
       <div class="container">
+        <p class="kicker" data-reveal>All in one place</p>
         <h2 id="areas-title" data-reveal>Everything you need</h2>
         <ul class="area-tiles">
-          <li data-reveal><a class="area-tile area-tile--green" href="programmes.html"><span class="area-tile__icon" aria-hidden="true">📋</span><span class="area-tile__title">Programmes</span><span class="area-tile__text">4-week plans for 3 levels</span></a></li>
-          <li data-reveal><a class="area-tile area-tile--orange" href="drills.html"><span class="area-tile__icon" aria-hidden="true">🎯</span><span class="area-tile__title">Drills</span><span class="area-tile__text">40 drills for 5 positions</span></a></li>
-          <li data-reveal><a class="area-tile area-tile--navy" href="fitness.html"><span class="area-tile__icon" aria-hidden="true">⚡</span><span class="area-tile__title">Fitness</span><span class="area-tile__text">Warm-ups, speed and strength</span></a></li>
-          <li data-reveal><a class="area-tile area-tile--yellow" href="nutrition.html"><span class="area-tile__icon" aria-hidden="true">🥗</span><span class="area-tile__title">Nutrition</span><span class="area-tile__text">Food and drink that fuels you</span></a></li>
-          <li data-reveal><a class="area-tile area-tile--white" href="tracker.html"><span class="area-tile__icon" aria-hidden="true">📈</span><span class="area-tile__title">Tracker</span><span class="area-tile__text">Log sessions, earn badges</span></a></li>
+          <li data-reveal><a class="area-tile area-tile--green" href="programmes.html"><span class="area-tile__icon" aria-hidden="true">📋</span><span class="area-tile__title">Programmes</span><span class="area-tile__text">4-week plans for 3 levels</span><span class="area-tile__go" aria-hidden="true">Open →</span></a></li>
+          <li data-reveal><a class="area-tile area-tile--orange" href="drills.html"><span class="area-tile__icon" aria-hidden="true">🎯</span><span class="area-tile__title">Drills</span><span class="area-tile__text">25 drills for 5 positions</span><span class="area-tile__go" aria-hidden="true">Open →</span></a></li>
+          <li data-reveal><a class="area-tile area-tile--navy" href="fitness.html"><span class="area-tile__icon" aria-hidden="true">⚡</span><span class="area-tile__title">Fitness</span><span class="area-tile__text">Warm-ups, speed and strength</span><span class="area-tile__go" aria-hidden="true">Open →</span></a></li>
+          <li data-reveal><a class="area-tile area-tile--yellow" href="nutrition.html"><span class="area-tile__icon" aria-hidden="true">🥗</span><span class="area-tile__title">Nutrition</span><span class="area-tile__text">Food and drink that fuels you</span><span class="area-tile__go" aria-hidden="true">Open →</span></a></li>
+          <li data-reveal><a class="area-tile area-tile--white" href="tracker.html"><span class="area-tile__icon" aria-hidden="true">📈</span><span class="area-tile__title">Tracker</span><span class="area-tile__text">Log sessions, earn badges</span><span class="area-tile__go" aria-hidden="true">Open →</span></a></li>
         </ul>
       </div>
     </section>
@@ -119,23 +132,23 @@
           <p>Jump straight to the drills made for your role on the pitch.</p>
           <nav class="position-picker" aria-label="Drills by position">
             <a href="drills.html?position=goalkeeper">
-              <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M12 40V20c0-3 2-4 4-4V8c0-2 4-2 4 0v7-10c0-2 4-2 4 0v10-8c0-2 4-2 4 0v9-5c0-2 4-2 4 0v16c0 7-4 13-10 13z" fill="#FFC857" stroke="#0D1B2A" stroke-width="2"/></svg>
+              <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M12 40V20c0-3 2-4 4-4V8c0-2 4-2 4 0v7-10c0-2 4-2 4 0v10-8c0-2 4-2 4 0v9-5c0-2 4-2 4 0v16c0 7-4 13-10 13z" fill="#A9DCFA" stroke="#0A1F44" stroke-width="2"/></svg>
               Goalkeeper
             </a>
             <a href="drills.html?position=defender">
-              <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M22 4l15 6v11c0 9-7 16-15 19C14 37 7 30 7 21V10z" fill="#0B6E4F" stroke="#F7F9FA" stroke-width="2.5"/></svg>
+              <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M22 4l15 6v11c0 9-7 16-15 19C14 37 7 30 7 21V10z" fill="#1565C0" stroke="#F6F8FB" stroke-width="2.5"/></svg>
               Defender
             </a>
             <a href="drills.html?position=midfielder">
-              <svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="17" fill="none" stroke="#F7F9FA" stroke-width="3"/><path d="M22 9l5 13-5 13-5-13z" fill="#F26B21"/></svg>
+              <svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="17" fill="none" stroke="#F6F8FB" stroke-width="3"/><path d="M22 9l5 13-5 13-5-13z" fill="#7CC6F2"/></svg>
               Midfielder
             </a>
             <a href="drills.html?position=winger">
-              <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M6 34C14 30 20 22 24 12l-6 1 12-9 3 14-4-5c-3 10-10 18-23 21z" fill="#FFC857"/></svg>
+              <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M6 34C14 30 20 22 24 12l-6 1 12-9 3 14-4-5c-3 10-10 18-23 21z" fill="#A9DCFA"/></svg>
               Winger
             </a>
             <a href="drills.html?position=striker">
-              <svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="17" fill="none" stroke="#F7F9FA" stroke-width="3"/><circle cx="22" cy="22" r="10" fill="none" stroke="#F26B21" stroke-width="3"/><circle cx="22" cy="22" r="4" fill="#FFC857"/></svg>
+              <svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="17" fill="none" stroke="#F6F8FB" stroke-width="3"/><circle cx="22" cy="22" r="10" fill="none" stroke="#7CC6F2" stroke-width="3"/><circle cx="22" cy="22" r="4" fill="#A9DCFA"/></svg>
               Striker
             </a>
           </nav>
@@ -173,7 +186,7 @@
     <!-- PLANS (one slim banner) -->
     <section class="section section--compact" aria-labelledby="home-plans-title">
       <div class="container">
-        <div class="plans-banner" data-reveal>
+        <div class="plans-banner on-dark" data-reveal>
           <div>
             <h2 id="home-plans-title">Free to start. Always.</h2>
             <p>Every programme, drill and guide is free. <strong>Plus</strong> (personal plans and video feedback) and <strong>Team</strong> (for coaches) are coming soon.</p>

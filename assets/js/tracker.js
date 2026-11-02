@@ -40,9 +40,9 @@ const EFFORT_WORDS = {
 // The 7 skills. Each has a different marker shape on the chart,
 // so you don't need to tell colours apart.
 const SKILLS = [
-  { key: "passing", label: "Passing", color: "#0B6E4F", shape: "circle" },
-  { key: "dribbling", label: "Dribbling", color: "#B8460C", shape: "square" },
-  { key: "shooting", label: "Shooting", color: "#0D1B2A", shape: "triangle" },
+  { key: "passing", label: "Passing", color: "#1565C0", shape: "circle" },
+  { key: "dribbling", label: "Dribbling", color: "#0B5C8E", shape: "square" },
+  { key: "shooting", label: "Shooting", color: "#0A1F44", shape: "triangle" },
   { key: "firstTouch", label: "First touch", color: "#6A3FA0", shape: "diamond" },
   { key: "speed", label: "Speed", color: "#1F6FB2", shape: "circle-open" },
   { key: "stamina", label: "Stamina", color: "#8A6D00", shape: "square-open" },
@@ -330,7 +330,7 @@ function drawSkillChart() {
   ratings.forEach((r, i) => {
     svg += `<text x="${xFor(i)}" y="${H - bottom + 22}" text-anchor="middle" font-size="12" fill="#4A5866">${shortDate(r.date)}</text>`;
   });
-  svg += `<text x="${left + plotW / 2}" y="${H - 6}" text-anchor="middle" font-size="13" fill="#0D1B2A">Date of rating</text>`;
+  svg += `<text x="${left + plotW / 2}" y="${H - 6}" text-anchor="middle" font-size="13" fill="#0A1F44">Date of rating</text>`;
 
   skills.forEach((skill) => {
     const points = ratings.map((r, i) => `${xFor(i)},${yFor(r[skill.key])}`).join(" ");
@@ -392,11 +392,11 @@ function drawMinutesChart() {
     const x = left + i * (barW + barGap) + barGap / 2;
     const h = (w.minutes / niceMax) * plotH;
     const y = top + plotH - h;
-    svg += `<rect x="${x}" y="${y}" width="${barW}" height="${h}" rx="4" fill="#0B6E4F"/>`;
-    svg += `<text x="${x + barW / 2}" y="${y - 6}" text-anchor="middle" font-size="12" font-weight="700" fill="#0D1B2A">${w.minutes}</text>`;
+    svg += `<rect x="${x}" y="${y}" width="${barW}" height="${h}" rx="4" fill="#1565C0"/>`;
+    svg += `<text x="${x + barW / 2}" y="${y - 6}" text-anchor="middle" font-size="12" font-weight="700" fill="#0A1F44">${w.minutes}</text>`;
     svg += `<text x="${x + barW / 2}" y="${H - bottom + 20}" text-anchor="middle" font-size="11" fill="#4A5866">${shortDate(w.key)}</text>`;
   });
-  svg += `<text x="${left + plotW / 2}" y="${H - 6}" text-anchor="middle" font-size="13" fill="#0D1B2A">Week starting (Monday)</text>`;
+  svg += `<text x="${left + plotW / 2}" y="${H - 6}" text-anchor="middle" font-size="13" fill="#0A1F44">Week starting (Monday)</text>`;
 
   const summary = weeks.map((w) => `week of ${shortDate(w.key)}: ${w.minutes} minutes`).join(", ");
   wrap.innerHTML = `<svg viewBox="0 0 ${W} ${H}" class="chart" role="img" aria-label="Bar chart of minutes trained per week for the last 8 weeks. ${summary}.">${svg}</svg>`;
@@ -506,9 +506,9 @@ function renderBadges() {
   wrap.innerHTML = badges.map((b) => `
     <li class="badge-tile ${b.earned ? "badge-tile--earned" : ""}">
       <svg viewBox="0 0 48 48" aria-hidden="true">
-        <circle cx="24" cy="24" r="20" fill="${b.earned ? "#FFC857" : "#E6F2ED"}" stroke="${b.earned ? "#0D1B2A" : "#8796A3"}" stroke-width="3" ${b.earned ? "" : 'stroke-dasharray="5 4"'}/>
+        <circle cx="24" cy="24" r="20" fill="${b.earned ? "#A9DCFA" : "#E7F1FB"}" stroke="${b.earned ? "#0A1F44" : "#8796A3"}" stroke-width="3" ${b.earned ? "" : 'stroke-dasharray="5 4"'}/>
         ${b.earned
-          ? '<path d="M15 25l6 6 12-13" fill="none" stroke="#0D1B2A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>'
+          ? '<path d="M15 25l6 6 12-13" fill="none" stroke="#0A1F44" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>'
           : '<rect x="17" y="22" width="14" height="11" rx="2" fill="#8796A3"/><path d="M20 22v-3a4 4 0 0 1 8 0v3" fill="none" stroke="#8796A3" stroke-width="3"/>'}
       </svg>
       <span class="badge-tile__name">${b.name}</span>

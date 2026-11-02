@@ -45,7 +45,7 @@ The result is also saved to `docs/test-results/link-check.txt`.
 
 | What | File |
 |---|---|
-| Drills (40) | `assets/js/data/drills.js` |
+| Drills (25) | `assets/js/data/drills.js` |
 | Programmes (9) | `assets/js/data/programmes.js` |
 | Fitness lists | `assets/js/data/fitness.js` |
 | Nutrition lists | `assets/js/data/nutrition.js` |

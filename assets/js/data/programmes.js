@@ -57,7 +57,7 @@ export const LEVELS = {
             aim: "Close control and dribbling with both feet.",
             activities: [
               { name: "Inside and Outside Foot Slalom", minutes: 10, drill: "wing-02" },
-              { name: "Gate Dribbling", minutes: 10, drill: "mid-03" },
+              { name: "Cone Dribble to Cross", minutes: 10, drill: "wing-01" },
               { name: "Free play: 1v1 or juggling challenge", minutes: 10, how: "Count how many keepy-ups you can do. Record your best score." },
             ],
           },
@@ -111,7 +111,7 @@ export const LEVELS = {
             aim: "Attacking as a team: width and support.",
             activities: [
               { name: "Cone Dribble to Cross", minutes: 12, drill: "wing-01" },
-              { name: "Lay-Off and Shoot", minutes: 10, drill: "str-02" },
+              { name: "Placement Finishing", minutes: 10, drill: "str-01" },
               { name: "Small-sided game", minutes: 8, how: "4v4 with a rule: a goal only counts if the team used both sides of the pitch." },
             ],
           },
@@ -190,7 +190,7 @@ export const LEVELS = {
             aim: "Receiving and turning.",
             activities: [
               { name: "Scan and Turn", minutes: 15, drill: "mid-04" },
-              { name: "Turn and Finish", minutes: 15, drill: "str-04" },
+              { name: "First Touch Away from the Cone", minutes: 15, drill: "str-03" },
               { name: "Small-sided game", minutes: 10, how: "4v4. Bonus point for a goal after a turn." },
             ],
           },
@@ -198,7 +198,7 @@ export const LEVELS = {
             aim: "Beating a player.",
             activities: [
               { name: "1v1: Beat the Full-Back", minutes: 15, drill: "wing-04" },
-              { name: "Cut Inside and Shoot", minutes: 12, drill: "wing-05" },
+              { name: "Beat the Defender and Finish", minutes: 12, drill: "str-07" },
               { name: "1v1 tournament", minutes: 13, how: "Short 1v1 games to small goals. Rotate opponents." },
             ],
           },
@@ -227,8 +227,8 @@ export const LEVELS = {
           {
             aim: "Defending as a unit.",
             activities: [
-              { name: "Back Four Shuffle", minutes: 15, drill: "def-05" },
-              { name: "1v1 Channel to End Line", minutes: 12, drill: "def-04" },
+              { name: "2v1 Recovery Defending", minutes: 15, drill: "def-07" },
+              { name: "Shadow Defending Channel", minutes: 12, drill: "def-03" },
               { name: "Small-sided game", minutes: 13, how: "5v5. Defending team must shout 'press', 'cover' or 'shift' every time." },
             ],
           },
@@ -236,14 +236,14 @@ export const LEVELS = {
             aim: "Attacking combinations.",
             activities: [
               { name: "Overlap Combination", minutes: 15, drill: "wing-06" },
-              { name: "Pass, Spin and Support", minutes: 12, drill: "mid-06" },
+              { name: "4v1 Rondo", minutes: 12, drill: "mid-05" },
               { name: "Small-sided game", minutes: 13, how: "4v4 with 2 wide 'bounce' players who can't be tackled." },
             ],
           },
           {
             aim: "Making good decisions in the box.",
             activities: [
-              { name: "Near-Post Runs", minutes: 15, drill: "str-05" },
+              { name: "One-Touch Finishing", minutes: 15, drill: "str-06" },
               { name: "Back-Pass and Play Out", minutes: 12, drill: "gk-06" },
               { name: "Small-sided game", minutes: 13, how: "Play 4v4 + keepers. Pause sometimes and ask: 'What were your options?'" },
             ],
@@ -267,7 +267,7 @@ export const LEVELS = {
             activities: [
               { name: "Speed and agility circuit", minutes: 15, link: "fitness.html#speed", how: "Cone shuttles and 5-10-5 drills with full recovery." },
               { name: "Side-Step and Set (all players)", minutes: 10, drill: "gk-04" },
-              { name: "Speed Dribble Race", minutes: 15, drill: "wing-07" },
+              { name: "Inside and Outside Foot Slalom", minutes: 15, drill: "wing-02" },
             ],
           },
           {
@@ -331,7 +331,7 @@ export const LEVELS = {
             aim: "Beating defenders at speed.",
             activities: [
               { name: "Beat the Defender and Finish", minutes: 20, drill: "str-07" },
-              { name: "Speed Dribble Race", minutes: 12, drill: "wing-07" },
+              { name: "1v1: Beat the Full-Back", minutes: 12, drill: "wing-04" },
               { name: "1v1 tournament", minutes: 18, how: "Rotate partners. Keep score across the week." },
             ],
           },
@@ -360,7 +360,7 @@ export const LEVELS = {
           {
             aim: "Movement off the ball.",
             activities: [
-              { name: "Third-Man Run", minutes: 18, drill: "mid-07" },
+              { name: "Overlap Combination", minutes: 18, drill: "wing-06" },
               { name: "Run in Behind", minutes: 15, drill: "str-08" },
               { name: "Small-sided game", minutes: 17, how: "6v6. A goal after a run in behind counts double." },
             ],
@@ -369,7 +369,7 @@ export const LEVELS = {
             aim: "Defending outnumbered.",
             activities: [
               { name: "2v1 Recovery Defending", minutes: 18, drill: "def-07" },
-              { name: "Defend the Box vs Low Crosses", minutes: 15, drill: "def-08" },
+              { name: "5v2 Rondo Under Pressure", minutes: 15, drill: "mid-08" },
               { name: "Small-sided game", minutes: 17, how: "Attacking team has 1 extra player. Defenders try to delay." },
             ],
           },

@@ -18,15 +18,17 @@
 
 Each programme: 4 weeks × 3 sessions = 12 sessions (108 in total). Each session has an aim, total time (45-75 min, checked automatically), warm-up, 2-3 main activities and a cool-down. Every week says what changes. Load increases slowly; Advanced "Match Ready" week 4 is a lighter recovery week.
 
-## Drills: at least 8 per position (40 total)
+## Drills: 5 per position (25 total)
+Version 6: cut from 40 to 25 at the creator's request, so the Drills page feels less cluttered (the spec's original minimum was 8 per position). Every drill used by a programme is still in the library.
+
 | Position | Beginner | Intermediate | Advanced | Total |
 |---|---|---|---|---|
-| Goalkeeper | 3 | 3 | 2 | 8 ✅ |
-| Defender | 3 | 3 | 2 | 8 ✅ |
-| Midfielder | 3 | 3 | 2 | 8 ✅ |
-| Winger | 3 | 3 | 2 | 8 ✅ |
-| Striker | 3 | 3 | 2 | 8 ✅ |
-| **Total** | 15 | 15 | 10 | **40 ✅** |
+| Goalkeeper | 1 | 2 | 2 | 5 ✅ |
+| Defender | 3 | 1 | 1 | 5 ✅ |
+| Midfielder | 2 | 2 | 1 | 5 ✅ |
+| Winger | 2 | 2 | 1 | 5 ✅ |
+| Striker | 2 | 1 | 2 | 5 ✅ |
+| **Total** | 10 | 8 | 7 | **25 ✅** |
 
 Every drill has: name, position, level, focus, duration, players, equipment, space, setup, steps, coaching points, easier, harder, and an SVG diagram.
 

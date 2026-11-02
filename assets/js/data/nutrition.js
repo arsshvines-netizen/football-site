@@ -7,9 +7,9 @@
 // The "football plate" proportions (a simplified picture based
 // on the NHS Eatwell Guide; see sources). FLAG: check with teacher/coach.
 export const PLATE = [
-  { label: "Carbohydrates", percent: 35, color: "#FFC857", examples: "Rice, pasta, bread, potatoes, oats, chapati, noodles" },
+  { label: "Carbohydrates", percent: 35, color: "#A9DCFA", examples: "Rice, pasta, bread, potatoes, oats, chapati, noodles" },
   { label: "Fruit and vegetables", percent: 35, color: "#0B6E4F", examples: "Any fresh, frozen or tinned: aim for lots of colours" },
-  { label: "Protein", percent: 20, color: "#F26B21", examples: "Beans, lentils, eggs, chicken, fish, tofu, paneer" },
+  { label: "Protein", percent: 20, color: "#7CC6F2", examples: "Beans, lentils, eggs, chicken, fish, tofu, paneer" },
   { label: "Dairy and healthy fats", percent: 10, color: "#4A90C2", examples: "Milk, yoghurt, cheese, nuts, seeds, olive oil" },
 ];
 

@@ -47,7 +47,7 @@ function buildHeader(currentPage) {
 // so it never points to the page you are already on.
 function footerCallToAction(currentPage) {
   if (currentPage === "programmes.html") {
-    return { title: "Want drills for your position?", text: "40 drills for keepers, defenders, midfielders, wingers and strikers.", label: "Browse drills", href: "drills.html" };
+    return { title: "Want drills for your position?", text: "25 drills for keepers, defenders, midfielders, wingers and strikers.", label: "Browse drills", href: "drills.html" };
   }
   if (currentPage === "tracker.html") {
     return { title: "Time for your next session?", text: "Your plan remembers where you got to.", label: "Open my plan", href: "programmes.html" };
@@ -96,7 +96,7 @@ function buildFooter(currentPage) {
         <div class="footer-touchline" aria-hidden="true"><span class="footer-ball"></span></div>
         <div class="container footer-bottom__inner">
           <p class="footer-safety">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FFC857"/><rect x="10.8" y="5.5" width="2.4" height="8.5" rx="1" fill="#0D1B2A"/><rect x="10.8" y="16" width="2.4" height="2.4" rx="1" fill="#0D1B2A"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#A9DCFA"/><rect x="10.8" y="5.5" width="2.4" height="8.5" rx="1" fill="#0A1F44"/><rect x="10.8" y="16" width="2.4" height="2.4" rx="1" fill="#0A1F44"/></svg>
             <span><strong>Safety:</strong> ${DISCLAIMER}</span>
           </p>
           <p class="footer-copy">© ${year} ${BRAND.name} · Founded by ${BRAND.founder}</p>
