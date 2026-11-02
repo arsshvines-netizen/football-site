@@ -22,6 +22,7 @@ Brand kit evidence: screenshot the **Brand kit** section on `about.html`.
 | fitness.html | | | | | |
 | nutrition.html | | | | | |
 | tracker.html | | | | | |
+| plans.html | | | | | |
 | about.html | | | | | |
 | feedback.html | | | | | |
 | sources.html | | | | | |

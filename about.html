@@ -17,7 +17,7 @@
   <div id="site-header"></div>
   <noscript>
     <nav class="noscript-nav" aria-label="Main (no JavaScript)">
-      <a href="index.html">Home</a><a href="programmes.html">Programmes</a><a href="drills.html">Drills</a><a href="fitness.html">Fitness</a><a href="nutrition.html">Nutrition</a><a href="tracker.html">Tracker</a><a href="about.html">About</a><a href="feedback.html">Feedback</a><a href="sources.html">Sources</a>
+      <a href="index.html">Home</a><a href="programmes.html">Programmes</a><a href="drills.html">Drills</a><a href="fitness.html">Fitness</a><a href="nutrition.html">Nutrition</a><a href="tracker.html">Tracker</a><a href="plans.html">Plans</a><a href="about.html">About</a><a href="feedback.html">Feedback</a><a href="sources.html">Sources</a>
     </nav>
   </noscript>
 
@@ -26,6 +26,7 @@
       <div class="container">
         <span class="eyebrow">About the brand</span>
         <h1>Every player needs a path</h1>
+        <p>A football training business founded by a player, for players.</p>
         <p><span class="brand-name">PITCHPATH</span>: <span class="brand-tagline">Train with a plan.</span></p>
       </div>
     </section>
@@ -35,10 +36,10 @@
         <h2 id="story-title">Our story</h2>
         <div class="grid grid--2">
           <div>
-            <p class="lead"><span class="brand-name">PITCHPATH</span> was created by a young player who noticed a problem: beginners who wanted to get better at football often didn't know <em>what</em> to practise, or in what order.</p>
+            <p class="lead"><span class="brand-name">PITCHPATH</span> was founded by <span class="founder-name">Arssh Gupta</span>, a young club footballer who noticed a problem: beginners who wanted to get better at football often didn't know <em>what</em> to practise, or in what order.</p>
             <p>Online videos show amazing skills, but they don't give you a plan. Club training is great, but it's only a few hours a week. So this site was built to give young players a clear, safe, step-by-step path they can follow on their own or with a coach.</p>
           </div>
-          <img class="placeholder-img" src="assets/img/placeholder-training.svg" alt="Placeholder image: a training photo will go here" width="800" height="500">
+          <img class="placeholder-img" src="assets/img/founder-action.jpg" alt="The founder in a match, wearing number 9 and the captain's armband" width="1200" height="800" loading="lazy">
         </div>
       </section>
 
@@ -134,15 +135,105 @@
         </ul>
       </section>
 
-      <section class="content-section" aria-labelledby="creator-title">
-        <h2 id="creator-title">Meet the creator</h2>
-        <div class="grid grid--2">
-          <img class="placeholder-img" src="assets/img/placeholder-creator.svg" alt="Placeholder image: a photo of the creator will go here" width="800" height="500">
-          <div class="card card--yellow">
-            <h3>[Your name or initials]</h3>
-            <p>[Write a few sentences about yourself: your age group, your position, how long you've played, and why you made this website.]</p>
-            <p>[Add what you learned while building it.]</p>
+      <section class="content-section" id="founder" aria-labelledby="creator-title">
+        <h2 id="creator-title">Meet the founder</h2>
+        <div class="founder-about">
+          <img class="founder__portrait" src="assets/img/founder-portrait.jpg" alt="Portrait of the founder on a football pitch" width="600" height="640" loading="lazy">
+          <div>
+            <h3><span class="founder-name">Arssh Gupta</span></h3>
+            <p class="muted">Founder · Club footballer · Captain, number 9</p>
+            <p>Football has been one of my main interests for years. I play regularly, both with my club and for fun with friends. Through that I've used and gone through many different training programmes, drills and fitness routines.</p>
+            <p>I noticed that young footballers starting their football journey often find it hard to get a structured training plan for their age, position and level. I'm also really interested in business: how companies understand their customers, build a brand and turn an idea into a real product.</p>
+            <p><span class="brand-name">PITCHPATH</span> brings those two interests together. It's a football training brand built around what young players actually need.</p>
+            <p class="flag">Founder: check this text and change anything you want to say differently.</p>
           </div>
+        </div>
+      </section>
+
+      <!-- BUSINESS: marketing plan summary -->
+      <section class="content-section" id="business" aria-labelledby="business-title">
+        <h2 id="business-title">The business behind the brand</h2>
+        <p class="lead">How <span class="brand-name">PITCHPATH</span> finds its customers, gives them value and stands out.</p>
+
+        <div class="grid grid--2">
+          <div class="card card--orange">
+            <h3>Target customer</h3>
+            <dl class="profile-list">
+              <div><dt>Who</dt><dd>Aspiring footballers aged 12-15</dd></div>
+              <div><dt>Level</dt><dd>Beginners to club players</dd></div>
+              <div><dt>Goal</dt><dd>Get better, get selected, enjoy the game</dd></div>
+              <div><dt>Problem</dt><dd>No clear plan for their age, position and level</dd></div>
+              <div><dt>Also reaches</dt><dd>Parents (they decide and pay) and youth coaches</dd></div>
+            </dl>
+          </div>
+          <div class="card card--navy">
+            <h3>Value proposition</h3>
+            <p class="value-prop">"For young footballers aged 12-15 who want to improve but don't know where to start, <span class="brand-name">PITCHPATH</span> is a free, structured training plan built around your position and level, so you always know what to train next and can see yourself improve."</p>
+          </div>
+        </div>
+
+        <h3 style="margin-top:var(--space-5)">Brand positioning</h3>
+        <div class="positioning">
+          <figure class="positioning__map">
+            <svg viewBox="0 0 420 340" role="img" aria-labelledby="pos-title pos-desc">
+              <title id="pos-title">Positioning map</title>
+              <desc id="pos-desc">A map with cost from low to high across the bottom, and structure from random to structured up the side. Online videos: low cost, random. Adult fitness apps: medium cost, medium structure. Private academies: high cost, structured. PITCHPATH: low cost and highly structured, in the top-left corner.</desc>
+              <rect x="50" y="20" width="350" height="270" rx="8" fill="#FFFFFF" stroke="#D5DDE3" stroke-width="2"/>
+              <line x1="225" y1="20" x2="225" y2="290" stroke="#D5DDE3" stroke-width="2" stroke-dasharray="6 5"/>
+              <line x1="50" y1="155" x2="400" y2="155" stroke="#D5DDE3" stroke-width="2" stroke-dasharray="6 5"/>
+              <text x="225" y="318" text-anchor="middle" font-size="14" font-weight="700" fill="#0D1B2A">Cost to the player →</text>
+              <text x="58" y="306" font-size="12" fill="#4A5866">Low</text>
+              <text x="392" y="306" text-anchor="end" font-size="12" fill="#4A5866">High</text>
+              <text x="22" y="155" text-anchor="middle" font-size="14" font-weight="700" fill="#0D1B2A" transform="rotate(-90 22 155)">Structured plan →</text>
+              <circle cx="105" cy="255" r="10" fill="#4A5866"/>
+              <text x="122" y="260" font-size="13" fill="#0D1B2A">Online videos</text>
+              <circle cx="255" cy="185" r="10" fill="#4A5866"/>
+              <text x="272" y="190" font-size="13" fill="#0D1B2A">Adult fitness apps</text>
+              <circle cx="355" cy="60" r="10" fill="#4A5866"/>
+              <text x="342" y="88" text-anchor="end" font-size="13" fill="#0D1B2A">Private academies</text>
+              <circle cx="100" cy="55" r="16" fill="#F26B21" stroke="#0D1B2A" stroke-width="3"/>
+              <text x="124" y="52" font-size="15" font-weight="800" fill="#0B6E4F">PITCHPATH</text>
+              <text x="124" y="70" font-size="12" fill="#4A5866">free + structured</text>
+            </svg>
+          </figure>
+          <div>
+            <p><strong>Our space:</strong> structured like an academy, but free and flexible like online videos.</p>
+            <ul class="check-list">
+              <li><strong>Versus online videos:</strong> we give a plan with progression, not random tricks.</li>
+              <li><strong>Versus academies:</strong> free to start, and you train when and where you want.</li>
+              <li><strong>Versus adult fitness apps:</strong> made for footballers aged 12-15, with safe, age-appropriate training.</li>
+            </ul>
+            <p><a href="plans.html">See the full comparison and our plans →</a></p>
+          </div>
+        </div>
+
+        <div class="grid grid--2" style="margin-top:var(--space-5)">
+          <div class="card">
+            <h3>Marketing channels</h3>
+            <ul>
+              <li><strong>Instagram and YouTube Shorts:</strong> 30-second drill videos and challenge clips, where young players already spend time.</li>
+              <li><strong>Clubs and school teams:</strong> posters in changing rooms and QR codes on training kit bags.</li>
+              <li><strong>Coaches:</strong> free session plans they can share with their squads.</li>
+              <li><strong>Word of mouth:</strong> players sharing their badges and progress with teammates.</li>
+            </ul>
+            <p class="muted">Channels chosen using our survey of young footballers aged 12-15.</p>
+          </div>
+          <div class="card card--yellow">
+            <h3>Customer engagement</h3>
+            <ul>
+              <li><strong>Challenge of the month:</strong> a new goal every month to keep players coming back.</li>
+              <li><strong>Badges and streaks:</strong> rewards in the tracker for training consistently.</li>
+              <li><strong>Level-up checklists:</strong> a clear next goal at every level.</li>
+              <li><strong>Feedback loop:</strong> testers' ideas shape new drills and the paid plans.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 style="margin-top:var(--space-5)">Promotional materials</h3>
+        <div class="grid grid--3">
+          <div class="card"><h4>1. Social media post</h4><p>An Instagram post announcing the free programmes, in brand colours.</p><p class="flag">Add your finished design here.</p></div>
+          <div class="card card--orange"><h4>2. Poster</h4><p>An A4 poster for clubs and schools with a QR code to the website.</p><p class="flag">Add your finished design here.</p></div>
+          <div class="card card--navy"><h4>3. Short video</h4><p>A 30-second reel showing a drill, the tracker and the challenge of the month.</p><p class="flag">Add your finished design here.</p></div>
         </div>
       </section>
     </div>

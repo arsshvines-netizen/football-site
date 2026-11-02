@@ -18,7 +18,7 @@
   <div id="site-header"></div>
   <noscript>
     <nav class="noscript-nav" aria-label="Main (no JavaScript)">
-      <a href="index.html">Home</a><a href="programmes.html">Programmes</a><a href="drills.html">Drills</a><a href="fitness.html">Fitness</a><a href="nutrition.html">Nutrition</a><a href="tracker.html">Tracker</a><a href="about.html">About</a><a href="feedback.html">Feedback</a><a href="sources.html">Sources</a>
+      <a href="index.html">Home</a><a href="programmes.html">Programmes</a><a href="drills.html">Drills</a><a href="fitness.html">Fitness</a><a href="nutrition.html">Nutrition</a><a href="tracker.html">Tracker</a><a href="plans.html">Plans</a><a href="about.html">About</a><a href="feedback.html">Feedback</a><a href="sources.html">Sources</a>
     </nav>
     <p class="notice notice--warning container">The feedback form needs JavaScript turned on to work.</p>
   </noscript>
@@ -79,6 +79,54 @@
           <h2 id="tasks-title">Navigation tasks</h2>
           <p class="muted">The tester starts on the Home page for each task. The observer records the result.</p>
           <div id="task-questions"></div>
+        </section>
+
+        <section class="form-section" aria-labelledby="market-title">
+          <h2 id="market-title">Market research <span class="hint" style="font-size:1rem;text-transform:none">(optional)</span></h2>
+          <p class="muted">Help us decide our prices. See the <a href="plans.html">Plans page</a> first.</p>
+          <div class="form-grid form-grid--2">
+            <div class="field">
+              <label for="fb-pay">Would you (or your parents) pay for the Plus plan?</label>
+              <select id="fb-pay" name="wouldPay">
+                <option value="">Choose</option>
+                <option value="yes">Yes</option>
+                <option value="maybe">Maybe</option>
+                <option value="no">No, free is enough</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="fb-price">What is a fair price per month for Plus?</label>
+              <select id="fb-price" name="fairPrice">
+                <option value="">Choose</option>
+                <option value="0">Nothing, it should be free</option>
+                <option value="1-99">₹1-99</option>
+                <option value="100-199">₹100-199</option>
+                <option value="200-299">₹200-299</option>
+                <option value="300+">₹300 or more</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="fb-feature">Which paid feature would you want most?</label>
+              <select id="fb-feature" name="bestFeature">
+                <option value="">Choose</option>
+                <option value="personal-plan">A personal plan for my position</option>
+                <option value="video-feedback">Video feedback on my technique</option>
+                <option value="team-tools">Team tools for my coach</option>
+                <option value="none">None of these</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="fb-heard">Where would you most likely hear about us?</label>
+              <select id="fb-heard" name="channel">
+                <option value="">Choose</option>
+                <option value="instagram">Instagram</option>
+                <option value="youtube">YouTube</option>
+                <option value="club">My club or coach</option>
+                <option value="school">School</option>
+                <option value="friends">Friends or teammates</option>
+              </select>
+            </div>
+          </div>
         </section>
 
         <section class="form-section" aria-labelledby="comments-title">

@@ -6,6 +6,7 @@
 
 export const BRAND = {
   name: "PITCHPATH",              // change this to rename the whole site
+  founder: "Arssh Gupta",         // shown on the Home and About pages
   tagline: "Train with a plan.",
   audience: "young footballers aged 12-15",
   logo: "assets/img/logo-icon.svg",         // icon shown in the header and footer
@@ -21,6 +22,7 @@ export const NAV_LINKS = [
   { label: "Fitness", href: "fitness.html" },
   { label: "Nutrition", href: "nutrition.html" },
   { label: "Tracker", href: "tracker.html" },
+  { label: "Plans", href: "plans.html" },
   { label: "About", href: "about.html" },
 ];
 

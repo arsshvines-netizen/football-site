@@ -17,8 +17,11 @@ Full spec: `website-spec.md`. Read it before big changes.
 ## Structure
 - `*.html`: one file per page. Header and footer are injected by `assets/js/layout.js` into `#site-header` / `#site-footer`, with a `<noscript>` fallback nav.
 - `assets/css/`: `variables.css` (brand), `base.css` (reset/layout), `components.css` (shared pieces), `pages.css` (page-specific + print).
-- `assets/js/`: `config.js`, `layout.js`, `nav.js`, `storage.js` (safe localStorage), page scripts (`programmes.js`, `drills.js`, `diagrams.js`, `fitness.js`, `nutrition.js`, `tracker.js`, `feedback.js`, `sources-page.js`).
-- `assets/js/data/`: all editable content (drills, programmes, fitness, nutrition, sources).
+- `assets/js/`: `config.js`, `layout.js`, `nav.js`, `storage.js` (safe localStorage), page scripts (`plans.js` for pricing/challenge/FAQ on Home + Plans, `programmes.js`, `drills.js`, `diagrams.js`, `fitness.js`, `nutrition.js`, `tracker.js`, `feedback.js`, `sources-page.js`).
+- `assets/js/data/`: all editable content (drills, programmes, fitness, nutrition, sources, plans = business model/prices/monthly challenge).
+
+## Business layer
+The site is presented as a real football training business (MYP project Criterion A learning goal: market research, value proposition, branding, pricing, marketing, customer engagement). Freemium model: Starter free; Plus and Team shown as 'Launching soon'. No payments and no data collection, so paid plans link to the Feedback page's market-research questions. Never invent testimonials or reviews.
 - `tools/`: `check_site.py` (link checker), `serve.py` (optional server with custom 404).
 - `docs/`: checklists and test results.
 

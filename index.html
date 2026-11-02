@@ -11,13 +11,14 @@
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/pages.css">
   <script type="module" src="assets/js/layout.js"></script>
+  <script type="module" src="assets/js/plans.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
   <div id="site-header"></div>
   <noscript>
     <nav class="noscript-nav" aria-label="Main (no JavaScript)">
-      <a href="index.html">Home</a><a href="programmes.html">Programmes</a><a href="drills.html">Drills</a><a href="fitness.html">Fitness</a><a href="nutrition.html">Nutrition</a><a href="tracker.html">Tracker</a><a href="about.html">About</a><a href="feedback.html">Feedback</a><a href="sources.html">Sources</a>
+      <a href="index.html">Home</a><a href="programmes.html">Programmes</a><a href="drills.html">Drills</a><a href="fitness.html">Fitness</a><a href="nutrition.html">Nutrition</a><a href="tracker.html">Tracker</a><a href="plans.html">Plans</a><a href="about.html">About</a><a href="feedback.html">Feedback</a><a href="sources.html">Sources</a>
     </nav>
     <p class="notice notice--warning container">Some parts of this site (drills, tracker, timers) need JavaScript turned on.</p>
   </noscript>
@@ -36,13 +37,14 @@
       </svg>
       <div class="container hero__grid">
         <div>
-          <span class="eyebrow">For players aged 12-15</span>
+          <span class="eyebrow">Made by a young footballer, for players aged 12-15</span>
           <h1 id="hero-title">Train smarter. <span class="highlight">Play better.</span></h1>
           <p class="lead">Step-by-step football training you can follow on your own or with a coach: plans for your level, drills for your position, and a tracker to see yourself improve.</p>
           <div class="btn-row">
             <a class="btn btn--primary" href="programmes.html">Start Training</a>
             <a class="btn btn--outline" href="tracker.html">Track My Progress</a>
           </div>
+          <p class="hero__proof">Free to start · No sign-up · 9 programmes · 40 drills</p>
         </div>
         <svg class="hero__art" viewBox="0 0 380 380" aria-hidden="true" focusable="false">
           <!-- An illustrated 'path' up the pitch: cones, ball and an arrow -->
@@ -56,6 +58,34 @@
           <circle cx="70" cy="290" r="24" fill="#F7F9FA" stroke="#0D1B2A" stroke-width="4"/>
           <polygon points="70,278 81,286 77,299 63,299 59,286" fill="#0D1B2A"/>
         </svg>
+      </div>
+    </section>
+
+    <!-- PROBLEM AND SOLUTION (value proposition) -->
+    <section class="section" aria-labelledby="problem-title">
+      <div class="container">
+        <h2 id="problem-title">The problem we solve</h2>
+        <div class="problem-grid">
+          <div class="problem card card--navy">
+            <h3>The problem</h3>
+            <ul>
+              <li>Young players want to improve, but don't know <strong>what</strong> to practise or in what order.</li>
+              <li>Online videos show tricks, not a plan for your age, position and level.</li>
+              <li>Private coaching is expensive and only a few hours a week.</li>
+            </ul>
+          </div>
+          <div class="problem__arrow" aria-hidden="true">
+            <svg viewBox="0 0 60 60"><path d="M10 30h34" stroke="#F26B21" stroke-width="7" stroke-linecap="round"/><path d="M34 16l16 14-16 14" fill="none" stroke="#F26B21" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="problem card">
+            <h3>Our solution</h3>
+            <ul class="check-list">
+              <li>A <strong>structured path</strong> from Beginner to Advanced, week by week.</li>
+              <li>Training for <strong>your position</strong>: keeper, defender, midfielder, winger or striker.</li>
+              <li><strong>Free</strong> to start, safe for ages 12-15, with a tracker to see your progress.</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -149,6 +179,62 @@
       </div>
     </section>
 
+    <!-- AUDIENCE SEGMENTS -->
+    <section class="section" aria-labelledby="for-title">
+      <div class="container">
+        <h2 id="for-title">Built for</h2>
+        <div class="grid grid--3">
+          <div class="card card--orange">
+            <h3>Players aged 12-15</h3>
+            <p>Train on your own or with friends, follow a plan for your position, and see yourself improve every week.</p>
+            <p><a href="programmes.html">Find your programme →</a></p>
+          </div>
+          <div class="card">
+            <h3>Parents</h3>
+            <p>Safe, age-appropriate training with real-food nutrition, rest days and no sign-up. Free to start, no data collected.</p>
+            <p><a href="fitness.html#safety">Read our safety rules →</a></p>
+          </div>
+          <div class="card card--navy">
+            <h3>Coaches</h3>
+            <p>Ready-made session plans and 40 drills with diagrams you can use with your U12-U15 squad today.</p>
+            <p><a href="plans.html#coaches">For coaches and clubs →</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOUNDER -->
+    <section class="band band--dark on-dark" aria-labelledby="founder-title">
+      <div class="container founder">
+        <img class="founder__photo" src="assets/img/founder-action.jpg" alt="The founder, wearing number 9 and the captain's armband, watching a teammate dribble in a match" width="1200" height="800" loading="lazy">
+        <div>
+          <span class="eyebrow">Meet the founder</span>
+          <h2 id="founder-title">Why I started <span class="brand-name">PITCHPATH</span></h2>
+          <blockquote class="founder__quote">
+            <p>"Football has been a huge part of my life for years. I've trained with my club and gone through many different programmes, drills and fitness routines. I noticed that young footballers starting out often can't find a structured plan for their age, position and level. So I built one."</p>
+          </blockquote>
+          <p class="founder__name"><strong><span class="founder-name">Arssh Gupta</span></strong>, founder and club footballer</p>
+          <a class="btn btn--outline" href="about.html">Read our story</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHALLENGE OF THE MONTH (customer engagement) -->
+    <section class="section" aria-labelledby="challenge-title">
+      <div class="container">
+        <div class="challenge" id="challenge"></div>
+      </div>
+    </section>
+
+    <!-- PLANS TEASER -->
+    <section class="section" aria-labelledby="home-plans-title" style="padding-top:0">
+      <div class="container">
+        <h2 id="home-plans-title">Start free. Upgrade when you're ready.</h2>
+        <div class="plans" id="plans-grid"></div>
+        <p style="margin-top:var(--space-3)"><a href="plans.html">Compare plans and see how we compare with other options →</a></p>
+      </div>
+    </section>
+
     <!-- WHY -->
     <section class="section" aria-labelledby="why-title" style="padding-top:0">
       <div class="container">
@@ -157,10 +243,22 @@
           <li><strong>Structured:</strong> every programme builds week by week, so you always know what to do next.</li>
           <li><strong>Position-specific:</strong> drills made for what your position actually does in a match.</li>
           <li><strong>Safe for your age:</strong> bodyweight fitness, real-food nutrition and plenty of rest.</li>
-          <li><strong>Built by a young player:</strong> made by a student who wanted a clear plan to follow, for players like you.</li>
+          <li><strong>Built by a player:</strong> made by a club footballer who knows what young players actually need.</li>
           <li><strong>Free and private:</strong> no sign-up, no adverts. Your data stays on your device.</li>
           <li><strong>Track your progress:</strong> see your skills and training time improve over weeks.</li>
         </ul>
+      </div>
+    </section>
+
+    <!-- FINAL CALL TO ACTION -->
+    <section class="cta-band on-dark" aria-labelledby="cta-title">
+      <div class="container cta-band__inner">
+        <h2 id="cta-title">Your path starts with one session.</h2>
+        <p>Pick your level, follow the plan, track your progress.</p>
+        <div class="btn-row" style="justify-content:center">
+          <a class="btn btn--primary" href="programmes.html">Start training free</a>
+          <a class="btn btn--outline" href="drills.html">Browse drills</a>
+        </div>
       </div>
     </section>
 

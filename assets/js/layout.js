@@ -64,7 +64,7 @@ function buildFooter(currentPage) {
           </nav>
         </div>
         <p class="footer-disclaimer"><strong>Disclaimer:</strong> ${DISCLAIMER}</p>
-        <p class="footer-disclaimer">© ${year} ${BRAND.name}. A student MYP Personal Project. Your data stays on your device.</p>
+        <p class="footer-disclaimer">© ${year} ${BRAND.name}. Founded by ${BRAND.founder}. Your data stays on your device.</p>
       </div>
     </footer>`;
 }
@@ -74,6 +74,9 @@ function buildFooter(currentPage) {
 function fillBrandName() {
   document.querySelectorAll(".brand-name").forEach((el) => {
     el.textContent = BRAND.name;
+  });
+  document.querySelectorAll(".founder-name").forEach((el) => {
+    el.textContent = BRAND.founder;
   });
   document.querySelectorAll(".brand-tagline").forEach((el) => {
     el.textContent = BRAND.tagline;

@@ -472,8 +472,52 @@ function renderPositionSkillLabel() {
   if (option) option.textContent = POSITION_SKILL_NAMES[data.profile.position] || "Position skill";
 }
 
+
+// ---------------------------------------------------------
+// Badges (customer engagement): rewards for training often
+// ---------------------------------------------------------
+
+function getBadges() {
+  const stats = getStats();
+  const thisMonth = todayText().slice(0, 7); // e.g. "2026-11"
+  const weakFootDays = new Set(
+    data.sessions
+      .filter((s) => s.date.startsWith(thisMonth) && /weak\s*foot/i.test(s.notes))
+      .map((s) => s.date),
+  ).size;
+  return [
+    { name: "First Kick", how: "Log your first session", earned: stats.totalSessions >= 1 },
+    { name: "Regular", how: "Log 10 sessions", earned: stats.totalSessions >= 10 },
+    { name: "Committed", how: "Log 25 sessions", earned: stats.totalSessions >= 25 },
+    { name: "500 Club", how: "Train for 500 minutes in total", earned: stats.totalMinutes >= 500 },
+    { name: "On a Roll", how: "Hit your weekly goal 4 weeks in a row", earned: stats.streak >= 4 },
+    { name: "Self-Scout", how: "Rate your skills twice", earned: data.ratings.length >= 2 },
+    { name: "Two-Footed", how: `Monthly challenge: weak-foot practice on 12 days this month (${weakFootDays}/12)`, earned: weakFootDays >= 12 },
+  ];
+}
+
+function renderBadges() {
+  const wrap = document.getElementById("badges");
+  if (!wrap) return;
+  const badges = getBadges();
+  const earned = badges.filter((b) => b.earned).length;
+  document.getElementById("badge-count").textContent = `${earned} of ${badges.length} earned`;
+  wrap.innerHTML = badges.map((b) => `
+    <li class="badge-tile ${b.earned ? "badge-tile--earned" : ""}">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="20" fill="${b.earned ? "#FFC857" : "#E6F2ED"}" stroke="${b.earned ? "#0D1B2A" : "#8796A3"}" stroke-width="3" ${b.earned ? "" : 'stroke-dasharray="5 4"'}/>
+        ${b.earned
+          ? '<path d="M15 25l6 6 12-13" fill="none" stroke="#0D1B2A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>'
+          : '<rect x="17" y="22" width="14" height="11" rx="2" fill="#8796A3"/><path d="M20 22v-3a4 4 0 0 1 8 0v3" fill="none" stroke="#8796A3" stroke-width="3"/>'}
+      </svg>
+      <span class="badge-tile__name">${b.name}</span>
+      <span class="badge-tile__how">${b.earned ? "Earned!" : escapeHTML(b.how)}</span>
+    </li>`).join("");
+}
+
 function renderAll() {
   renderStats();
+  renderBadges();
   drawSkillChart();
   drawMinutesChart();
   renderHistory();

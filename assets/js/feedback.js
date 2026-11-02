@@ -139,6 +139,8 @@ function validate(form) {
     response[`${t.key}Clicks`] = Number(values[`${t.key}Clicks`]);
     response[`${t.key}Time`] = Number(values[`${t.key}Time`]);
   });
+  // Market research answers (optional)
+  ["wouldPay", "fairPrice", "bestFeature", "channel"].forEach((key) => { response[key] = values[key] || ""; });
   FREE_TEXT.forEach((f) => { response[f.key] = String(values[f.key] || "").trim(); });
 
   return { ok: Object.keys(errors).length === 0, errors, response };
@@ -186,6 +188,11 @@ function renderSummary() {
     return `<tr><th scope="row">${t.text}</th><td>${done}/${responses.length} unaided</td><td>${average(`${t.key}Clicks`)}</td><td>${average(`${t.key}Time`)} s</td></tr>`;
   }).join("");
   const codes = responses.map((r) => escapeHTML(r.testerCode)).join(", ");
+  const count = (key, value) => responses.filter((r) => r[key] === value).length;
+  const marketRows = `
+    <tr><th scope="row">Would pay for Plus</th><td>Yes ${count("wouldPay", "yes")} · Maybe ${count("wouldPay", "maybe")} · No ${count("wouldPay", "no")}</td></tr>
+    <tr><th scope="row">Most wanted feature</th><td>Personal plan ${count("bestFeature", "personal-plan")} · Video feedback ${count("bestFeature", "video-feedback")} · Team tools ${count("bestFeature", "team-tools")}</td></tr>
+    <tr><th scope="row">Top channel</th><td>Instagram ${count("channel", "instagram")} · YouTube ${count("channel", "youtube")} · Club ${count("channel", "club")} · School ${count("channel", "school")} · Friends ${count("channel", "friends")}</td></tr>`;
   wrap.innerHTML = `
     <p><strong>Testers:</strong> ${codes}</p>
     <div class="grid grid--2">
@@ -197,7 +204,10 @@ function renderSummary() {
         <caption>Navigation tasks</caption>
         <thead><tr><th scope="col">Task</th><th scope="col">Completed</th><th scope="col">Avg clicks</th><th scope="col">Avg time</th></tr></thead>
         <tbody>${taskRows}</tbody></table></div>
-    </div>`;
+    </div>
+    <div class="table-wrap" style="margin-top:var(--space-4)"><table>
+      <caption>Market research</caption>
+      <tbody>${marketRows}</tbody></table></div>`;
 }
 
 // ---------- Export ----------

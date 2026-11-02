@@ -46,6 +46,10 @@ The "Auto" column was filled by an automated browser test (Chromium, emulated at
 | 39 | Feedback | Download gives JSON and CSV files | Pass | | | |
 | 40 | Sources | List shows in MLA format, A-Z | Pass | | | |
 | 41 | 404 | Unknown page shows custom 404 (when using tools/serve.py) | Pass | | | |
+| 43 | Plans | 3 plan cards show; Starter → Programmes; Launching soon → Feedback; FAQ opens | Pass | | | |
+| 44 | Home | Challenge of the month shows current month; buttons work | Pass | | | |
+| 45 | Tracker | Badges show earned/locked and update after logging | Pass | | | |
+| 46 | Feedback | Market research answers saved and summarised | Pass | | | |
 | 42 | Links | `python3 tools/check_site.py` reports PASS | Pass | | | |
 
 \* Print layout checked by CSS review only. Do a real print preview to confirm.
