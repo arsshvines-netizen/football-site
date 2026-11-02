@@ -1,517 +1,559 @@
 // =========================================================
 // programmes.js: the Training Programmes page.
 //
-// The page works in 3 clear steps, all on ONE page:
-//   Step 1: choose a level  (Beginner / Intermediate / Advanced)
-//   Step 2: choose a programme (Technical / Game / Physical)
-//   Step 3: train: pick a week, open a session, follow it.
-// Drills open in a popup and the warm-up / fitness exercises
-// open inline, so the player never gets sent to another page.
-// "Mark as done" saves the session to the Progress Tracker.
+// It works like a simple app with screens, one at a time:
+//   1. LEVEL      "What's your level?"            (3 big cards)
+//   2. GOAL       "What do you want to improve?"  (3 big cards)
+//   3. PLAN       Your plan: next session, progress, 4-week grid
+//   4. SESSION    Step-by-step session with a timer
+//   5. CELEBRATE  Well done! Saved to the tracker.
 //
-// Choices are kept in the URL, e.g.
-//   programmes.html?level=beginner&programme=beg-tech&week=2
+// The chosen plan is remembered on this device, so next time
+// the player lands straight on their plan.
 // =========================================================
 
-import {
-  LEVELS, WARM_UP_MIN, COOL_DOWN_MIN, WEEK_BONUS_MIN,
-} from "./data/programmes.js";
+import { LEVELS, WARM_UP_MIN, COOL_DOWN_MIN, WEEK_BONUS_MIN } from "./data/programmes.js";
 import { WARM_UP, STRENGTH, SPEED, ENDURANCE, MOBILITY } from "./data/fitness.js";
-import { DRILLS, POSITION_LABELS } from "./data/drills.js";
 import { openDrillModal, findDrill } from "./drill-modal.js";
-import { loadData, saveData, escapeHTML, askToConfirm } from "./storage.js";
+import { loadData, saveData, removeData, escapeHTML, askToConfirm } from "./storage.js";
 
-const CHECKLIST_KEY = "pitchpath-levelup-v1";
+const PLAN_KEY = "pitchpath-my-plan";                // { level, programmeId }
 const PROGRESS_KEY = "pitchpath-programme-progress"; // which sessions are done
 const TRACKER_KEY = "pitchpath-tracker";             // same key tracker.js uses
-const levelKeys = Object.keys(LEVELS);
-const SESSION_LETTERS = ["A", "B", "C"];
+const CHECKLIST_KEY = "pitchpath-levelup-v1";
+const LETTERS = ["A", "B", "C"];
 
-// What the page is currently showing
-const state = { level: "beginner", programmeId: null, week: 1 };
+// Friendly words and pictures for each choice
+const LEVEL_CARDS = {
+  beginner: { emoji: "🌱", line: "New to training with a plan" },
+  intermediate: { emoji: "⚡", line: "I play for a team or club" },
+  advanced: { emoji: "🔥", line: "Regular club player, want more" },
+};
+const GOAL_CARDS = {
+  "Technical Skills": { emoji: "⚽", name: "Ball skills", line: "Touch, passing, dribbling and shooting" },
+  "Game Understanding": { emoji: "🧠", name: "Game smarts", line: "Positioning, movement and decisions" },
+  "Physical Development": { emoji: "💪", name: "Fitness", line: "Speed, strength and stamina" },
+};
+
+const app = document.getElementById("app");
+
+// What we're showing right now
+const state = { screen: "level", level: null, programmeId: null, session: null };
 
 // =========================================================
-// Small helpers
+// Saved data helpers
 // =========================================================
+
+function loadProgress() {
+  const saved = loadData(PROGRESS_KEY, null);
+  return saved && saved.version === 1 && saved.done ? saved : { version: 1, done: {} };
+}
+
+function sessionKey(programme, week, letter) { return `${programme.id}-w${week}-${letter}`; }
+function isDone(programme, week, letter) { return Boolean(loadProgress().done[sessionKey(programme, week, letter)]); }
+
+function getProgramme() {
+  if (!state.level) return null;
+  return LEVELS[state.level].programmes.find((p) => p.id === state.programmeId) || null;
+}
+
+function allSessions(programme) {
+  const list = [];
+  programme.weeks.forEach((_, w) => LETTERS.forEach((letter) => list.push({ week: w + 1, letter })));
+  return list;
+}
+
+function nextSession(programme) {
+  return allSessions(programme).find((s) => !isDone(programme, s.week, s.letter)) || null;
+}
+
+function doneCount(programme) {
+  return allSessions(programme).filter((s) => isDone(programme, s.week, s.letter)).length;
+}
 
 function todayText() {
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
-function currentLevel() { return LEVELS[state.level]; }
-
-function currentProgramme() {
-  return currentLevel().programmes.find((p) => p.id === state.programmeId);
-}
-
-function sessionId(programme, weekIndex, letter) {
-  return `${programme.id}-w${weekIndex + 1}-${letter}`;
-}
-
-// Minutes for one session in a given week (weekIndex 0-3)
-function sessionMinutes(programme, session, weekIndex) {
-  const bonus = (programme.weekBonus || WEEK_BONUS_MIN)[weekIndex];
-  const activities = session.activities.reduce((sum, a) => sum + a.minutes, 0);
-  return WARM_UP_MIN + activities + bonus + COOL_DOWN_MIN;
-}
-
-// ---------- Saved progress ----------
-
-function loadProgress() {
-  const saved = loadData(PROGRESS_KEY, null);
-  if (saved && saved.version === 1 && saved.done) return saved;
-  return { version: 1, done: {} };
-}
-
-function countDone(programme) {
-  const done = loadProgress().done;
-  return Object.keys(done).filter((id) => id.startsWith(`${programme.id}-`)).length;
-}
-
-function countDoneInWeek(programme, weekIndex) {
-  const done = loadProgress().done;
-  return SESSION_LETTERS.filter((l) => done[sessionId(programme, weekIndex, l)]).length;
-}
-
 // =========================================================
-// Inline guides: the warm-up and fitness exercises, shown
-// right inside the session instead of on another page
+// Building one session as a list of simple STEPS
+// Each step: { kind, title, minutes, activity? }
 // =========================================================
 
-function warmUpGuideHTML() {
-  const steps = WARM_UP.map((s) =>
-    `<li><strong>${escapeHTML(s.name)}</strong> (${Math.round(s.seconds / 60 * 10) / 10} min): ${escapeHTML(s.how)}</li>`).join("");
-  return `
-    <details class="inline-guide">
-      <summary>Show the 10-minute warm-up</summary>
-      <ol>${steps}</ol>
-    </details>`;
+function buildSteps(programme, week, letter) {
+  const session = programme.sessions[LETTERS.indexOf(letter)];
+  const bonus = (programme.weekBonus || WEEK_BONUS_MIN)[week - 1];
+  const steps = [{ kind: "warmup", title: "Warm-up", minutes: WARM_UP_MIN }];
+  session.activities.forEach((a, i) => {
+    steps.push({ kind: "activity", title: a.name, minutes: a.minutes + (i === 0 ? bonus : 0), activity: a });
+  });
+  steps.push({ kind: "cooldown", title: "Cool-down", minutes: COOL_DOWN_MIN });
+  return { session, steps, total: steps.reduce((sum, s) => sum + s.minutes, 0) };
 }
 
-function fitnessGuideHTML(link) {
+function fitnessListHTML(link) {
   const section = link.split("#")[1];
-  const levelLabel = currentLevel().label;
-  let inner = "";
   if (section === "strength") {
-    const key = state.level;
-    inner = `<ul>${STRENGTH.map((ex) => `<li><strong>${escapeHTML(ex.name)}:</strong> ${escapeHTML(ex[key])}. <span class="muted">${escapeHTML(ex.how)}</span></li>`).join("")}</ul>
-      <p class="muted">Rest 60 seconds between sets. Perfect form first.</p>`;
-  } else if (section === "speed") {
-    inner = `<ul>${SPEED.map((s) => `<li><strong>${escapeHTML(s.name)}:</strong> ${escapeHTML(s.how)} <em>Rest: ${escapeHTML(s.rest)}</em></li>`).join("")}</ul>`;
-  } else if (section === "endurance") {
-    const plan = ENDURANCE.find((e) => e.level === levelLabel) || ENDURANCE[0];
-    inner = `<p>${escapeHTML(plan.plan)}</p>`;
-  } else if (section === "mobility") {
-    inner = `<ul>${MOBILITY.map((m) => `<li><strong>${escapeHTML(m.name)}:</strong> ${escapeHTML(m.how)}</li>`).join("")}</ul>`;
-  } else {
-    return "";
+    return `<ul class="step-list">${STRENGTH.map((ex) => `<li><strong>${escapeHTML(ex.name)}</strong>: ${escapeHTML(ex[state.level])}</li>`).join("")}</ul>`;
   }
-  return `
-    <details class="inline-guide">
-      <summary>Show the exercises</summary>
-      ${inner}
-    </details>`;
+  if (section === "speed") {
+    return `<ul class="step-list">${SPEED.map((s) => `<li><strong>${escapeHTML(s.name)}</strong>: ${escapeHTML(s.how)}</li>`).join("")}</ul>`;
+  }
+  if (section === "endurance") {
+    const plan = ENDURANCE.find((e) => e.level === LEVELS[state.level].label) || ENDURANCE[0];
+    return `<p>${escapeHTML(plan.plan)}</p>`;
+  }
+  if (section === "mobility") {
+    return `<ul class="step-list">${MOBILITY.map((m) => `<li><strong>${escapeHTML(m.name)}</strong>: ${escapeHTML(m.how)}</li>`).join("")}</ul>`;
+  }
+  return "";
+}
+
+function stepBodyHTML(step) {
+  if (step.kind === "warmup") {
+    return `<p>Get your body ready. Do each move for about 30-60 seconds:</p>
+      <ul class="step-list">${WARM_UP.map((w) => `<li><strong>${escapeHTML(w.name)}</strong>: ${escapeHTML(w.how)}</li>`).join("")}</ul>`;
+  }
+  if (step.kind === "cooldown") {
+    return `<p>Walk or jog slowly for 2 minutes. Then hold each stretch for 20-30 seconds. Never bounce.</p>
+      <ul class="step-list">${MOBILITY.slice(0, 5).map((m) => `<li><strong>${escapeHTML(m.name)}</strong>: ${escapeHTML(m.how)}</li>`).join("")}</ul>
+      <p>Drink some water. Great work!</p>`;
+  }
+  const a = step.activity;
+  const drill = a.drill ? findDrill(a.drill) : null;
+  let html = "";
+  if (drill) {
+    html += `<p>${escapeHTML(drill.setup)}</p>
+      <ol class="step-list">${drill.steps.map((s) => `<li>${escapeHTML(s)}</li>`).join("")}</ol>
+      <p class="step-tip"><strong>Tip:</strong> ${escapeHTML(drill.coachingPoints[0])}</p>
+      <button type="button" class="btn btn--outline btn--small" data-open-drill="${drill.id}">See diagram and full details</button>`;
+  }
+  if (a.how) html += `<p>${escapeHTML(a.how)}</p>`;
+  if (a.link) html += fitnessListHTML(a.link);
+  return html;
 }
 
 // =========================================================
-// HTML builders
+// SCREEN 1: choose a level
 // =========================================================
 
-function activityHTML(activity, minutes) {
-  let action = "";
-  if (activity.drill && findDrill(activity.drill)) {
-    action = `<button type="button" class="btn btn--green btn--small" data-open-drill="${activity.drill}">View drill</button>`;
-  } else if (activity.link) {
-    action = fitnessGuideHTML(activity.link);
-  }
-  const how = activity.how ? `<p class="activity__how">${escapeHTML(activity.how)}</p>` : "";
+function levelScreenHTML() {
+  const cards = Object.entries(LEVELS).map(([key, level]) => `
+    <button type="button" class="choice-card" data-choose-level="${key}">
+      <span class="choice-card__emoji" aria-hidden="true">${LEVEL_CARDS[key].emoji}</span>
+      <span class="choice-card__title">${escapeHTML(level.label)}</span>
+      <span class="choice-card__line">${escapeHTML(LEVEL_CARDS[key].line)}</span>
+      <span class="choice-card__more">${escapeHTML(level.who)}</span>
+    </button>`).join("");
   return `
-    <li class="activity">
-      <div class="activity__top">
-        <span class="activity__name">${escapeHTML(activity.name)}</span>
-        <span class="activity__time">${minutes} min</span>
-      </div>
-      ${how}
-      ${action}
-    </li>`;
-}
-
-function sessionHTML(programme, session, weekIndex, letterIndex, openByDefault) {
-  const letter = SESSION_LETTERS[letterIndex];
-  const id = sessionId(programme, weekIndex, letter);
-  const done = Boolean(loadProgress().done[id]);
-  const bonus = (programme.weekBonus || WEEK_BONUS_MIN)[weekIndex];
-  const total = sessionMinutes(programme, session, weekIndex);
-  const activities = session.activities
-    .map((a, i) => activityHTML(a, a.minutes + (i === 0 ? bonus : 0)))
-    .join("");
-  const doneButton = done
-    ? `<p class="session__done-msg"><span class="tick-pop" aria-hidden="true">✓</span> Done and saved in your tracker.</p>
-       <button type="button" class="btn btn--outline btn--small" data-undo="${id}">Undo</button>`
-    : `<button type="button" class="btn btn--primary" data-done="${id}" data-minutes="${total}" data-label="${escapeHTML(`${currentLevel().label} · ${programme.title} · Week ${weekIndex + 1} Session ${letter}`)}">Mark session as done</button>`;
-
-  return `
-    <div class="accordion session ${done ? "session--done" : ""}">
-      <h4 class="accordion__heading">
-        <button class="accordion__button" type="button" aria-expanded="${openByDefault}" aria-controls="panel-${id}">
-          <span class="session__title">
-            <span class="session__status" aria-hidden="true">${done ? "✓" : letter}</span>
-            <span>Session ${letter}: ${escapeHTML(session.aim)}</span>
-          </span>
-          <span class="badge">${total} min${done ? " · done" : ""}</span>
-        </button>
-      </h4>
-      <div class="accordion__panel" id="panel-${id}" ${openByDefault ? "" : "hidden"}>
-        <ol class="session__steps">
-          <li class="session__step">
-            <h5>Warm-up <span class="muted">· ${WARM_UP_MIN} min</span></h5>
-            <p>Easy jog, leg swings, high knees, lunges, side shuffles and build-up runs.</p>
-            ${warmUpGuideHTML()}
-          </li>
-          <li class="session__step">
-            <h5>Main activities</h5>
-            <ul class="activity-list">${activities}</ul>
-          </li>
-          <li class="session__step">
-            <h5>Cool-down <span class="muted">· ${COOL_DOWN_MIN} min</span></h5>
-            <p>Easy walk or jog, then gentle stretches for calves, thighs, hips and back. Drink water.</p>
-          </li>
-        </ol>
-        <div class="session__footer">${doneButton}</div>
-      </div>
+    <div class="wizard">
+      <p class="wizard__step">Step 1 of 2</p>
+      <h2 class="wizard__question" tabindex="-1">What's your level?</h2>
+      <p class="wizard__hint">Pick the one that sounds most like you. You can change it any time.</p>
+      <div class="choice-grid">${cards}</div>
     </div>`;
 }
 
-function weekPanelHTML(programme, weekIndex) {
-  const weekText = programme.weeks[weekIndex];
-  const change = weekText.split(":").slice(1).join(":").trim();
-  const done = loadProgress().done;
-  // Open the first session that isn't done yet
-  const firstNotDone = SESSION_LETTERS.findIndex((l) => !done[sessionId(programme, weekIndex, l)]);
-  const sessions = programme.sessions
-    .map((s, i) => sessionHTML(programme, s, weekIndex, i, i === firstNotDone))
-    .join("");
-  return `
-    <div class="week-panel" id="week-panel-${weekIndex + 1}" role="tabpanel" aria-labelledby="week-tab-${weekIndex + 1}" ${weekIndex + 1 === state.week ? "" : "hidden"}>
-      <h4 class="print-only">Week ${weekIndex + 1}</h4>
-      <p class="week__change"><strong>This week:</strong> ${escapeHTML(change)}</p>
-      ${sessions}
-    </div>`;
-}
+// =========================================================
+// SCREEN 2: choose what to improve
+// =========================================================
 
-function programmeViewHTML(programme) {
-  const total = programme.weeks.length * programme.sessions.length;
-  const doneCount = countDone(programme);
-  const percent = Math.round((doneCount / total) * 100);
-  const weekTabs = programme.weeks.map((_, i) => {
-    const weekDone = countDoneInWeek(programme, i);
-    const complete = weekDone === programme.sessions.length;
-    return `<button type="button" role="tab" class="week-tab ${complete ? "week-tab--complete" : ""}" id="week-tab-${i + 1}"
-      aria-controls="week-panel-${i + 1}" aria-selected="${i + 1 === state.week}" tabindex="${i + 1 === state.week ? 0 : -1}" data-week="${i + 1}">
-      <span class="week-tab__label">Week ${i + 1}</span>
-      <span class="week-tab__count">${complete ? "✓ Complete" : `${weekDone}/${programme.sessions.length} done`}</span>
-    </button>`;
-  }).join("");
-
-  return `
-    <div class="programme-view__header">
-      <div>
-        <span class="eyebrow">${escapeHTML(currentLevel().label)} · ${escapeHTML(programme.focus)}</span>
-        <h3 class="programme-view__title" id="programme-title" tabindex="-1">${escapeHTML(programme.title)}</h3>
-        <p>${escapeHTML(programme.summary)}</p>
-      </div>
-      <div class="programme-progress">
-        <p class="programme-progress__text"><strong>${doneCount}</strong> of ${total} sessions done</p>
-        <div class="programme-progress__track" role="progressbar" aria-label="Programme progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${percent}">
-          <div class="programme-progress__bar" style="width:${percent}%"></div>
-        </div>
-        <button type="button" class="btn btn--outline btn--small no-print" id="print-plan">Print this programme</button>
-      </div>
-    </div>
-    <div class="week-tabs no-print" role="tablist" aria-label="Weeks">${weekTabs}</div>
-    ${programme.weeks.map((_, i) => weekPanelHTML(programme, i)).join("")}
-    <p class="muted">Do the 3 sessions on different days, with a rest day in between. Then move to the next week.</p>`;
-}
-
-function programmePickerHTML(level) {
-  return level.programmes.map((p) => {
-    const total = p.weeks.length * p.sessions.length;
-    const done = countDone(p);
-    const selected = p.id === state.programmeId;
+function goalScreenHTML() {
+  const level = LEVELS[state.level];
+  const cards = level.programmes.map((p) => {
+    const g = GOAL_CARDS[p.focus];
     return `
-      <button type="button" class="programme-choice ${selected ? "is-selected" : ""}" data-programme="${p.id}" aria-pressed="${selected}">
-        <span class="programme-choice__focus">${escapeHTML(p.focus)}</span>
-        <span class="programme-choice__title">${escapeHTML(p.title)}</span>
-        <span class="programme-choice__summary">${escapeHTML(p.summary)}</span>
-        <span class="programme-choice__meta">4 weeks · 3 sessions a week · ${done}/${total} done</span>
+      <button type="button" class="choice-card" data-choose-programme="${p.id}">
+        <span class="choice-card__emoji" aria-hidden="true">${g.emoji}</span>
+        <span class="choice-card__title">${escapeHTML(g.name)}</span>
+        <span class="choice-card__line">${escapeHTML(g.line)}</span>
+        <span class="choice-card__more">Plan: "${escapeHTML(p.title)}" · 4 weeks · 3 sessions a week</span>
       </button>`;
   }).join("");
-}
-
-function positionAddOnsHTML() {
-  const cards = Object.entries(POSITION_LABELS).map(([posKey, posLabel]) => {
-    const drills = DRILLS.filter((d) => d.position === posKey && d.level === state.level);
-    const buttons = drills
-      .map((d) => `<li><button type="button" class="link-button" data-open-drill="${d.id}">${escapeHTML(d.name)}</button></li>`)
-      .join("");
-    return `
-      <div class="card card--orange addon" id="addon-${posKey}">
-        <h3>${posLabel}</h3>
-        <ul>${buttons}</ul>
-      </div>`;
-  }).join("");
   return `
-    <p>Swap one main activity in any session for a drill made for your position.</p>
-    <div class="grid grid--5 addons-grid">${cards}</div>`;
+    <div class="wizard">
+      <button type="button" class="back-link" data-go="level">← Change level (${escapeHTML(level.label)})</button>
+      <p class="wizard__step">Step 2 of 2</p>
+      <h2 class="wizard__question" tabindex="-1">What do you want to get better at?</h2>
+      <p class="wizard__hint">Not sure? <strong>Ball skills</strong> is the best all-round choice.</p>
+      <div class="choice-grid">${cards}</div>
+    </div>`;
 }
 
-function checklistHTML(level) {
+// =========================================================
+// SCREEN 3: my plan
+// =========================================================
+
+function ringHTML(done, total) {
+  const circumference = 2 * Math.PI * 52;
+  return `
+    <svg class="ring" viewBox="0 0 120 120" role="img" aria-label="${done} of ${total} sessions done">
+      <circle cx="60" cy="60" r="52" fill="none" stroke="#1B2D40" stroke-width="12"/>
+      <circle class="ring__bar" cx="60" cy="60" r="52" fill="none" stroke="#FFC857" stroke-width="12" stroke-linecap="round"
+        stroke-dasharray="${circumference}" stroke-dashoffset="${circumference * (1 - done / total)}" transform="rotate(-90 60 60)"/>
+      <text x="60" y="58" text-anchor="middle" font-size="28" font-weight="900" fill="#F7F9FA">${done}</text>
+      <text x="60" y="80" text-anchor="middle" font-size="12" fill="#B8C4CF">of ${total} done</text>
+    </svg>`;
+}
+
+function planScreenHTML() {
+  const programme = getProgramme();
+  const level = LEVELS[state.level];
+  const goal = GOAL_CARDS[programme.focus];
+  const total = programme.weeks.length * LETTERS.length;
+  const done = doneCount(programme);
+  const next = nextSession(programme);
+
+  let nextCard;
+  if (next) {
+    const { session, total: minutes } = buildSteps(programme, next.week, next.letter);
+    const weekChange = programme.weeks[next.week - 1].split(":").slice(1).join(":").trim();
+    nextCard = `
+      <div class="next-card">
+        <p class="next-card__label">Your next session · Week ${next.week}, Session ${next.letter}</p>
+        <h3 class="next-card__title">${escapeHTML(session.aim)}</h3>
+        <p class="next-card__meta">⏱ ${minutes} minutes · warm-up, ${session.activities.length} activities, cool-down</p>
+        <p class="next-card__week">This week: ${escapeHTML(weekChange)}</p>
+        <button type="button" class="btn btn--primary btn--big btn--arrow" data-start="${next.week}-${next.letter}">Start session</button>
+      </div>`;
+  } else {
+    nextCard = `
+      <div class="next-card next-card--complete">
+        <p class="next-card__label">Plan complete</p>
+        <h3 class="next-card__title">🏆 You finished all 12 sessions!</h3>
+        <p>Check the level-up list below. If you can tick everything, move up a level.</p>
+        <button type="button" class="btn btn--primary" data-go="level">Choose a new plan</button>
+      </div>`;
+  }
+
+  // 4 weeks x 3 sessions as a simple grid of tiles
+  const weeks = programme.weeks.map((_, w) => {
+    const week = w + 1;
+    const tiles = LETTERS.map((letter) => {
+      const isNext = next && next.week === week && next.letter === letter;
+      const finished = isDone(programme, week, letter);
+      const label = finished ? "Done" : isNext ? "Next" : "To do";
+      return `<button type="button" class="session-tile ${finished ? "is-done" : ""} ${isNext ? "is-next" : ""}"
+        data-start="${week}-${letter}" aria-label="Week ${week}, session ${letter}: ${label}">
+        <span class="session-tile__icon" aria-hidden="true">${finished ? "✓" : letter}</span>
+        <span class="session-tile__label" aria-hidden="true">${label}</span>
+      </button>`;
+    }).join("");
+    return `<div class="week-row"><span class="week-row__name">Week ${week}</span><div class="week-row__tiles">${tiles}</div></div>`;
+  }).join("");
+
   const saved = loadData(CHECKLIST_KEY, {});
-  const items = level.levelUp.map((item, i) => {
+  const checklist = level.levelUp.map((item, i) => {
     const id = `check-${state.level}-${i}`;
     return `<li><label><input type="checkbox" id="${id}" data-check ${saved[id] ? "checked" : ""}> ${escapeHTML(item)}</label></li>`;
   }).join("");
-  const next = levelKeys[levelKeys.indexOf(state.level) + 1];
-  const nextButton = next
-    ? `<button type="button" class="btn btn--primary" data-go-level="${next}">Move up to ${LEVELS[next].label}</button>`
-    : `<a class="btn btn--primary" href="tracker.html">See your progress</a>`;
+
   return `
-    <p>Tick each one you can honestly do. When they're all ticked, move up a level. Your ticks are saved on this device.</p>
-    <ul class="levelup__list">${items}</ul>
-    <p class="levelup__count" aria-live="polite"></p>
-    ${nextButton}`;
+    <div class="plan-screen">
+      <div class="plan-hero">
+        <div class="plan-hero__text">
+          <p class="plan-hero__tag">${goal.emoji} ${escapeHTML(level.label)} · ${escapeHTML(goal.name)}</p>
+          <h2 class="plan-hero__title" tabindex="-1">${escapeHTML(programme.title)}</h2>
+          <p>${escapeHTML(programme.summary)}</p>
+          <button type="button" class="link-button link-button--light" data-go="level">Change plan</button>
+        </div>
+        ${ringHTML(done, total)}
+      </div>
+
+      ${nextCard}
+
+      <section class="plan-section" aria-labelledby="all-sessions-title">
+        <h3 id="all-sessions-title">All sessions</h3>
+        <p class="muted">3 sessions a week, with a rest day in between. Tap any session to open it.</p>
+        <div class="week-grid">${weeks}</div>
+      </section>
+
+      <details class="plan-extra">
+        <summary>Ready to level up? <span class="muted">Open the checklist</span></summary>
+        <p>Tick each one you can honestly do. When they're all ticked, move up a level.</p>
+        <ul class="levelup__list">${checklist}</ul>
+        <p class="levelup__count" aria-live="polite"></p>
+      </details>
+
+      <p class="notice notice--warning">Always warm up, stop if something hurts, and keep 1-2 rest days a week. If you also train with a club, do fewer sessions.</p>
+    </div>`;
 }
 
 // =========================================================
-// Rendering
+// SCREEN 4: session mode (one step at a time, with a timer)
 // =========================================================
 
-function renderLevel() {
-  const level = currentLevel();
-  document.querySelectorAll("#level-tabs [role=tab]").forEach((tab) => {
-    const selected = tab.dataset.level === state.level;
-    tab.setAttribute("aria-selected", String(selected));
-    tab.tabIndex = selected ? 0 : -1;
-  });
-  document.getElementById("level-who").textContent = level.who;
-  document.getElementById("level-before").innerHTML = level.startHere.map((s) => `<li>${escapeHTML(s)}</li>`).join("");
-  document.getElementById("addons").innerHTML = positionAddOnsHTML();
-  document.getElementById("levelup").innerHTML = checklistHTML(level);
-  document.getElementById("levelup-title").textContent = `Ready to leave ${level.label}?`;
-  updateChecklistCount();
-  renderProgrammes();
+const timer = { id: null, secondsLeft: 0, running: false };
+
+function stopTimer() {
+  clearInterval(timer.id);
+  timer.id = null;
+  timer.running = false;
 }
 
-function renderProgrammes() {
-  document.getElementById("programme-picker").innerHTML = programmePickerHTML(currentLevel());
-  const view = document.getElementById("programme-view");
-  const programme = currentProgramme();
-  if (!programme) {
-    view.innerHTML = `
-      <div class="empty-state">
-        <p><strong>Choose a programme above to see your sessions.</strong></p>
-        <p>Not sure? Start with <strong>Technical Skills</strong>. It's the best all-round choice.</p>
-      </div>`;
-    document.getElementById("step-3").classList.remove("is-active");
+function formatTime(seconds) {
+  return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
+}
+
+function sessionScreenHTML() {
+  const programme = getProgramme();
+  const { week, letter, stepIndex } = state.session;
+  const { session, steps } = buildSteps(programme, week, letter);
+  const step = steps[stepIndex];
+  const isLast = stepIndex === steps.length - 1;
+  const dots = steps.map((s, i) => `<span class="step-dot ${i < stepIndex ? "is-past" : ""} ${i === stepIndex ? "is-current" : ""}"></span>`).join("");
+
+  return `
+    <div class="session-mode">
+      <div class="session-mode__top">
+        <button type="button" class="back-link" data-go="plan">← Back to my plan</button>
+        <p class="session-mode__name">Week ${week} · Session ${letter}: ${escapeHTML(session.aim)}</p>
+        <div class="step-dots" aria-hidden="true">${dots}</div>
+      </div>
+
+      <div class="step-card">
+        <p class="step-card__count">Step ${stepIndex + 1} of ${steps.length}</p>
+        <h2 class="step-card__title" tabindex="-1">${escapeHTML(step.title)}</h2>
+        <div class="step-timer">
+          <span class="step-timer__clock" id="step-clock" aria-hidden="true">${formatTime(step.minutes * 60)}</span>
+          <button type="button" class="btn btn--green" id="timer-toggle">▶ Start ${step.minutes}-min timer</button>
+        </div>
+        <div class="step-card__body">${stepBodyHTML(step)}</div>
+      </div>
+
+      <div class="session-mode__nav">
+        <button type="button" class="btn btn--outline" data-step="prev" ${stepIndex === 0 ? "disabled" : ""}>← Back</button>
+        ${isLast
+          ? `<button type="button" class="btn btn--primary btn--big" data-finish>Finish session ✓</button>`
+          : `<button type="button" class="btn btn--primary btn--big btn--arrow" data-step="next">Next: ${escapeHTML(steps[stepIndex + 1].title)}</button>`}
+      </div>
+      <p class="visually-hidden" id="session-announce" aria-live="polite"></p>
+    </div>`;
+}
+
+function toggleTimer() {
+  const button = document.getElementById("timer-toggle");
+  const clock = document.getElementById("step-clock");
+  if (timer.running) {
+    stopTimer();
+    button.textContent = "▶ Resume";
     return;
   }
-  view.innerHTML = programmeViewHTML(programme);
-  document.getElementById("step-3").classList.add("is-active");
-}
-
-function updateURL() {
-  const url = new URL(window.location);
-  url.search = "";
-  url.hash = "";
-  url.searchParams.set("level", state.level);
-  if (state.programmeId) {
-    url.searchParams.set("programme", state.programmeId);
-    url.searchParams.set("week", String(state.week));
+  if (timer.secondsLeft <= 0) {
+    const { steps } = buildSteps(getProgramme(), state.session.week, state.session.letter);
+    timer.secondsLeft = steps[state.session.stepIndex].minutes * 60;
   }
-  history.replaceState(null, "", url);
+  timer.running = true;
+  button.textContent = "⏸ Pause";
+  timer.id = setInterval(() => {
+    timer.secondsLeft -= 1;
+    clock.textContent = formatTime(Math.max(timer.secondsLeft, 0));
+    if (timer.secondsLeft <= 0) {
+      stopTimer();
+      clock.textContent = "Time!";
+      button.textContent = "↺ Restart timer";
+      document.getElementById("session-announce").textContent = "Time is up. Move on to the next step when you're ready.";
+    }
+  }, 1000);
 }
 
-function updateChecklistCount() {
-  const boxes = document.querySelectorAll("#levelup [data-check]");
-  const ticked = [...boxes].filter((b) => b.checked).length;
-  const el = document.querySelector("#levelup .levelup__count");
-  if (el) {
-    el.textContent = ticked === boxes.length
-      ? `All ${boxes.length} ticked! You're ready for the next level.`
-      : `${ticked} of ${boxes.length} ticked.`;
-  }
-}
+// Saves the finished session to the plan progress AND the tracker
+function finishSession(effort) {
+  const programme = getProgramme();
+  const { week, letter } = state.session;
+  const key = sessionKey(programme, week, letter);
+  const progress = loadProgress();
+  if (progress.done[key]) return; // already saved
 
-// =========================================================
-// Actions
-// =========================================================
-
-function chooseLevel(levelKey) {
-  state.level = levelKey;
-  state.programmeId = null;
-  state.week = 1;
-  renderLevel();
-  updateURL();
-}
-
-function chooseProgramme(programmeId) {
-  state.programmeId = programmeId;
-  state.week = 1;
-  // Jump to the first week that isn't complete yet
-  const programme = currentProgramme();
-  for (let i = 0; i < programme.weeks.length; i++) {
-    if (countDoneInWeek(programme, i) < programme.sessions.length) { state.week = i + 1; break; }
-  }
-  renderProgrammes();
-  updateURL();
-  const title = document.getElementById("programme-title");
-  document.getElementById("step-3").scrollIntoView({ block: "start" });
-  if (title) title.focus({ preventScroll: true });
-}
-
-function chooseWeek(week) {
-  state.week = week;
-  document.querySelectorAll(".week-tab").forEach((tab) => {
-    const selected = Number(tab.dataset.week) === week;
-    tab.setAttribute("aria-selected", String(selected));
-    tab.tabIndex = selected ? 0 : -1;
-  });
-  document.querySelectorAll(".week-panel").forEach((panel) => {
-    panel.hidden = panel.id !== `week-panel-${week}`;
-  });
-  updateURL();
-}
-
-// Saves a finished session in the programme progress AND the tracker
-function markDone(button) {
-  const id = button.dataset.done;
-  const minutes = Number(button.dataset.minutes);
-  const programme = currentProgramme();
+  const { total } = buildSteps(programme, week, letter);
   const trackerSession = {
-    id: `prog-${id}-${Date.now().toString(36)}`,
+    id: `prog-${key}-${Date.now().toString(36)}`,
     date: todayText(),
     type: programme.focus === "Physical Development" ? "fitness" : "technical",
-    duration: minutes,
-    effort: 6,
+    duration: total,
+    effort,
     position: "",
-    notes: `Programme: ${button.dataset.label}`.slice(0, 300),
+    notes: `${LEVELS[state.level].label} · ${programme.title} · Week ${week} Session ${letter}`,
   };
   const tracker = loadData(TRACKER_KEY, null) || {
     version: 1, profile: { nickname: "", position: "", level: "", weeklyGoal: 3 }, sessions: [], ratings: [],
   };
   tracker.sessions.push(trackerSession);
   saveData(TRACKER_KEY, tracker);
-
-  const progress = loadProgress();
-  progress.done[id] = { date: todayText(), trackerId: trackerSession.id };
+  progress.done[key] = { date: todayText(), trackerId: trackerSession.id };
   saveData(PROGRESS_KEY, progress);
-  rerenderKeepingWeek(id);
 }
 
-async function undoDone(id) {
-  const ok = await askToConfirm("Mark this session as not done? It will also be removed from your tracker.", "Yes, undo");
+// =========================================================
+// SCREEN 5: celebration
+// =========================================================
+
+function celebrateHTML() {
+  const done = doneCount(getProgramme());
+  const colours = ["#F26B21", "#FFC857", "#0B6E4F", "#F7F9FA"];
+  const confetti = Array.from({ length: 28 }, (_, i) =>
+    `<span class="confetti" style="--x:${(i * 37) % 100}%;--d:${(i % 7) * 110}ms;--c:${colours[i % 4]}"></span>`).join("");
+  return `
+    <div class="celebrate">
+      <div class="confetti-box" aria-hidden="true">${confetti}</div>
+      <p class="celebrate__emoji" aria-hidden="true">🎉</p>
+      <h2 class="celebrate__title" tabindex="-1">Session complete!</h2>
+      <p class="lead">That's <strong>${done} of 12</strong> sessions done. It's saved in your tracker.</p>
+      <p class="celebrate__ask">How hard did it feel?</p>
+      <div class="effort-pick" role="group" aria-label="How hard did it feel">
+        <button type="button" class="btn btn--outline" data-effort="4">😌 Easy</button>
+        <button type="button" class="btn btn--outline" data-effort="6">🙂 Just right</button>
+        <button type="button" class="btn btn--outline" data-effort="8">😤 Hard</button>
+      </div>
+      <p class="muted" id="effort-msg" aria-live="polite"></p>
+      <div class="btn-row" style="justify-content:center">
+        <button type="button" class="btn btn--primary btn--arrow" data-go="plan">Back to my plan</button>
+        <a class="btn btn--outline" href="tracker.html">See my tracker</a>
+      </div>
+    </div>`;
+}
+
+// Update the effort on the session we just saved
+function setEffort(effort) {
+  const programme = getProgramme();
+  const entry = loadProgress().done[sessionKey(programme, state.session.week, state.session.letter)];
+  const tracker = loadData(TRACKER_KEY, null);
+  if (!entry || !tracker) return;
+  const saved = tracker.sessions.find((s) => s.id === entry.trackerId);
+  if (saved) saved.effort = effort;
+  saveData(TRACKER_KEY, tracker);
+  document.querySelectorAll("[data-effort]").forEach((b) => b.classList.toggle("is-picked", Number(b.dataset.effort) === effort));
+  document.getElementById("effort-msg").textContent = "Thanks! Saved.";
+}
+
+async function undoSession(week, letter) {
+  const ok = await askToConfirm("You've already done this session. Mark it as not done? It will also be removed from your tracker.", "Mark as not done");
   if (!ok) return;
+  const key = sessionKey(getProgramme(), week, letter);
   const progress = loadProgress();
-  const entry = progress.done[id];
-  delete progress.done[id];
+  const entry = progress.done[key];
+  delete progress.done[key];
   saveData(PROGRESS_KEY, progress);
-  if (entry) {
-    const tracker = loadData(TRACKER_KEY, null);
-    if (tracker && Array.isArray(tracker.sessions)) {
-      tracker.sessions = tracker.sessions.filter((s) => s.id !== entry.trackerId);
-      saveData(TRACKER_KEY, tracker);
-    }
+  const tracker = loadData(TRACKER_KEY, null);
+  if (entry && tracker) {
+    tracker.sessions = tracker.sessions.filter((s) => s.id !== entry.trackerId);
+    saveData(TRACKER_KEY, tracker);
   }
-  rerenderKeepingWeek(id);
+  render();
 }
 
-// Redraw after a change, keep the same week, and keep focus near the session
-function rerenderKeepingWeek(id) {
-  renderProgrammes();
-  const panel = document.getElementById(`panel-${id}`);
-  if (panel) {
-    panel.hidden = false;
-    const button = panel.parentElement.querySelector(".accordion__button");
-    button.setAttribute("aria-expanded", "true");
-    const focusTarget = panel.querySelector("[data-undo], [data-done]") || button;
-    focusTarget.focus();
+// =========================================================
+// Showing a screen
+// =========================================================
+
+function render() {
+  stopTimer();
+  timer.secondsLeft = 0;
+  let html = "";
+  if (state.screen === "level") html = levelScreenHTML();
+  else if (state.screen === "goal") html = goalScreenHTML();
+  else if (state.screen === "plan") html = planScreenHTML();
+  else if (state.screen === "session") html = sessionScreenHTML();
+  else if (state.screen === "celebrate") html = celebrateHTML();
+  app.innerHTML = `<div class="screen">${html}</div>`;
+
+  updateChecklistCount();
+  updateURL();
+
+  // Move focus to the new screen's heading (helps keyboard and screen reader users)
+  const heading = app.querySelector("h2[tabindex]");
+  if (heading) heading.focus({ preventScroll: true });
+  const top = document.getElementById("app-top").getBoundingClientRect().top + window.scrollY - 90;
+  if (window.scrollY > top) window.scrollTo({ top, behavior: "auto" });
+}
+
+function go(screen) {
+  state.screen = screen;
+  render();
+}
+
+function updateURL() {
+  const url = new URL(window.location);
+  url.search = "";
+  if (state.level && state.screen !== "level") url.searchParams.set("level", state.level);
+  if (state.programmeId && ["plan", "session", "celebrate"].includes(state.screen)) url.searchParams.set("programme", state.programmeId);
+  history.replaceState(null, "", url);
+}
+
+function updateChecklistCount() {
+  const el = app.querySelector(".levelup__count");
+  if (!el) return;
+  const boxes = app.querySelectorAll("[data-check]");
+  const ticked = [...boxes].filter((b) => b.checked).length;
+  el.textContent = ticked === boxes.length ? "All ticked! You're ready for the next level." : `${ticked} of ${boxes.length} ticked.`;
+}
+
+// =========================================================
+// Clicks (one listener for the whole app)
+// =========================================================
+
+app.addEventListener("click", (event) => {
+  const b = event.target.closest("button");
+  if (!b) return;
+
+  if (b.dataset.chooseLevel) {
+    state.level = b.dataset.chooseLevel;
+    go("goal");
+  } else if (b.dataset.chooseProgramme) {
+    state.programmeId = b.dataset.chooseProgramme;
+    saveData(PLAN_KEY, { level: state.level, programmeId: state.programmeId });
+    go("plan");
+  } else if (b.dataset.go) {
+    if (b.dataset.go === "level") removeData(PLAN_KEY);
+    go(b.dataset.go);
+  } else if (b.dataset.start) {
+    const [week, letter] = b.dataset.start.split("-");
+    if (isDone(getProgramme(), Number(week), letter)) { undoSession(Number(week), letter); return; }
+    state.session = { week: Number(week), letter, stepIndex: 0 };
+    go("session");
+  } else if (b.dataset.step) {
+    state.session.stepIndex += b.dataset.step === "next" ? 1 : -1;
+    render();
+  } else if (b.dataset.finish !== undefined) {
+    finishSession(6);
+    go("celebrate");
+  } else if (b.dataset.effort) {
+    setEffort(Number(b.dataset.effort));
+  } else if (b.dataset.openDrill) {
+    openDrillModal(b.dataset.openDrill, b);
+  } else if (b.id === "timer-toggle") {
+    toggleTimer();
   }
-}
+});
+
+app.addEventListener("change", (event) => {
+  if (!event.target.matches("[data-check]")) return;
+  const saved = loadData(CHECKLIST_KEY, {});
+  saved[event.target.id] = event.target.checked;
+  saveData(CHECKLIST_KEY, saved);
+  updateChecklistCount();
+});
 
 // =========================================================
-// Events (one listener for the whole page)
+// Start: use the link first, then the saved plan
 // =========================================================
 
-function setUpEvents() {
-  const main = document.getElementById("main");
-
-  main.addEventListener("click", (event) => {
-    const target = event.target.closest("button");
-    if (!target) return;
-
-    if (target.closest("#level-tabs") && target.dataset.level) chooseLevel(target.dataset.level);
-    else if (target.dataset.programme) chooseProgramme(target.dataset.programme);
-    else if (target.dataset.week) chooseWeek(Number(target.dataset.week));
-    else if (target.dataset.openDrill) openDrillModal(target.dataset.openDrill, target);
-    else if (target.dataset.done) markDone(target);
-    else if (target.dataset.undo) undoDone(target.dataset.undo);
-    else if (target.dataset.goLevel) {
-      chooseLevel(target.dataset.goLevel);
-      document.getElementById("step-1").scrollIntoView({ block: "start" });
-    } else if (target.id === "print-plan") window.print();
-    else if (target.classList.contains("accordion__button")) {
-      const panel = document.getElementById(target.getAttribute("aria-controls"));
-      const isOpen = target.getAttribute("aria-expanded") === "true";
-      target.setAttribute("aria-expanded", String(!isOpen));
-      panel.hidden = isOpen;
-    }
-  });
-
-  main.addEventListener("change", (event) => {
-    if (!event.target.matches("[data-check]")) return;
-    const saved = loadData(CHECKLIST_KEY, {});
-    saved[event.target.id] = event.target.checked;
-    saveData(CHECKLIST_KEY, saved);
-    updateChecklistCount();
-  });
-
-  // Arrow keys move between tabs (standard keyboard pattern for tabs)
-  main.addEventListener("keydown", (event) => {
-    if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
-    const tab = event.target.closest("[role=tab]");
-    if (!tab) return;
-    const tabs = [...tab.parentElement.querySelectorAll("[role=tab]")];
-    const index = tabs.indexOf(tab);
-    const next = tabs[(index + (event.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length];
-    next.click();
-    next.focus();
-  });
-}
-
-// =========================================================
-// Start
-// =========================================================
-
-function buildLevelTabs() {
-  document.getElementById("level-tabs").innerHTML = levelKeys.map((key) => `
-    <button class="tab" role="tab" type="button" id="tab-${key}" data-level="${key}"
-      aria-controls="level-info" aria-selected="false">${LEVELS[key].label}</button>`).join("");
-}
-
-function readURL() {
+function start() {
   const params = new URLSearchParams(window.location.search);
-  const level = params.get("level");
-  if (levelKeys.includes(level)) state.level = level;
-  const programmeId = params.get("programme");
-  if (currentLevel().programmes.some((p) => p.id === programmeId)) {
-    state.programmeId = programmeId;
-    const week = Number(params.get("week"));
-    if (week >= 1 && week <= 4) state.week = week;
+  const saved = loadData(PLAN_KEY, null);
+  const level = params.get("level") || (saved && saved.level);
+  const programmeId = params.get("programme") || (saved && saved.programmeId);
+
+  if (LEVELS[level]) {
+    state.level = level;
+    state.screen = "goal";
+    if (LEVELS[level].programmes.some((p) => p.id === programmeId)) {
+      state.programmeId = programmeId;
+      state.screen = "plan";
+    }
   }
+  render();
 }
 
-buildLevelTabs();
-readURL();
-setUpEvents();
-renderLevel();
+start();

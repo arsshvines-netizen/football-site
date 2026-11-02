@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>About | PITCHPATH</title>
-  <meta name="description" content="Meet Arssh Gupta, Mumbai City FC player and founder of PITCHPATH, structured football training for young players.">
+  <meta name="description" content="Meet Arssh Gupta: Mumbai City FC footballer, school team captain, national-level player and founder of PITCHPATH.">
   <link rel="icon" href="assets/img/logo-icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
@@ -22,19 +22,21 @@
   </noscript>
 
   <main id="main" tabindex="-1">
-    <!-- HERO: who I am -->
+    <!-- HERO -->
     <section class="about-hero on-dark" aria-labelledby="about-title">
       <div class="container about-hero__grid">
-        <div class="about-hero__text" data-reveal>
-          <span class="eyebrow">Founder</span>
-          <h1 id="about-title"><span class="founder-name">Arssh Gupta</span></h1>
-          <p class="lead">Footballer. Mumbai City FC. Founder of <span class="brand-name">PITCHPATH</span>.</p>
-          <p>I love football, and I play it seriously. I built <span class="brand-name">PITCHPATH</span> to give young players the structured training I wish every player had when they started.</p>
-          <div class="btn-row">
-            <a class="btn btn--primary" href="programmes.html">Train with my programmes</a>
+        <div class="about-hero__text">
+          <span class="eyebrow hero-in" style="--delay:0ms">Founder of <span class="brand-name">PITCHPATH</span></span>
+          <h1 id="about-title" class="hero-in" style="--delay:100ms"><span class="founder-name">Arssh Gupta</span></h1>
+          <p class="about-hero__roles hero-in" style="--delay:200ms">
+            <span>Captain</span><span>Club footballer</span><span>National-level player</span>
+          </p>
+          <p class="hero-in" style="--delay:300ms">I've been playing football for as long as I can remember. Today I play club football for Mumbai City FC, captain my school team, and I've played at the national level. <span class="brand-name">PITCHPATH</span> is everything I've learned along the way, turned into a plan any young player can follow.</p>
+          <div class="btn-row hero-in" style="--delay:400ms">
+            <a class="btn btn--primary btn--arrow" href="programmes.html">Train with my plans</a>
           </div>
         </div>
-        <div class="about-hero__photo" data-reveal>
+        <div class="about-hero__photo hero-in" style="--delay:250ms">
           <img src="assets/img/founder-portrait.jpg" alt="Arssh Gupta on the football pitch" width="600" height="640">
         </div>
       </div>
@@ -43,7 +45,7 @@
     <!-- HIGHLIGHTS -->
     <section class="section" aria-labelledby="career-title">
       <div class="container">
-        <h2 id="career-title" data-reveal>My football</h2>
+        <h2 id="career-title" data-reveal>Highlights</h2>
         <ul class="career">
           <li class="career__item" data-reveal>
             <span class="career__icon" aria-hidden="true">
@@ -51,61 +53,104 @@
             </span>
             <span class="career__label">Club</span>
             <span class="career__value">Mumbai City FC</span>
-            <span class="career__detail">My club</span>
+            <span class="career__detail">Training and playing at professional club level</span>
           </li>
           <li class="career__item" data-reveal>
             <span class="career__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48"><path d="M24 5l5.6 11.6 12.6 1.8-9.1 8.9 2.2 12.6L24 34l-11.3 5.9 2.2-12.6-9.1-8.9 12.6-1.8z" fill="#F26B21"/></svg>
+              <svg viewBox="0 0 48 48"><rect x="6" y="18" width="36" height="12" rx="3" fill="#F26B21"/><text x="24" y="28" text-anchor="middle" font-size="10" font-weight="900" fill="#0D1B2A" font-family="Arial, sans-serif">C</text></svg>
             </span>
-            <span class="career__label">Represented</span>
-            <span class="career__value">Mumbai</span>
-            <span class="career__detail">At the SGFI National Games</span>
+            <span class="career__label">Leadership</span>
+            <span class="career__value">School captain</span>
+            <span class="career__detail">Wearing the armband for my school team</span>
           </li>
           <li class="career__item" data-reveal>
             <span class="career__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="none" stroke="#0D1B2A" stroke-width="4"/><path d="M6 24h36M24 6c6 6 6 30 0 36M24 6c-6 6-6 30 0 36" fill="none" stroke="#0D1B2A" stroke-width="3"/></svg>
+              <svg viewBox="0 0 48 48"><path d="M24 5l5.6 11.6 12.6 1.8-9.1 8.9 2.2 12.6L24 34l-11.3 5.9 2.2-12.6-9.1-8.9 12.6-1.8z" fill="#FFC857" stroke="#0D1B2A" stroke-width="2"/></svg>
             </span>
-            <span class="career__label">Represented</span>
-            <span class="career__value">ISSO</span>
-            <span class="career__detail">At the SGFI National Games</span>
+            <span class="career__label">National level</span>
+            <span class="career__value">SGFI National Games</span>
+            <span class="career__detail">Represented Mumbai and ISSO</span>
           </li>
         </ul>
       </div>
     </section>
 
-    <!-- STORY -->
-    <section class="band band--dark on-dark" aria-labelledby="story-title">
-      <div class="container story">
+    <!-- JOURNEY TIMELINE -->
+    <section class="band band--dark on-dark" aria-labelledby="journey-title">
+      <div class="container">
+        <h2 id="journey-title" data-reveal>My journey</h2>
+        <ol class="journey">
+          <li class="journey__item" data-reveal>
+            <span class="journey__dot" aria-hidden="true">⚽</span>
+            <div>
+              <h3>It started with a ball</h3>
+              <p>Like most players, I started by kicking a ball around with friends whenever I could. I never wanted to stop, and I wanted to get better every single time.</p>
+            </div>
+          </li>
+          <li class="journey__item" data-reveal>
+            <span class="journey__dot" aria-hidden="true">©</span>
+            <div>
+              <h3>Captain of my school team</h3>
+              <p>Being made captain taught me that football is about more than my own game. It's about lifting the players around me, staying calm under pressure and leading by example.</p>
+            </div>
+          </li>
+          <li class="journey__item" data-reveal>
+            <span class="journey__dot" aria-hidden="true">🛡</span>
+            <div>
+              <h3>Mumbai City FC</h3>
+              <p>Club football raised the level: proper training plans, real tactical work, fitness and recovery done right. It showed me how much faster you improve when you train with structure.</p>
+            </div>
+          </li>
+          <li class="journey__item" data-reveal>
+            <span class="journey__dot" aria-hidden="true">★</span>
+            <div>
+              <h3>The national stage</h3>
+              <p>Representing Mumbai and ISSO at the SGFI National Games meant playing against some of the best young footballers in the country. Every match was a lesson.</p>
+            </div>
+          </li>
+          <li class="journey__item" data-reveal>
+            <span class="journey__dot journey__dot--now" aria-hidden="true">→</span>
+            <div>
+              <h3>Starting <span class="brand-name">PITCHPATH</span></h3>
+              <p>Along the way I saw so many talented young players who wanted to improve but had no plan. So I built one, and made it free to start.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- QUOTE + PHOTO -->
+    <section class="section" aria-labelledby="why-title">
+      <div class="container story story--light">
         <img class="story__photo" src="assets/img/founder-action.jpg" alt="Arssh wearing the number 9 shirt and captain's armband during a match" width="1200" height="800" loading="lazy" data-reveal>
         <div data-reveal>
-          <h2 id="story-title">Why I started <span class="brand-name">PITCHPATH</span></h2>
-          <p>Football has been a huge part of my life for years. Training at club level, I've been through a lot of different programmes, drills and fitness routines, and I've seen how much a clear plan helps a player improve.</p>
-          <p>But I noticed that many young players starting out don't have that. They want to get better, but they don't know what to practise, in what order, or what's right for their position.</p>
-          <p>So I built the plan I'd give them: structured programmes for every level, drills for every position, safe fitness and food advice, and a tracker to see the progress. And it's free to start.</p>
+          <h2 id="why-title">Why I built this</h2>
+          <blockquote class="big-quote">
+            <p>"Talent gets you noticed. A plan gets you better. I want every young player to have that plan, not just the ones at big academies."</p>
+          </blockquote>
+          <p>Everything on <span class="brand-name">PITCHPATH</span> comes from what has worked for me: training that builds week by week, drills made for your position, smart fitness, good food and rest, and keeping track of your progress so you can see how far you've come.</p>
         </div>
       </div>
     </section>
 
-    <!-- MISSION & VALUES -->
-    <section class="section" aria-labelledby="mission-title">
+    <!-- WHAT FOOTBALL TAUGHT ME -->
+    <section class="section" style="padding-top:0" aria-labelledby="taught-title">
       <div class="container">
-        <h2 id="mission-title" data-reveal>What we stand for</h2>
-        <p class="lead" data-reveal>Every young footballer deserves a clear plan to get better.</p>
-        <div class="grid grid--4 values">
-          <div class="card" data-reveal><h3>Structure</h3><p>Plans that build step by step, so you always know what's next.</p></div>
-          <div class="card card--orange" data-reveal><h3>Safety</h3><p>Age-appropriate training, real food and proper rest.</p></div>
-          <div class="card card--navy" data-reveal><h3>Effort</h3><p>Progress comes from showing up, again and again.</p></div>
-          <div class="card card--yellow" data-reveal><h3>For everyone</h3><p>Every position, every level, free to start.</p></div>
+        <h2 id="taught-title" data-reveal>What football taught me</h2>
+        <div class="grid grid--3">
+          <div class="card" data-reveal><h3>Show up every day</h3><p>Improvement doesn't come from one great session. It comes from many good ones, week after week.</p></div>
+          <div class="card card--orange" data-reveal><h3>Lead by example</h3><p>As captain, the way I train sets the tone. Work hard, stay positive, help your teammates.</p></div>
+          <div class="card card--navy" data-reveal><h3>Train smart, rest well</h3><p>The best players plan their training, look after their body and never train through pain.</p></div>
         </div>
       </div>
     </section>
 
     <section class="cta-band on-dark" aria-labelledby="about-cta">
       <div class="container cta-band__inner" data-reveal>
-        <h2 id="about-cta">Start your path today.</h2>
-        <p>Pick your level and follow the plan.</p>
+        <h2 id="about-cta">Ready to start your own path?</h2>
+        <p>Two quick questions and you'll have your 4-week plan.</p>
         <div class="btn-row" style="justify-content:center">
-          <a class="btn btn--primary" href="programmes.html">Start training free</a>
+          <a class="btn btn--primary btn--arrow" href="programmes.html">Get my plan</a>
           <a class="btn btn--outline" href="drills.html">Browse drills</a>
         </div>
       </div>

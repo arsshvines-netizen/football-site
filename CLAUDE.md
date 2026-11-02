@@ -26,10 +26,10 @@ Full spec: `website-spec.md`. Read it before big changes.
 - `docs/`: checklists and test results.
 
 ## Programmes page flow
-One page, three steps: level → programme → train (week tabs, session accordions). Drills open in the popup and warm-up/fitness exercises open inline, so players never leave the page. "Mark session as done" also saves the session to the tracker.
+A simple app, one screen at a time (programmes.js): 1) "What's your level?" 2) "What do you want to get better at?" 3) My plan (next session button, progress ring, 4x3 session grid, level-up checklist) 4) Session mode (one step at a time with a timer: warm-up, activities, cool-down) 5) Celebration (saved to tracker, effort pick). The chosen plan is remembered in localStorage (pitchpath-my-plan). Keep it simple: one question or one task per screen.
 
 ## Public vs creator content
-Public pages are customer-facing only. Brand kit, colours, marketing strategy and positioning belong in studio.html, not on About. About is the founder's football story (Arssh Gupta, Mumbai City FC; represented Mumbai and ISSO at the SGFI National Games).
+Public pages are customer-facing only. Brand kit, colours, marketing strategy and positioning belong in studio.html, not on About. About is the founder's football story (Arssh Gupta: Mumbai City FC club footballer, school team captain, represented Mumbai and ISSO at the SGFI National Games). Don't invent specific stats, dates or trophies.
 
 ## Business layer
 The site is presented as a real football training business (MYP project Criterion A learning goal: market research, value proposition, branding, pricing, marketing, customer engagement). Freemium model: Starter free; Plus and Team shown as 'Launching soon'. No payments and no data collection, so paid plans link to the Feedback page's market-research questions. Never invent testimonials or reviews.
