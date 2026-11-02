@@ -149,23 +149,85 @@ function onSubmit(event) {
   event.preventDefault();
   const form = event.target;
   const result = validate(form);
-  showErrors(form, result.errors);
   if (!result.ok) {
+    // Go back to the first step that has a missing answer
+    const badStep = steps.findIndex((step) => Object.keys(errorsInStep(result.errors, step)).length > 0);
+    showStep(badStep === -1 ? 0 : badStep);
+    showErrors(form, errorsInStep(result.errors, steps[stepIndex]));
     showMessage("Some answers are missing. Please check the highlighted questions.", "error");
     return;
   }
+  showErrors(form, {});
   responses.push(result.response);
   if (!persist()) {
     showMessage("Sorry, this browser couldn't save the response.", "error");
     return;
   }
   form.reset();
-  showMessage(`Thank you, ${result.response.testerCode}! Your response is saved on this device.`);
+  showStep(0);
+  showMessage(`Thank you, ${result.response.testerCode}! Your response is saved on this device. The form is ready for the next tester.`);
   document.getElementById("feedback-message").scrollIntoView({ block: "center" });
 }
 
 // ---------- Start ----------
 
+// ---------- Step-by-step form ----------
+// Only one part of the form shows at a time. "Next" checks the
+// answers on the current step before moving on.
+
+const form = document.getElementById("feedback-form");
+const steps = [...form.querySelectorAll(".form-section")];
+const backButton = document.getElementById("step-back");
+const nextButton = document.getElementById("step-next");
+const saveButton = document.getElementById("step-save");
+let stepIndex = 0;
+
+// Keep only the errors for fields that are inside one step
+function errorsInStep(errors, step) {
+  return Object.fromEntries(Object.entries(errors).filter(([field]) => step.querySelector(`[name="${field}"]`)));
+}
+
+function showStep(index, moveFocus = false) {
+  stepIndex = index;
+  steps.forEach((step, i) => { step.hidden = i !== index; });
+  const title = steps[index].querySelector("h2");
+  document.getElementById("step-count").textContent = `Step ${index + 1} of ${steps.length}: ${title.textContent}`;
+  document.querySelectorAll("#step-dots li").forEach((dot, i) => {
+    dot.classList.toggle("is-done", i < index);
+    dot.classList.toggle("is-current", i === index);
+  });
+  backButton.hidden = index === 0;
+  nextButton.hidden = index === steps.length - 1;
+  saveButton.hidden = index !== steps.length - 1;
+  if (moveFocus) title.focus();
+}
+
+function setUpStepper() {
+  document.getElementById("step-dots").innerHTML = steps
+    .map((step) => `<li><span></span>${step.querySelector("h2").textContent.replace(/\(optional\)/i, "").trim()}</li>`)
+    .join("");
+  steps.forEach((step) => { step.querySelector("h2").tabIndex = -1; });
+
+  nextButton.addEventListener("click", () => {
+    const stepErrors = errorsInStep(validate(form).errors, steps[stepIndex]);
+    showErrors(form, stepErrors);
+    if (Object.keys(stepErrors).length > 0) {
+      showMessage("Please answer the highlighted questions first.", "error");
+      return;
+    }
+    showMessage("");
+    showStep(stepIndex + 1, true);
+    form.scrollIntoView({ block: "start" });
+  });
+  backButton.addEventListener("click", () => {
+    showMessage("");
+    showStep(stepIndex - 1, true);
+    form.scrollIntoView({ block: "start" });
+  });
+  showStep(0);
+}
+
 buildForm();
+setUpStepper();
 if (!storageWorks) showMessage("This browser can't save data (storage is off). Responses won't be kept.", "error");
 document.getElementById("feedback-form").addEventListener("submit", onSubmit);

@@ -23,6 +23,7 @@ Brand kit evidence: screenshot the **Brand kit** section on `about.html`.
 | nutrition.html | | | | | |
 | tracker.html | | | | | |
 | plans.html | | | | | |
+| studio.html (creator only) | | | | | |
 | about.html | | | | | |
 | feedback.html | | | | | |
 | sources.html | | | | | |
@@ -53,6 +54,21 @@ Calculated with the WCAG relative-luminance formula.
 | Yellow on light navy (position picker) | #FFC857 | #1B2D40 | 9.13:1 | PASS |
 | Off-white on light navy | #F7F9FA | #1B2D40 | 13.29:1 | PASS |
 | Navy on green tint (empty states) | #0D1B2A | #E6F2ED | 15.15:1 | PASS |
+
+### Pairs added in version 5 (footer, tabs, drills, nutrition, quiz)
+| Pair | Text | Background | Ratio | Result |
+|---|---|---|---|---|
+| White text on footer card (light stripe) | #FFFFFF | #0D7655 | 5.62:1 | PASS |
+| White text on footer card (dark stripe) | #FFFFFF | #0B6E4F | 6.25:1 | PASS |
+| Grey text on footer bottom bar | #B8C4CF | #091421 | 10.44:1 | PASS |
+| Yellow "Safety" label on footer bottom bar | #FFC857 | #091421 | 12.04:1 | PASS |
+| Yellow selected tab / chip on navy | #FFC857 | #0D1B2A | 11.31:1 | PASS |
+| Dark green level switch text on tint | #08573E | #E6F2ED | 7.49:1 | PASS |
+| White hero chips on darkened green | #FFFFFF | #0C5142 | 9.25:1 | PASS |
+| Deep orange meal / quiz labels on white | #B8460C | #FFFFFF | 5.36:1 | PASS |
+| Dark green "Fact" label on white | #08573E | #FFFFFF | 8.60:1 | PASS |
+| Navy on orange area tile | #0D1B2A | #F26B21 | 5.72:1 | PASS |
+| Navy on current warm-up move | #0D1B2A | #FFF6EF | 16.30:1 | PASS |
 
 ### Pairs that FAIL, so the site never uses them for text
 | Pair | Ratio | What we do instead |

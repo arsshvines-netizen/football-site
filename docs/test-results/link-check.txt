@@ -1,2 +1,2 @@
-Checked 327 internal links and file references.
-PASS: no broken links, no missing files, nothing loaded from the internet.
+Checked 339 internal links and file references.
+PASS: no broken links, no missing files, nothing loaded from the internet, no duplicate animation names.

@@ -4,11 +4,11 @@
 
 | Task | Expected route | Expected clicks |
 |---|---|---|
-| 1. Find a winger programme | Programmes → "Position add-ons" → Winger add-on (or Home → Winger) | 1-2 |
+| 1. Find a winger programme | Home "Pick your position" → Winger (or Drills → Winger chip) | 1-2 |
 | 2. Find nutrition guidance | Nutrition (menu) | 1 |
 | 3. Open the progress tracker | Tracker (menu) or "Track My Progress" button | 1 |
 | 4. Find a defender drill | Home "Pick your position" → Defender → a drill | 2 |
-| 5. Find the warm-up | Fitness → "Warm-up" | 1-2 |
+| 5. Find the warm-up | Fitness (the Warm-up tab opens first) | 1 |
 
 ## Results
 

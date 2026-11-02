@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Fitness | PITCHPATH</title>
-  <meta name="description" content="Safe, bodyweight football fitness for young players: warm-up, speed, strength, endurance, recovery and injury prevention.">
+  <meta name="description" content="Safe, bodyweight football fitness for young players: warm-up, speed, strength, stamina, recovery and injury prevention.">
   <link rel="icon" href="assets/img/logo-icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
@@ -24,131 +24,175 @@
 
   <main id="main" tabindex="-1">
     <section class="page-hero">
-      <div class="container">
-        <span class="eyebrow">Fitness</span>
-        <h1>Fit for football</h1>
-        <p>Safe fitness for players aged 12-15. Everything here uses your own bodyweight: <strong>no heavy weights and no maximal lifting.</strong> Good technique always comes first.</p>
-        <nav aria-label="On this page">
-          <ul class="toc">
-            <li><a href="#why">Why it matters</a></li>
-            <li><a href="#warm-up">Warm-up</a></li>
-            <li><a href="#speed">Speed</a></li>
-            <li><a href="#strength">Strength</a></li>
-            <li><a href="#endurance">Endurance</a></li>
-            <li><a href="#mobility">Cool-down</a></li>
-            <li><a href="#recovery">Rest and sleep</a></li>
-            <li><a href="#safety">Safety</a></li>
-            <li><a href="#schedule">Weekly plan</a></li>
+      <div class="container page-hero__grid">
+        <div>
+          <span class="eyebrow">Fitness</span>
+          <h1>Fit for football</h1>
+          <p>Run all game, win the race to the ball and stay strong. Safe fitness for ages 12-15, using your own bodyweight only.</p>
+          <ul class="hero-chips">
+            <li>Bodyweight only</li>
+            <li>Warm up every time</li>
+            <li>1-2 rest days a week</li>
           </ul>
-        </nav>
+        </div>
+        <!-- Animated illustration: a runner and a stopwatch -->
+        <svg class="hero-art" viewBox="0 0 360 260" aria-hidden="true" focusable="false">
+          <circle cx="190" cy="130" r="118" fill="#08573E"/>
+          <g class="speed-lines" stroke="#F7F9FA" stroke-width="6" stroke-linecap="round" opacity="0.6">
+            <line x1="150" y1="96" x2="196" y2="96"/>
+            <line x1="138" y1="126" x2="190" y2="126"/>
+            <line x1="156" y1="156" x2="198" y2="156"/>
+          </g>
+          <g class="stopwatch">
+            <rect x="96" y="44" width="28" height="14" rx="4" fill="#0D1B2A"/>
+            <circle cx="110" cy="120" r="60" fill="#F7F9FA" stroke="#0D1B2A" stroke-width="8"/>
+            <g stroke="#0D1B2A" stroke-width="4" stroke-linecap="round">
+              <line x1="110" y1="70" x2="110" y2="80"/><line x1="160" y1="120" x2="150" y2="120"/>
+              <line x1="110" y1="170" x2="110" y2="160"/><line x1="60" y1="120" x2="70" y2="120"/>
+            </g>
+            <path d="M110 120 L110 76 A44 44 0 0 1 148 98 Z" fill="#FFC857" opacity="0.7" class="sw-fill"/>
+            <line class="sw-hand" x1="110" y1="120" x2="110" y2="78" stroke="#F26B21" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="110" cy="120" r="6" fill="#0D1B2A"/>
+          </g>
+          <g class="runner" fill="none" stroke="#FFC857" stroke-linecap="round" stroke-linejoin="round">
+            <polyline class="leg-back" points="246,150 226,180 204,186" stroke-width="13"/>
+            <polyline class="arm-back" points="258,100 240,118 252,136" stroke-width="11"/>
+            <line x1="258" y1="98" x2="246" y2="150" stroke-width="17"/>
+            <polyline class="leg-front" points="246,150 270,176 264,210" stroke-width="13"/>
+            <polyline class="arm-front" points="258,100 280,114 296,100" stroke-width="11"/>
+            <circle cx="266" cy="76" r="15" fill="#FFC857" stroke="none"/>
+          </g>
+          <line class="ground" x1="180" y1="222" x2="330" y2="222" stroke="#F7F9FA" stroke-width="4" stroke-dasharray="14 12" stroke-linecap="round" opacity="0.5"/>
+        </svg>
       </div>
     </section>
 
-    <div class="container">
-      <section class="content-section" id="why" aria-labelledby="why-title">
-        <h2 id="why-title">Why fitness matters in football</h2>
-        <div class="grid grid--3">
-          <div class="card"><h3>Run all game</h3><p>A match has lots of short sprints, jogging and walking. Stamina helps you keep playing well until the final whistle.</p></div>
-          <div class="card card--orange"><h3>Win the race</h3><p>Being quick over the first few steps helps you get to the ball first, attack space and recover when you lose it.</p></div>
-          <div class="card card--navy"><h3>Stay strong and safe</h3><p>Strong legs and core help you hold off players, keep your balance and lower your chance of getting injured.</p></div>
+    <div class="container section--tight">
+      <div class="tabset" data-tabs>
+        <div class="tabset__list" role="tablist" aria-label="Fitness topics">
+          <button type="button" role="tab" aria-controls="warm-up"><span class="tab-icon" aria-hidden="true">🔥</span>Warm-up</button>
+          <button type="button" role="tab" aria-controls="speed"><span class="tab-icon" aria-hidden="true">⚡</span>Speed</button>
+          <button type="button" role="tab" aria-controls="strength"><span class="tab-icon" aria-hidden="true">💪</span>Strength</button>
+          <button type="button" role="tab" aria-controls="endurance"><span class="tab-icon" aria-hidden="true">🏃</span>Stamina</button>
+          <button type="button" role="tab" aria-controls="recovery"><span class="tab-icon" aria-hidden="true">😴</span>Recovery</button>
+          <button type="button" role="tab" aria-controls="safety"><span class="tab-icon" aria-hidden="true">🛡️</span>Safety</button>
+          <button type="button" role="tab" aria-controls="schedule"><span class="tab-icon" aria-hidden="true">📅</span>Week plan</button>
         </div>
-      </section>
 
-      <section class="content-section" id="warm-up" aria-labelledby="warmup-title">
-        <h2 id="warmup-title">Warm-up routine</h2>
-        <p>Do this before <strong>every</strong> session and match. It gets your muscles warm and ready, and helps prevent injuries. Total time: <strong id="warmup-total">10:00</strong>.</p>
-        <div class="warmup-layout">
-          <ol id="warmup-list"></ol>
-          <div class="timer on-dark" aria-labelledby="timer-title">
-            <h3 id="timer-title" class="visually-hidden">Warm-up timer</h3>
-            <p id="timer-step" class="muted" style="color:var(--text-muted-on-dark)">Step 1</p>
-            <p class="timer__name" id="timer-name">Easy jog</p>
-            <p class="timer__clock" id="timer-clock" aria-hidden="true">2:00</p>
-            <div class="timer__track" aria-hidden="true"><div class="timer__bar" id="timer-bar"></div></div>
-            <p class="timer__how" id="timer-how"></p>
-            <p id="timer-next" style="color:var(--color-accent);font-weight:700"></p>
-            <div class="btn-row">
-              <button type="button" class="btn btn--primary" id="timer-start">Start warm-up</button>
-              <button type="button" class="btn btn--outline" id="timer-pause">Pause</button>
-              <button type="button" class="btn btn--outline" id="timer-reset">Reset</button>
+        <!-- WARM-UP -->
+        <section id="warm-up">
+          <h2 class="panel-title">Warm-up</h2>
+          <p class="panel-intro">Do this before <strong>every</strong> session and match. It warms your muscles and helps prevent injuries. It takes <strong id="warmup-total">10:00</strong>. Press start and follow along.</p>
+          <div class="warmup-layout">
+            <div class="timer on-dark" aria-labelledby="timer-title">
+              <h3 id="timer-title" class="visually-hidden">Warm-up timer</h3>
+              <p id="timer-step" class="timer__step">Step 1</p>
+              <svg class="timer__ring" viewBox="0 0 120 120" aria-hidden="true">
+                <circle cx="60" cy="60" r="52" fill="none" stroke="#1B2D40" stroke-width="10"/>
+                <circle id="timer-ring" cx="60" cy="60" r="52" fill="none" stroke="#F26B21" stroke-width="10" stroke-linecap="round"
+                  stroke-dasharray="326.7" stroke-dashoffset="326.7" transform="rotate(-90 60 60)"/>
+              </svg>
+              <p class="timer__clock" id="timer-clock" aria-hidden="true">2:00</p>
+              <p class="timer__name" id="timer-name">Easy jog</p>
+              <p class="timer__how" id="timer-how"></p>
+              <p class="timer__next" id="timer-next"></p>
+              <div class="timer__track" aria-hidden="true"><div class="timer__bar" id="timer-bar"></div></div>
+              <div class="btn-row">
+                <button type="button" class="btn btn--primary" id="timer-start">Start warm-up</button>
+                <button type="button" class="btn btn--outline" id="timer-pause">Pause</button>
+                <button type="button" class="btn btn--outline" id="timer-reset">Reset</button>
+              </div>
+              <p class="visually-hidden" id="timer-announce" aria-live="polite"></p>
             </div>
-            <p class="visually-hidden" id="timer-announce" aria-live="polite"></p>
+            <ol class="move-list" id="warmup-list"></ol>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section class="content-section" id="speed" aria-labelledby="speed-title">
-        <h2 id="speed-title">Speed and agility</h2>
-        <p>Speed work only helps when you are fresh. Do it near the <strong>start</strong> of a session (after the warm-up), keep sprints short, and rest fully between each one. If you are slowing down, stop.</p>
-        <ul id="speed-list"></ul>
-      </section>
+        <!-- SPEED -->
+        <section id="speed" hidden>
+          <h2 class="panel-title">Speed and agility</h2>
+          <p class="panel-intro">Do speed work near the <strong>start</strong> of a session, straight after the warm-up. Keep sprints short and rest fully. If you're slowing down, stop.</p>
+          <div class="tile-grid" id="speed-list"></div>
+        </section>
 
-      <section class="content-section" id="strength" aria-labelledby="strength-title">
-        <h2 id="strength-title">Strength and stability</h2>
-        <p>Start with the beginner version. Only move on when you can do every rep with perfect form. Rest 60 seconds between sets. 2 strength sessions a week is plenty.</p>
-        <div class="table-wrap">
-          <table class="stack-table strength-table">
-            <caption class="visually-hidden">Strength exercises with beginner, intermediate and advanced versions</caption>
-            <thead><tr><th scope="col">Exercise</th><th scope="col">Beginner</th><th scope="col">Intermediate</th><th scope="col">Advanced</th></tr></thead>
-            <tbody id="strength-body"></tbody>
-          </table>
-        </div>
-        <p class="notice">Strength training with your own bodyweight is a normal, safe part of training for young people <strong>when the technique is good</strong>. Ask a coach to check your form, especially when you try a new exercise.</p>
-      </section>
-
-      <section class="content-section" id="endurance" aria-labelledby="endurance-title">
-        <h2 id="endurance-title">Endurance</h2>
-        <p>Football is a stop-start game, so <strong>intervals</strong> (hard, then easy, then hard again) are better than long slow runs. Small-sided games (like 3v3 or 4v4) are a great way to build stamina with the ball.</p>
-        <div class="grid grid--3" id="endurance-cards"></div>
-      </section>
-
-      <section class="content-section" id="mobility" aria-labelledby="mobility-title">
-        <h2 id="mobility-title">Mobility and cool-down</h2>
-        <p>After training, walk or jog easily for 2-3 minutes, then stretch gently. Never bounce, and never stretch into pain. You should only feel a mild pull.</p>
-        <ul id="mobility-list"></ul>
-      </section>
-
-      <section class="content-section" id="recovery" aria-labelledby="recovery-title">
-        <h2 id="recovery-title">Rest, sleep and recovery</h2>
-        <div class="grid grid--3">
-          <div class="card">
-            <h3>Rest days</h3>
-            <p>Your body gets stronger <em>between</em> sessions, not during them. Have at least 1-2 full rest days every week, and never train hard the day before a match.</p>
+        <!-- STRENGTH -->
+        <section id="strength" hidden>
+          <h2 class="panel-title">Strength and stability</h2>
+          <p class="panel-intro">Pick your level. Only move up when every rep has perfect form. Rest 60 seconds between sets. Two strength sessions a week is plenty.</p>
+          <div class="switch" role="group" aria-label="Choose your level" id="strength-level">
+            <button type="button" data-value="beginner" aria-pressed="true">Beginner</button>
+            <button type="button" data-value="intermediate" aria-pressed="false">Intermediate</button>
+            <button type="button" data-value="advanced" aria-pressed="false">Advanced</button>
           </div>
-          <div class="card card--navy">
-            <h3>Sleep</h3>
-            <p>Sleep experts recommend <strong>9-12 hours</strong> a night for 12-year-olds and <strong>8-10 hours</strong> for 13-18 year-olds. Put screens away before bed and try to sleep at the same time each night.</p>
+          <div class="tile-grid" id="strength-list" aria-live="polite"></div>
+          <p class="notice" style="margin-top:var(--space-4)">Bodyweight strength training is a normal, safe part of training for young people <strong>when the technique is good</strong>. Ask a coach to check your form when you try a new exercise.</p>
+        </section>
+
+        <!-- STAMINA -->
+        <section id="endurance" hidden>
+          <h2 class="panel-title">Stamina</h2>
+          <p class="panel-intro">Football is stop-start, so <strong>intervals</strong> (hard, easy, hard again) work better than long slow runs. Small-sided games like 3v3 or 4v4 build stamina with the ball.</p>
+          <div class="tile-grid" id="endurance-cards"></div>
+        </section>
+
+        <!-- RECOVERY -->
+        <section id="recovery" hidden>
+          <h2 class="panel-title">Rest, sleep and cool-down</h2>
+          <div class="tile-grid">
+            <div class="tile">
+              <span class="tile__icon" aria-hidden="true">🗓️</span>
+              <h3>Rest days</h3>
+              <p>Your body gets stronger <em>between</em> sessions. Have 1-2 full rest days a week, and never train hard the day before a match.</p>
+            </div>
+            <div class="tile tile--navy">
+              <span class="tile__icon" aria-hidden="true">🌙</span>
+              <h3>Sleep</h3>
+              <div class="sleep-bars">
+                <p><span>Age 12</span><span class="sleep-bar" style="--from:9;--to:12"></span><strong>9-12 hours</strong></p>
+                <p><span>Ages 13-15</span><span class="sleep-bar" style="--from:8;--to:10"></span><strong>8-10 hours</strong></p>
+              </div>
+              <p>Screens away before bed, and try to sleep at the same time each night.</p>
+            </div>
+            <div class="tile tile--orange">
+              <span class="tile__icon" aria-hidden="true">👂</span>
+              <h3>Listen to your body</h3>
+              <p>Very tired, sore for days or not enjoying football? You may need more rest. Tell your coach or parent and take an easier week.</p>
+            </div>
           </div>
-          <div class="card card--orange">
-            <h3>Listen to your body</h3>
-            <p>Feeling very tired, sore for days, grumpy or not enjoying football? These can be signs you need more rest. Tell your coach or parent and take an easier week.</p>
+          <h3 class="sub-title" id="mobility">After every session: cool-down</h3>
+          <p>Walk or jog easily for 2-3 minutes, then stretch gently. Never bounce, and never stretch into pain.</p>
+          <ul class="move-list move-list--compact" id="mobility-list"></ul>
+        </section>
+
+        <!-- SAFETY -->
+        <section id="safety" hidden>
+          <h2 class="panel-title">Stay safe: the golden rules</h2>
+          <div class="tile-grid">
+            <div class="tile"><span class="tile__icon" aria-hidden="true">🔥</span><h3>Always warm up</h3><p>Before every training session and match.</p></div>
+            <div class="tile tile--orange"><span class="tile__icon" aria-hidden="true">✋</span><h3>Stop if it hurts</h3><p>Never train through pain. Being tired is normal; sharp pain is not.</p></div>
+            <div class="tile tile--navy"><span class="tile__icon" aria-hidden="true">🌱</span><h3>Safe surfaces</h3><p>Check for holes, glass, wet or icy patches, and wear the right boots.</p></div>
+            <div class="tile tile--yellow"><span class="tile__icon" aria-hidden="true">💧</span><h3>Drink water</h3><p>Before, during and after training.</p></div>
+            <div class="tile"><span class="tile__icon" aria-hidden="true">🗣️</span><h3>Tell an adult</h3><p>Tell a coach or parent if you feel unwell, dizzy or injured.</p></div>
+            <div class="tile tile--orange"><span class="tile__icon" aria-hidden="true">🩺</span><h3>See a doctor</h3><p>If pain lasts more than a few days, keeps coming back, or there is swelling.</p></div>
+            <div class="tile tile--navy"><span class="tile__icon" aria-hidden="true">📈</span><h3>Build up slowly</h3><p>Don't suddenly double how much you train. Growing bodies need time.</p></div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section class="content-section" id="safety" aria-labelledby="safety-title">
-        <h2 id="safety-title">Injury prevention and safety</h2>
-        <div class="safety-box">
-          <h3>Golden rules</h3>
-          <ul>
-            <li><strong>Always warm up</strong> before training and matches.</li>
-            <li><strong>Stop if there is pain.</strong> Never train through pain. Being a bit tired is normal; sharp pain is not.</li>
-            <li><strong>Train on safe surfaces:</strong> check for holes, glass, wet or icy patches, and use the right boots.</li>
-            <li><strong>Drink water</strong> before, during and after training.</li>
-            <li><strong>Tell a coach or parent</strong> if you feel unwell, dizzy or injured.</li>
-            <li><strong>See a doctor</strong> if pain lasts more than a few days, keeps coming back, or there is swelling.</li>
-            <li><strong>Build up slowly.</strong> Don't suddenly double how much you train. Growing bodies need time.</li>
-          </ul>
-        </div>
-      </section>
+        <!-- WEEK PLAN -->
+        <section id="schedule" hidden>
+          <h2 class="panel-title">An example week</h2>
+          <p class="panel-intro">How training fits around school and club. Every week includes rest. Adjust it with your coach or parents.</p>
+          <div class="switch" role="group" aria-label="Choose your level" id="schedule-level">
+            <button type="button" data-value="Beginner" aria-pressed="true">Beginner</button>
+            <button type="button" data-value="Intermediate" aria-pressed="false">Intermediate</button>
+            <button type="button" data-value="Advanced" aria-pressed="false">Advanced</button>
+          </div>
+          <p class="muted" id="schedule-note"></p>
+          <ol class="week-strip" id="schedule-days" aria-live="polite"></ol>
+        </section>
+      </div>
 
-      <section class="content-section" id="schedule" aria-labelledby="schedule-title">
-        <h2 id="schedule-title">Weekly schedule examples</h2>
-        <p>These examples fit around school and club training. Every week includes rest. Pick the one closest to your life and adjust it with your coach or parents.</p>
-        <div class="schedules" id="schedules"></div>
-      </section>
-
-      <p class="notice notice--warning" style="margin-top:var(--space-5)"><span class="brand-disclaimer"></span> Information sources are on the <a href="sources.html">Sources page</a>.</p>
+      <p class="page-note">Based on guidance from health organisations and youth sport research. <a href="sources.html">See our sources</a>.</p>
     </div>
   </main>
 

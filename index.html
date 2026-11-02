@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="assets/css/pages.css">
   <script type="module" src="assets/js/layout.js"></script>
   <script type="module" src="assets/js/plans.js"></script>
+  <script type="module" src="assets/js/quiz.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -84,28 +85,15 @@
       </div>
     </div>
 
-    <!-- HOW IT WORKS -->
-    <section class="section" aria-labelledby="how-title">
+    <!-- HOW IT WORKS: three quick steps -->
+    <section class="section section--compact" aria-labelledby="how-title">
       <div class="container">
         <h2 id="how-title" data-reveal>How it works</h2>
-        <ol class="steps grid grid--3">
-          <li class="card step" data-reveal>
-            <span class="step__number" aria-hidden="true">1</span>
-            <h3>Choose your level</h3>
-            <p>Beginner, Intermediate or Advanced. Each level tells you who it's for and what you need before you start.</p>
-          </li>
-          <li class="card card--orange step" data-reveal>
-            <span class="step__number" aria-hidden="true">2</span>
-            <h3>Pick a programme</h3>
-            <p>Technical skills, game understanding or physical development: 4 weeks, 3 sessions a week.</p>
-          </li>
-          <li class="card card--navy step" data-reveal>
-            <span class="step__number" aria-hidden="true">3</span>
-            <h3>Train and track</h3>
-            <p>Tick off each session as you go. It's saved in your tracker so you can watch yourself improve.</p>
-          </li>
+        <ol class="how-steps" data-in-view>
+          <li data-reveal><span class="how-steps__num" aria-hidden="true">1</span><strong>Choose your level</strong><span>Beginner, Intermediate or Advanced</span></li>
+          <li data-reveal><span class="how-steps__num" aria-hidden="true">2</span><strong>Pick a programme</strong><span>Ball skills, game smarts or fitness</span></li>
+          <li data-reveal><span class="how-steps__num" aria-hidden="true">3</span><strong>Train and track</strong><span>Tick off sessions and watch yourself improve</span></li>
         </ol>
-        <div class="btn-row" data-reveal><a class="btn btn--primary btn--arrow" href="programmes.html">Choose your level</a></div>
       </div>
     </section>
 
@@ -113,32 +101,12 @@
     <section class="band band--tint" aria-labelledby="areas-title">
       <div class="container">
         <h2 id="areas-title" data-reveal>Everything you need</h2>
-        <ul class="grid grid--5 area-grid">
-          <li class="card card--link" data-reveal>
-            <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="5" y="6" width="22" height="22" rx="3" fill="none" stroke="#0B6E4F" stroke-width="3"/><line x1="5" y1="12" x2="27" y2="12" stroke="#0B6E4F" stroke-width="3"/><line x1="11" y1="3" x2="11" y2="8" stroke="#0B6E4F" stroke-width="3"/><line x1="21" y1="3" x2="21" y2="8" stroke="#0B6E4F" stroke-width="3"/><path d="M10 20l3 3 7-7" fill="none" stroke="#B8460C" stroke-width="3"/></svg></span>
-            <h3><a href="programmes.html">Programmes</a></h3>
-            <p>4-week plans for 3 levels, getting harder step by step.</p>
-          </li>
-          <li class="card card--link card--orange" data-reveal>
-            <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><polygon points="9,6 3,26 15,26" fill="#F26B21" stroke="#0D1B2A" stroke-width="1.5"/><polygon points="23,6 17,26 29,26" fill="#F26B21" stroke="#0D1B2A" stroke-width="1.5"/></svg></span>
-            <h3><a href="drills.html">Position drills</a></h3>
-            <p>40 drills for keepers, defenders, midfielders, wingers and strikers.</p>
-          </li>
-          <li class="card card--link card--navy" data-reveal>
-            <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M18 2L6 18h9l-2 12 12-17h-9z" fill="#FFC857" stroke="#0D1B2A" stroke-width="2" stroke-linejoin="round"/></svg></span>
-            <h3><a href="fitness.html">Fitness</a></h3>
-            <p>Warm-ups, speed, strength and recovery, safe for your age.</p>
-          </li>
-          <li class="card card--link card--yellow" data-reveal>
-            <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 9c-4-3-11-1-11 7 0 7 5 13 8 13 1.5 0 2-1 3-1s1.5 1 3 1c3 0 8-6 8-13 0-8-7-10-11-7z" fill="#0B6E4F"/><path d="M16 9c0-3 2-6 5-6" fill="none" stroke="#0D1B2A" stroke-width="2.5"/></svg></span>
-            <h3><a href="nutrition.html">Nutrition</a></h3>
-            <p>Simple food and drink advice to fuel training and growing.</p>
-          </li>
-          <li class="card card--link" data-reveal>
-            <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="4" y="18" width="5" height="10" fill="#0B6E4F"/><rect x="13" y="12" width="5" height="16" fill="#0B6E4F"/><rect x="22" y="6" width="5" height="22" fill="#0B6E4F"/><path d="M4 12L13 7l6 3 9-7" fill="none" stroke="#B8460C" stroke-width="2.5"/></svg></span>
-            <h3><a href="tracker.html">Progress tracker</a></h3>
-            <p>Log sessions, earn badges and see your progress in charts.</p>
-          </li>
+        <ul class="area-tiles">
+          <li data-reveal><a class="area-tile area-tile--green" href="programmes.html"><span class="area-tile__icon" aria-hidden="true">📋</span><span class="area-tile__title">Programmes</span><span class="area-tile__text">4-week plans for 3 levels</span></a></li>
+          <li data-reveal><a class="area-tile area-tile--orange" href="drills.html"><span class="area-tile__icon" aria-hidden="true">🎯</span><span class="area-tile__title">Drills</span><span class="area-tile__text">40 drills for 5 positions</span></a></li>
+          <li data-reveal><a class="area-tile area-tile--navy" href="fitness.html"><span class="area-tile__icon" aria-hidden="true">⚡</span><span class="area-tile__title">Fitness</span><span class="area-tile__text">Warm-ups, speed and strength</span></a></li>
+          <li data-reveal><a class="area-tile area-tile--yellow" href="nutrition.html"><span class="area-tile__icon" aria-hidden="true">🥗</span><span class="area-tile__title">Nutrition</span><span class="area-tile__text">Food and drink that fuels you</span></a></li>
+          <li data-reveal><a class="area-tile area-tile--white" href="tracker.html"><span class="area-tile__icon" aria-hidden="true">📈</span><span class="area-tile__title">Tracker</span><span class="area-tile__text">Log sessions, earn badges</span></a></li>
         </ul>
       </div>
     </section>
@@ -171,6 +139,7 @@
               Striker
             </a>
           </nav>
+          <p class="quiz-cta">Not sure where you play best? <button type="button" class="btn btn--primary btn--small" data-open-quiz>Take the 30-second quiz</button></p>
         </div>
       </div>
     </section>
@@ -201,36 +170,20 @@
       </div>
     </section>
 
-    <!-- PLANS -->
-    <section class="section" aria-labelledby="home-plans-title" style="padding-top:0">
+    <!-- PLANS (one slim banner) -->
+    <section class="section section--compact" aria-labelledby="home-plans-title">
       <div class="container">
-        <h2 id="home-plans-title" data-reveal>Start free. Upgrade when you're ready.</h2>
-        <div class="plans" id="plans-grid"></div>
-        <p style="margin-top:var(--space-3)"><a href="plans.html">Compare plans →</a></p>
-      </div>
-    </section>
-
-    <!-- FINAL CALL TO ACTION -->
-    <section class="cta-band on-dark" aria-labelledby="cta-title">
-      <div class="container cta-band__inner" data-reveal>
-        <h2 id="cta-title">Your path starts with one session.</h2>
-        <p>Pick your level, follow the plan, track your progress.</p>
-        <div class="btn-row" style="justify-content:center">
-          <a class="btn btn--primary btn--arrow" href="programmes.html">Start training free</a>
-          <a class="btn btn--outline" href="drills.html">Browse drills</a>
+        <div class="plans-banner" data-reveal>
+          <div>
+            <h2 id="home-plans-title">Free to start. Always.</h2>
+            <p>Every programme, drill and guide is free. <strong>Plus</strong> (personal plans and video feedback) and <strong>Team</strong> (for coaches) are coming soon.</p>
+          </div>
+          <a class="btn btn--outline btn--arrow" href="plans.html">Compare plans</a>
         </div>
       </div>
     </section>
 
-    <!-- DISCLAIMER STRIP -->
-    <section class="disclaimer" aria-label="Safety reminder">
-      <div class="container">
-        <p>
-          <svg viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="12" fill="#0D1B2A"/><rect x="12.5" y="7" width="3" height="10" fill="#FFC857"/><rect x="12.5" y="19" width="3" height="3" fill="#FFC857"/></svg>
-          <span><strong>Safety first:</strong> <span class="brand-disclaimer">This website gives general training information for young players. It is not medical advice.</span></span>
-        </p>
-      </div>
-    </section>
+
   </main>
 
   <div id="site-footer"></div>

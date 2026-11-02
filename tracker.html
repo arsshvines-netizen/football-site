@@ -25,23 +25,52 @@
 
   <main id="main" tabindex="-1">
     <section class="page-hero">
-      <div class="container">
-        <span class="eyebrow">Progress tracker</span>
-        <h1>Track your progress</h1>
-        <p id="welcome">Log your sessions, rate your skills and watch yourself improve.</p>
-        <p class="privacy-note">
-          <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="6" y="14" width="20" height="15" rx="3" fill="#FFC857"/><path d="M10 14V10a6 6 0 0 1 12 0v4" fill="none" stroke="#FFC857" stroke-width="3"/></svg>
-          Your data stays on this device in your browser. Nothing is sent anywhere.
-        </p>
+      <div class="container page-hero__grid">
+        <div>
+          <span class="eyebrow">Progress tracker</span>
+          <h1>Track your progress</h1>
+          <p id="welcome">Log your sessions, rate your skills and watch yourself improve.</p>
+          <p class="privacy-note">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="6" y="14" width="20" height="15" rx="3" fill="#FFC857"/><path d="M10 14V10a6 6 0 0 1 12 0v4" fill="none" stroke="#FFC857" stroke-width="3"/></svg>
+            Your data stays on this device. Nothing is sent anywhere.
+          </p>
+        </div>
+        <!-- Animated illustration: bars grow, a line draws, a medal pops -->
+        <svg class="hero-art" viewBox="0 0 360 260" aria-hidden="true" focusable="false">
+          <rect x="30" y="30" width="300" height="200" rx="18" fill="#08573E"/>
+          <g stroke="#F7F9FA" stroke-opacity="0.18" stroke-width="2">
+            <line x1="60" y1="80" x2="300" y2="80"/><line x1="60" y1="130" x2="300" y2="130"/><line x1="60" y1="180" x2="300" y2="180"/>
+          </g>
+          <g class="bars">
+            <rect class="bar" x="70" y="150" width="30" height="50" rx="6" fill="#F7F9FA"/>
+            <rect class="bar" x="120" y="128" width="30" height="72" rx="6" fill="#F7F9FA"/>
+            <rect class="bar" x="170" y="110" width="30" height="90" rx="6" fill="#FFC857"/>
+            <rect class="bar" x="220" y="86" width="30" height="114" rx="6" fill="#F26B21"/>
+          </g>
+          <polyline class="trend" points="85,140 135,118 185,98 235,72 280,58" fill="none" stroke="#FFC857" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <g class="medal">
+            <path d="M268 40 l10 22 h-20 z" fill="#F26B21"/>
+            <circle cx="280" cy="58" r="16" fill="#FFC857" stroke="#0D1B2A" stroke-width="3"/>
+            <path d="M280 49 l3 6 6 1 -4.5 4.3 1 6.2 -5.5 -2.9 -5.5 2.9 1 -6.2 -4.5 -4.3 6 -1 z" fill="#0D1B2A"/>
+          </g>
+        </svg>
       </div>
     </section>
 
-    <div class="container">
+    <div class="container section--tight">
       <p class="notice" id="global-message" role="status"></p>
 
-      <!-- DASHBOARD -->
-      <section class="section--tight" aria-labelledby="dash-title">
-        <h2 id="dash-title">Your dashboard</h2>
+      <div class="tabset" data-tabs>
+        <div class="tabset__list" role="tablist" aria-label="Tracker sections">
+          <button type="button" role="tab" aria-controls="overview"><span class="tab-icon" aria-hidden="true">📊</span>Overview</button>
+          <button type="button" role="tab" aria-controls="log-session"><span class="tab-icon" aria-hidden="true">➕</span>Log session</button>
+          <button type="button" role="tab" aria-controls="rate-skills"><span class="tab-icon" aria-hidden="true">⭐</span>Rate skills</button>
+          <button type="button" role="tab" aria-controls="history"><span class="tab-icon" aria-hidden="true">🗂️</span>History</button>
+          <button type="button" role="tab" aria-controls="settings"><span class="tab-icon" aria-hidden="true">⚙️</span>Profile &amp; data</button>
+        </div>
+
+      <section id="overview">
+        <h2 class="panel-title" id="dash-title">Your dashboard</h2>
         <div class="stat-grid">
           <div class="stat"><div class="stat__value" id="stat-sessions">0</div><div class="stat__label">Total sessions</div></div>
           <div class="stat"><div class="stat__value" id="stat-minutes">0</div><div class="stat__label">Total minutes</div></div>
@@ -78,9 +107,7 @@
         </div>
       </section>
 
-      <!-- FORMS -->
-      <div class="tracker-forms section--tight">
-        <section class="tracker-panel" id="log-session" aria-labelledby="log-title">
+        <section class="tracker-panel" id="log-session" hidden>
           <h2 id="log-title">Log a session</h2>
           <form id="session-form" novalidate>
             <div class="form-grid form-grid--2">
@@ -124,7 +151,7 @@
           </form>
         </section>
 
-        <section class="tracker-panel" id="rate-skills" aria-labelledby="rate-title">
+        <section class="tracker-panel" id="rate-skills" hidden>
           <h2 id="rate-title">Rate your skills</h2>
           <p class="muted">Be honest! Rate yourself every 2-4 weeks to see how you're improving. 1 = need lots of work, 5 = excellent.</p>
           <form id="rating-form" novalidate>
@@ -138,16 +165,14 @@
             <p class="notice" id="rating-message" role="status"></p>
           </form>
         </section>
-      </div>
 
-      <!-- HISTORY -->
-      <section class="section--tight" aria-labelledby="history-heading">
+      <section id="history" hidden>
         <h2 id="history-heading" tabindex="-1">Session history</h2>
-        <div id="history"></div>
+        <div id="history-list"></div>
       </section>
 
-      <!-- PROFILE + DATA -->
-      <div class="tracker-forms section--tight">
+      <section id="settings" hidden>
+        <div class="tracker-forms">
         <section class="tracker-panel" aria-labelledby="profile-title">
           <h2 id="profile-title">Your profile <span class="hint" style="font-size:1rem;text-transform:none">(optional)</span></h2>
           <p class="muted">Use a nickname. You don't need your real name.</p>
@@ -177,7 +202,6 @@
             <p class="notice" id="profile-message" role="status"></p>
           </form>
         </section>
-
         <section class="tracker-panel" aria-labelledby="data-title">
           <h2 id="data-title">Your data</h2>
           <p>Download a backup file, or move your data to another device by importing the file there.</p>
@@ -194,6 +218,8 @@
           </div>
           <p class="notice" id="data-message" role="status"></p>
         </section>
+        </div>
+      </section>
       </div>
     </div>
   </main>

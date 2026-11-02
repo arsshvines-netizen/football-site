@@ -10,6 +10,7 @@
 import { DRILLS, POSITION_LABELS, LEVEL_LABELS, FOCUS_LABELS } from "./data/drills.js";
 import { drawDiagram, diagramLegend } from "./diagrams.js";
 import { escapeHTML } from "./storage.js";
+import { saveButtonHTML, toggleSaved } from "./favourites.js";
 
 let modal = null;
 let returnFocusTo = null; // the button that opened the popup
@@ -64,12 +65,34 @@ function createModal() {
   modal.innerHTML = `
     <div class="modal__header">
       <h2 id="drill-modal-title">Drill</h2>
-      <button type="button" class="modal__close" aria-label="Close drill details">×</button>
+      <span class="modal__actions">
+        <button type="button" class="modal__copy" id="drill-copy" aria-label="Copy a link to this drill">🔗<span class="modal__copy-text">Copy link</span></button>
+        <span id="drill-modal-save"></span>
+        <button type="button" class="modal__close" aria-label="Close drill details">×</button>
+      </span>
     </div>
     <div class="modal__body" id="drill-modal-body"></div>`;
   document.body.appendChild(modal);
 
   modal.querySelector(".modal__close").addEventListener("click", () => modal.close());
+  // The ♥ button saves the drill on this device
+  modal.addEventListener("click", (event) => {
+    const saveBtn = event.target.closest("[data-save]");
+    if (saveBtn) saveBtn.setAttribute("aria-pressed", String(toggleSaved(saveBtn.dataset.save)));
+  });
+  // "Copy link": copies a link that opens this drill straight away
+  modal.querySelector("#drill-copy").addEventListener("click", async (event) => {
+    const button = event.currentTarget;
+    const label = button.querySelector(".modal__copy-text");
+    const link = new URL(`drills.html?drill=${button.dataset.id}`, window.location.href).href;
+    try {
+      await navigator.clipboard.writeText(link);
+      label.textContent = "Copied!";
+    } catch (error) {
+      label.textContent = link; // can't copy here: show the link so it can be copied by hand
+    }
+    setTimeout(() => { label.textContent = "Copy link"; }, 2500);
+  });
   // Clicking the dark background closes it too
   modal.addEventListener("click", (event) => { if (event.target === modal) modal.close(); });
   // Escape closes <dialog> automatically. Afterwards, put focus back.
@@ -82,6 +105,8 @@ export function openDrillModal(id, opener) {
   if (!modal) createModal();
   returnFocusTo = opener || document.activeElement;
   modal.querySelector("#drill-modal-title").textContent = drill.name;
+  modal.querySelector("#drill-modal-save").innerHTML = saveButtonHTML(drill.id, drill.name);
+  modal.querySelector("#drill-copy").dataset.id = drill.id;
   const body = modal.querySelector("#drill-modal-body");
   body.innerHTML = drillDetailHTML(drill);
   body.scrollTop = 0;

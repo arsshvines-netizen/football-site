@@ -26,10 +26,35 @@ export const NAV_LINKS = [
   { label: "About", href: "about.html" },
 ];
 
-// Extra links that only appear in the footer.
-export const FOOTER_EXTRA_LINKS = [
-  { label: "Feedback", href: "feedback.html" },
-  { label: "Sources", href: "sources.html" },
+// The footer shows these links in small groups
+// (Feedback and Sources only appear here, not in the top menu).
+export const FOOTER_GROUPS = [
+  {
+    title: "Train",
+    links: [
+      { label: "Programmes", href: "programmes.html" },
+      { label: "Drills", href: "drills.html" },
+      { label: "Fitness", href: "fitness.html" },
+      { label: "Nutrition", href: "nutrition.html" },
+    ],
+  },
+  {
+    title: "Progress",
+    links: [
+      { label: "Tracker", href: "tracker.html" },
+      { label: "Monthly challenge", href: "index.html#challenge" },
+      { label: "Plans", href: "plans.html" },
+    ],
+  },
+  {
+    title: "PITCHPATH",
+    links: [
+      { label: "Home", href: "index.html" },
+      { label: "About", href: "about.html" },
+      { label: "Feedback", href: "feedback.html" },
+      { label: "Sources", href: "sources.html" },
+    ],
+  },
 ];
 
 // The disclaimer text (spec Section 10). Shown in every footer.

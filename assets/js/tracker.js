@@ -15,6 +15,7 @@
 
 import { isStorageAvailable, loadData, saveData, removeData, downloadFile, escapeHTML, askToConfirm } from "./storage.js";
 import { BRAND } from "./config.js";
+import { setUpTabs } from "./tabs.js";
 
 const STORAGE_KEY = "pitchpath-tracker";
 const DATA_VERSION = 1;
@@ -310,7 +311,7 @@ function drawSkillChart() {
   const ratings = [...data.ratings].sort((a, b) => a.date.localeCompare(b.date)).slice(-12);
 
   if (ratings.length === 0) {
-    wrap.innerHTML = `<div class="empty-state"><p><strong>No skill ratings yet.</strong></p><p>Rate your skills below. Do it again every few weeks and this chart will show how you're improving.</p></div>`;
+    wrap.innerHTML = `<div class="empty-state"><p><strong>No skill ratings yet.</strong></p><p>Rate yourself every few weeks and this chart will show how you're improving.</p><a class="btn btn--green btn--small" href="#rate-skills">Rate my skills</a></div>`;
     tableWrap.innerHTML = "";
     return;
   }
@@ -370,7 +371,7 @@ function drawMinutesChart() {
   const max = Math.max(60, ...weeks.map((w) => w.minutes));
 
   if (data.sessions.length === 0) {
-    wrap.innerHTML = `<div class="empty-state"><p><strong>No sessions logged yet.</strong></p><p>Log a session and you'll see a bar for each week here.</p></div>`;
+    wrap.innerHTML = `<div class="empty-state"><p><strong>No sessions logged yet.</strong></p><p>Log a session and you'll see a bar for each week here.</p><a class="btn btn--green btn--small" href="#log-session">Log a session</a></div>`;
     return;
   }
 
@@ -432,7 +433,7 @@ function renderStats() {
 }
 
 function renderHistory() {
-  const wrap = document.getElementById("history");
+  const wrap = document.getElementById("history-list");
   if (data.sessions.length === 0) {
     wrap.innerHTML = `
       <div class="empty-state">
@@ -719,13 +720,14 @@ function start() {
   sessionForm.addEventListener("submit", onSessionSubmit);
   document.getElementById("rating-form").addEventListener("submit", onRatingSubmit);
   profileForm.addEventListener("submit", onProfileSubmit);
-  document.getElementById("history").addEventListener("click", onHistoryClick);
+  document.getElementById("history-list").addEventListener("click", onHistoryClick);
   document.getElementById("skill-choice").addEventListener("change", drawSkillChart);
   document.getElementById("export-btn").addEventListener("click", onExport);
   document.getElementById("import-file").addEventListener("change", onImport);
   document.getElementById("reset-btn").addEventListener("click", onReset);
 
   renderAll();
+  setUpTabs(document.querySelector("[data-tabs]")); // Overview / Log / Rate / History / Profile tabs
 }
 
 start();

@@ -33,7 +33,13 @@
     </section>
 
     <div class="container section--tight">
-      <form id="feedback-form" novalidate>
+      <form id="feedback-form" class="stepper" novalidate>
+        <!-- Progress through the 5 steps (filled in by feedback.js) -->
+        <div class="stepper__progress">
+          <p class="stepper__count" id="step-count" aria-live="polite">Step 1 of 5</p>
+          <ol class="stepper__dots" id="step-dots" aria-hidden="true"></ol>
+        </div>
+
         <section class="form-section" aria-labelledby="about-you">
           <h2 id="about-you">About you</h2>
           <div class="form-grid form-grid--3">
@@ -82,7 +88,7 @@
         </section>
 
         <section class="form-section" aria-labelledby="market-title">
-          <h2 id="market-title">Market research <span class="hint" style="font-size:1rem;text-transform:none">(optional)</span></h2>
+          <h2 id="market-title">Your views <span class="hint" style="font-size:1rem;text-transform:none">(optional)</span></h2>
           <p class="muted">Help us decide our prices. See the <a href="plans.html">Plans page</a> first.</p>
           <div class="form-grid form-grid--2">
             <div class="field">
@@ -134,7 +140,11 @@
           <div class="form-grid" id="free-text"></div>
         </section>
 
-        <div class="btn-row"><button type="submit" class="btn btn--primary">Save response</button></div>
+        <div class="stepper__nav">
+          <button type="button" class="btn btn--outline" id="step-back">← Back</button>
+          <button type="button" class="btn btn--primary btn--arrow" id="step-next">Next</button>
+          <button type="submit" class="btn btn--primary" id="step-save">Save response ✓</button>
+        </div>
         <p class="notice" id="feedback-message" role="status"></p>
       </form>
 

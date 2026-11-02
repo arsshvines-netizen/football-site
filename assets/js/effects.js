@@ -20,6 +20,8 @@ const AUTO_REVEAL = [
   "main .card", "main .plan", "main .timeline__item", "main .content-section > h2",
   "main .section h2", "main .programme-choice", "main .chart-card", "main .badge-tile",
   "main .faq", "main .schedule", "main .source", "main .stat", "main .career__item",
+  "main .tile", "main .photo-card", "main .flip", "main .fit-card",
+  ".site-footer .footer-cta", ".site-footer .footer-about", ".site-footer .footer-col",
 ].join(",");
 
 // ---------- 1. Reveal on scroll ----------
@@ -58,6 +60,29 @@ function setUpReveal() {
   if (main) {
     new MutationObserver(() => watch(main)).observe(main, { childList: true, subtree: true });
   }
+}
+
+// ---------- 1b. "In view" hook (nothing is hidden) ----------
+// Elements with data-in-view get the class "in-view" the first time
+// they appear on screen. CSS uses it to start an animation then
+// (for example, a line that draws itself).
+
+function setUpInView() {
+  const items = document.querySelectorAll("[data-in-view]");
+  if (!items.length) return;
+  if (reduceMotion || !("IntersectionObserver" in window)) {
+    items.forEach((el) => el.classList.add("in-view"));
+    return;
+  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in-view");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.25 });
+  items.forEach((el) => observer.observe(el));
 }
 
 // ---------- 2. Count-up numbers ----------
@@ -158,6 +183,7 @@ export function startEffects() {
   // SVG animations (like the rolling ball) aren't stopped by CSS, so pause them here
   if (reduceMotion) document.querySelectorAll("svg").forEach((svg) => svg.pauseAnimations && svg.pauseAnimations());
   setUpReveal();
+  setUpInView();
   setUpCounters();
   setUpBackToTop();
   setUpScrollEffects();

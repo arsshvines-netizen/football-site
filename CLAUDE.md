@@ -17,13 +17,20 @@ Full spec: `website-spec.md`. Read it before big changes.
 ## Structure
 - `*.html`: one file per page. Header and footer are injected by `assets/js/layout.js` into `#site-header` / `#site-footer`, with a `<noscript>` fallback nav.
 - `assets/css/`: `variables.css` (brand), `base.css` (reset/layout), `components.css` (shared pieces), `pages.css` (page-specific + print).
-- `assets/js/`: `config.js`, `layout.js`, `nav.js`, `storage.js` (safe localStorage), page scripts (`plans.js` for pricing/challenge/FAQ on Home + Plans, `programmes.js`, `drills.js`, `diagrams.js`, `fitness.js`, `nutrition.js`, `tracker.js`, `feedback.js`, `sources-page.js`).
-- `assets/js/data/`: all editable content (drills, programmes, fitness, nutrition, sources, plans = business model/prices/monthly challenge, feedback = tester questions).
-- `assets/js/effects.js`: animations for every page (scroll reveal, counters, progress bar, tilt, back-to-top). Always respect prefers-reduced-motion.
-- `assets/js/drill-modal.js`: shared drill popup (Drills + Programmes pages).
-- `studio.html` + `studio.js`: creator-only page (brand kit, business plan, tester results). Unlinked, noindex, simple code gate. NOT real security: never put private info there.
-- `tools/`: `check_site.py` (link checker), `serve.py` (optional server with custom 404).
+- `assets/js/`: `config.js` (brand, nav, footer link groups), `layout.js` (header + footer), `nav.js`, `storage.js` (safe localStorage + in-page confirm box), page scripts (`plans.js` for pricing/challenge/FAQ on Home + Plans, `programmes.js`, `drills.js`, `diagrams.js`, `fitness.js`, `nutrition.js`, `tracker.js`, `feedback.js`, `sources-page.js`, `studio.js`).
+- Shared helpers: `tabs.js` (tabs + level switchers), `effects.js` (animations: scroll reveal, `data-in-view`, counters, progress bar, tilt, back-to-top; always respect prefers-reduced-motion), `drill-modal.js` (drill popup with save + copy link), `favourites.js` (saved drills), `quiz.js` (position quiz popup).
+- `assets/js/data/`: all editable content (drills, programmes, fitness, nutrition, sources, plans = business model/prices/monthly challenge, feedback = tester questions, quiz = position quiz).
+- `studio.html` + `studio.js`: creator-only page (brand kit, business plan, tester results, sources still to check). Unlinked, noindex, simple code gate. NOT real security: never put private info there.
+- `tools/`: `check_site.py` (links, missing files, external loads, duplicate @keyframes names), `serve.py` (optional server with custom 404).
 - `docs/`: checklists and test results.
+
+## Keep pages short and tidy
+- Long topics use tabs (`tabs.js`): Fitness, Nutrition and Tracker show one topic at a time, and `page.html#panel-id` opens a tab directly.
+- Drills shows 12 cards at a time ("Show more"). The Feedback form is step-by-step.
+- Notes for the creator (to-dos, flags) go on studio.html, never on public pages.
+- Every page gets the same footer from `layout.js` (next-step card, link groups from `FOOTER_GROUPS`, safety disclaimer).
+- Every `@keyframes` name must be unique (a second one silently replaces the first). `check_site.py` checks this.
+- Photos: only licensed images (own photos, or Unsplash / Pexels / Wikimedia Commons with a free licence), saved in `assets/img` (never hot-linked), compressed under ~200KB, credited on the Sources page. Never real professional players' photos or club crests.
 
 ## Programmes page flow
 A simple app, one screen at a time (programmes.js): 1) "What's your level?" 2) "What do you want to get better at?" 3) My plan (next session button, progress ring, 4x3 session grid, level-up checklist) 4) Session mode (one step at a time with a timer: warm-up, activities, cool-down) 5) Celebration (saved to tracker, effort pick). The chosen plan is remembered in localStorage (pitchpath-my-plan). Keep it simple: one question or one task per screen.

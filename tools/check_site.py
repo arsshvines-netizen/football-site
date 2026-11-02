@@ -12,6 +12,8 @@ It checks:
   - links built inside JavaScript like href="drills.html?..." or "fitness.html#speed"
   - that #anchor links point to an id that exists on the target page
   - that no file loads anything from the internet (http:// or https://)
+  - that no two CSS animations (@keyframes) share a name (the second
+    one would silently replace the first)
 It prints a report and saves it to docs/test-results/link-check.txt
 """
 
@@ -96,19 +98,25 @@ def main():
         if EXTERNAL_LOAD.search(text):
             problems.append(f"EXTERNAL {os.path.relpath(script, ROOT)}: loads something from the internet")
 
+    keyframe_names = {}
     for sheet in all_files(".css"):
         with open(sheet, encoding="utf-8") as f:
             text = f.read()
         for link in CSS_URL.findall(text):
             if not link.startswith("#"):
                 check_target(sheet, link)
+        for name in re.findall(r"@keyframes\s+([\w-]+)", text):
+            keyframe_names.setdefault(name, []).append(os.path.relpath(sheet, ROOT))
+    for name, places in keyframe_names.items():
+        if len(places) > 1:
+            problems.append(f"DUPLICATE @keyframes '{name}' in: {', '.join(places)} (only the last one works)")
 
     lines = [f"Checked {checked} internal links and file references."]
     if problems:
         lines.append(f"Found {len(problems)} problem(s):")
         lines.extend("  " + p for p in problems)
     else:
-        lines.append("PASS: no broken links, no missing files, nothing loaded from the internet.")
+        lines.append("PASS: no broken links, no missing files, nothing loaded from the internet, no duplicate animation names.")
     report = "\n".join(lines)
     print(report)
 

@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="assets/css/pages.css">
   <script type="module" src="assets/js/layout.js"></script>
   <script type="module" src="assets/js/drills.js"></script>
+  <script type="module" src="assets/js/quiz.js"></script>
 </head>
 <body data-title="Position Drills">
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -25,42 +26,72 @@
 
   <main id="main" tabindex="-1">
     <section class="page-hero">
-      <div class="container">
-        <span class="eyebrow">Position drills</span>
-        <h1>Drills for your position</h1>
-        <p>Filter by position, level and focus, or search. Tap a drill to see how to set it up, a diagram, coaching tips and ways to make it easier or harder.</p>
+      <div class="container page-hero__grid">
+        <div>
+          <span class="eyebrow">Position drills</span>
+          <h1>Drills for your position</h1>
+          <p>40 drills with diagrams, coaching tips and easier or harder versions. Pick your position, then tap a drill.</p>
+        </div>
+        <!-- Animated illustration: a player dribbles through cones and shoots -->
+        <svg class="hero-art" viewBox="0 0 360 260" aria-hidden="true" focusable="false">
+          <rect x="16" y="30" width="328" height="200" rx="16" fill="#08573E"/>
+          <g fill="none" stroke="#F7F9FA" stroke-opacity="0.35" stroke-width="3">
+            <rect x="16" y="30" width="328" height="200" rx="16"/>
+            <line x1="180" y1="30" x2="180" y2="230"/>
+            <circle cx="180" cy="130" r="30"/>
+            <rect x="284" y="80" width="60" height="100"/>
+          </g>
+          <rect x="336" y="108" width="8" height="44" fill="#F7F9FA"/>
+          <path id="dribble-path" class="dribble-trail" d="M44 130 C64 96 82 96 96 118 S120 166 140 144 S164 94 184 116 S208 166 228 144 S252 100 272 124 L300 130" fill="none" stroke="#FFC857" stroke-width="3" stroke-dasharray="6 6"/>
+          <g fill="#F26B21" stroke="#0D1B2A" stroke-width="1.5">
+            <polygon points="96,122 88,138 104,138"/><polygon points="140,122 132,138 148,138"/>
+            <polygon points="184,122 176,138 192,138"/><polygon points="228,122 220,138 236,138"/>
+          </g>
+          <g class="keeper"><circle cx="322" cy="130" r="12" fill="#FFC857" stroke="#0D1B2A" stroke-width="2"/><text x="322" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#0D1B2A">G</text></g>
+          <g>
+            <circle r="13" fill="#0D1B2A" stroke="#F7F9FA" stroke-width="2"/>
+            <text y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#F7F9FA">A</text>
+            <circle cx="16" cy="8" r="5" fill="#F7F9FA" stroke="#0D1B2A" stroke-width="1.5"/>
+            <animateMotion dur="4s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.85;1" calcMode="linear">
+              <mpath href="#dribble-path"/>
+            </animateMotion>
+          </g>
+        </svg>
       </div>
     </section>
 
-    <div class="container">
+    <div class="container section--tight">
+      <!-- Drill of the day -->
+      <div class="daily" id="drill-of-the-day"></div>
+
       <form class="filters" id="drill-filters" role="search" aria-label="Filter drills">
-        <div class="filters__grid">
-          <div class="field">
-            <label for="filter-position">Position</label>
-            <select id="filter-position" name="position"><option value="">All positions</option></select>
+        <div class="chip-row" role="group" aria-label="Position" id="position-chips"></div>
+        <p class="quiz-hint">Not sure of your position? <button type="button" class="link-button" data-open-quiz>Take the quick quiz</button></p>
+        <div class="filters__row">
+          <div class="switch" role="group" aria-label="Level" id="level-switch">
+            <button type="button" data-value="" aria-pressed="true">All levels</button>
+            <button type="button" data-value="beginner" aria-pressed="false">Beginner</button>
+            <button type="button" data-value="intermediate" aria-pressed="false">Intermediate</button>
+            <button type="button" data-value="advanced" aria-pressed="false">Advanced</button>
           </div>
-          <div class="field">
-            <label for="filter-level">Level</label>
-            <select id="filter-level" name="level"><option value="">All levels</option></select>
+          <div class="filters__search">
+            <label class="visually-hidden" for="filter-focus">Focus</label>
+            <select id="filter-focus" name="focus"><option value="">Any focus</option></select>
+            <label class="visually-hidden" for="filter-search">Search drills</label>
+            <input id="filter-search" name="q" type="search" placeholder="Search: cross, turn, rondo…" autocomplete="off">
           </div>
-          <div class="field">
-            <label for="filter-focus">Focus</label>
-            <select id="filter-focus" name="focus"><option value="">All focuses</option></select>
-          </div>
-          <div class="field">
-            <label for="filter-search">Search</label>
-            <input id="filter-search" name="q" type="search" placeholder="e.g. cross, turn, rondo" autocomplete="off">
-          </div>
-          <button type="button" class="btn btn--outline" id="clear-filters">Clear filters</button>
         </div>
       </form>
 
-      <p class="results-count" id="results-count" aria-live="polite"></p>
-      <ul class="drill-grid grid grid--3" id="drill-results"></ul>
+      <div class="results-bar">
+        <p class="results-count" id="results-count" aria-live="polite"></p>
+        <button type="button" class="link-button" id="clear-filters">Clear filters</button>
+      </div>
+      <ul class="drill-grid" id="drill-results"></ul>
+      <div class="show-more"><button type="button" class="btn btn--outline" id="show-more" hidden>Show more drills</button></div>
 
-      <p class="notice heading-note"><strong>Why no heading drills?</strong> Many football associations limit heading practice for young players. Follow your club's and national association's rules on heading, and ask your coach.</p>
+      <p class="page-note"><strong>Why no heading drills?</strong> Many football associations limit heading practice for young players. Follow your club's rules on heading and ask your coach.</p>
     </div>
-
   </main>
 
   <div id="site-footer"></div>

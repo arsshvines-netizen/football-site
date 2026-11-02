@@ -1,14 +1,19 @@
 // =========================================================
-// nutrition.js: builds the football plate picture, the
-// timeline, the sample days (with a veg / non-veg switch)
-// and the myths vs facts on the Nutrition page.
+// nutrition.js: the Nutrition page.
+// - Turns the page into tabs (one topic at a time, see tabs.js)
+// - Draws the football plate (slices pop in one by one)
+// - Builds the match-day timeline
+// - Meal ideas with two switches: which day, and veg / non-veg
+// - Myth cards that flip over to show the fact
 // =========================================================
 
 import { PLATE, TIMELINE, SAMPLE_DAYS, MYTHS } from "./data/nutrition.js";
+import { setUpTabs, setUpSwitch } from "./tabs.js";
 import { escapeHTML } from "./storage.js";
 
-// Draws the plate as a pie chart in SVG. Each slice is labelled
-// in the key next to it, so colour is not the only clue.
+// Draws the plate as a pie chart in SVG. Each slice is numbered,
+// and the key next to it explains the numbers, so colour is not
+// the only clue.
 function buildPlate() {
   const size = 240, centre = 120, radius = 100;
   let angle = -Math.PI / 2; // start at the top
@@ -23,11 +28,13 @@ function buildPlate() {
     const largeArc = sliceAngle > Math.PI ? 1 : 0;
     const labelX = centre + radius * 0.62 * Math.cos(midAngle);
     const labelY = centre + radius * 0.62 * Math.sin(midAngle);
-    const textColor = part.color === "#FFC857" || part.color === "#F26B21" || part.color === "#4A90C2" ? "#0D1B2A" : "#FFFFFF";
+    const darkText = ["#FFC857", "#F26B21", "#4A90C2"].includes(part.color);
     return `
-      <path d="M${centre},${centre} L${x1.toFixed(1)},${y1.toFixed(1)} A${radius},${radius} 0 ${largeArc} 1 ${x2.toFixed(1)},${y2.toFixed(1)} Z"
-        fill="${part.color}" stroke="#FFFFFF" stroke-width="3"/>
-      <text x="${labelX.toFixed(1)}" y="${(labelY + 6).toFixed(1)}" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="16" fill="${textColor}">${i + 1}</text>`;
+      <g class="plate-slice" style="animation-delay:${i * 150}ms">
+        <path d="M${centre},${centre} L${x1.toFixed(1)},${y1.toFixed(1)} A${radius},${radius} 0 ${largeArc} 1 ${x2.toFixed(1)},${y2.toFixed(1)} Z"
+          fill="${part.color}" stroke="#FFFFFF" stroke-width="3"/>
+        <text x="${labelX.toFixed(1)}" y="${(labelY + 6).toFixed(1)}" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="16" fill="${darkText ? "#0D1B2A" : "#FFFFFF"}">${i + 1}</text>
+      </g>`;
   }).join("");
 
   const description = PLATE.map((p) => `${p.label} about ${p.percent}%`).join(", ");
@@ -40,7 +47,7 @@ function buildPlate() {
   document.getElementById("plate-key").innerHTML = PLATE.map((p, i) => `
     <li>
       <span class="plate-swatch" style="background:${p.color}" aria-hidden="true">${i + 1}</span>
-      <span><strong>${i + 1}. ${escapeHTML(p.label)}</strong> (about ${p.percent >= 30 ? "a third" : p.percent >= 20 ? "a fifth" : "a small part"} of the plate)<br>
+      <span><strong>${escapeHTML(p.label)}</strong> · about ${p.percent >= 30 ? "a third" : p.percent >= 20 ? "a fifth" : "a small part"} of the plate<br>
       <span class="muted">${escapeHTML(p.examples)}</span></span>
     </li>`).join("");
 }
@@ -56,34 +63,67 @@ function buildTimeline() {
     </li>`).join("");
 }
 
-function buildSampleDays(choice) {
-  const key = choice === "nonVeg" ? "nonVeg" : "veg";
-  document.getElementById("sample-days").innerHTML = Object.entries(SAMPLE_DAYS).map(([dayName, meals]) => `
-    <div class="card ${dayName === "Rest day" ? "card--navy" : ""}">
-      <h3>${escapeHTML(dayName)}</h3>
-      <dl class="meal-list">
-        ${meals.map((m) => `<div><dt>${escapeHTML(m.meal)}</dt><dd>${escapeHTML(m[key])}</dd></div>`).join("")}
-      </dl>
-    </div>`).join("");
+// ---------- Meal ideas: two switches ----------
+
+const mealChoice = { day: "Training day", diet: "veg" };
+
+// A small picture for each meal, chosen from its name
+function mealIcon(name) {
+  const n = name.toLowerCase();
+  if (n.includes("breakfast")) return "🌅";
+  if (n.includes("before")) return "⚽";
+  if (n.includes("dinner")) return "🍛";
+  if (n.includes("lunch")) return "🥪";
+  if (n.includes("drink")) return "💧";
+  return "🍎"; // snacks
 }
 
-function setUpMealSwitch() {
-  const radios = document.querySelectorAll("input[name=meal-type]");
-  radios.forEach((radio) => radio.addEventListener("change", () => buildSampleDays(radio.value)));
-  buildSampleDays("veg");
+function showMeals() {
+  const meals = SAMPLE_DAYS[mealChoice.day];
+  document.getElementById("sample-days").innerHTML = meals.map((m, i) => {
+    const icon = mealIcon(m.meal);
+    return `
+      <li class="meal" style="animation-delay:${i * 60}ms">
+        <span class="meal__icon" aria-hidden="true">${icon}</span>
+        <span class="meal__when">${escapeHTML(m.meal)}</span>
+        <span class="meal__what">${escapeHTML(m[mealChoice.diet])}</span>
+      </li>`;
+  }).join("");
 }
+
+// ---------- Myth cards that flip ----------
 
 function buildMyths() {
-  document.getElementById("myth-list").innerHTML = MYTHS.map((m) => `
-    <div class="myth card">
-      <p class="myth__label myth__label--myth"><span aria-hidden="true">✗</span> Myth</p>
-      <p class="myth__text">${escapeHTML(m.myth)}</p>
-      <p class="myth__label myth__label--fact"><span aria-hidden="true">✓</span> Fact</p>
-      <p>${escapeHTML(m.fact)}</p>
-    </div>`).join("");
+  const list = document.getElementById("myth-list");
+  list.innerHTML = MYTHS.map((m, i) => `
+    <button type="button" class="flip" aria-expanded="false" aria-controls="fact-${i}">
+      <span class="flip__inner">
+        <span class="flip__face flip__front">
+          <span class="flip__label flip__label--myth">Myth?</span>
+          <span class="flip__text">"${escapeHTML(m.myth)}"</span>
+          <span class="flip__hint">Tap to see the fact ↻</span>
+        </span>
+        <span class="flip__face flip__back" id="fact-${i}" aria-hidden="true">
+          <span class="flip__label flip__label--fact">✓ Fact</span>
+          <span class="flip__text">${escapeHTML(m.fact)}</span>
+        </span>
+      </span>
+    </button>`).join("");
+
+  list.addEventListener("click", (event) => {
+    const card = event.target.closest(".flip");
+    if (!card) return;
+    const flipped = card.getAttribute("aria-expanded") === "true";
+    card.setAttribute("aria-expanded", String(!flipped));
+    card.querySelector(".flip__back").setAttribute("aria-hidden", String(flipped));
+  });
 }
+
+// ---------- Start ----------
 
 buildPlate();
 buildTimeline();
-setUpMealSwitch();
 buildMyths();
+setUpSwitch(document.getElementById("day-switch"), (day) => { mealChoice.day = day; showMeals(); });
+setUpSwitch(document.getElementById("diet-switch"), (diet) => { mealChoice.diet = diet; showMeals(); });
+setUpTabs(document.querySelector("[data-tabs]"));

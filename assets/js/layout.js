@@ -5,7 +5,7 @@
 // <div id="site-footer"></div>, and this file fills them in.
 // =========================================================
 
-import { BRAND, NAV_LINKS, FOOTER_EXTRA_LINKS, DISCLAIMER } from "./config.js";
+import { BRAND, NAV_LINKS, FOOTER_GROUPS, DISCLAIMER } from "./config.js";
 import { setUpMobileMenu } from "./nav.js";
 import { startEffects } from "./effects.js";
 
@@ -43,29 +43,64 @@ function buildHeader(currentPage) {
     </header>`;
 }
 
+// The "next step" card at the top of the footer changes with the page,
+// so it never points to the page you are already on.
+function footerCallToAction(currentPage) {
+  if (currentPage === "programmes.html") {
+    return { title: "Want drills for your position?", text: "40 drills for keepers, defenders, midfielders, wingers and strikers.", label: "Browse drills", href: "drills.html" };
+  }
+  if (currentPage === "tracker.html") {
+    return { title: "Time for your next session?", text: "Your plan remembers where you got to.", label: "Open my plan", href: "programmes.html" };
+  }
+  return { title: "Ready for your next session?", text: "Two quick questions and you'll have a free 4-week plan.", label: "Get my plan", href: "programmes.html" };
+}
+
 function buildFooter(currentPage) {
-  const mainLinks = NAV_LINKS.map((link) => makeNavItem(link, currentPage)).join("");
-  const extraLinks = FOOTER_EXTRA_LINKS.map((link) => makeNavItem(link, currentPage)).join("");
   const year = new Date().getFullYear();
+  const cta = footerCallToAction(currentPage);
+  const groups = FOOTER_GROUPS.map((group) => `
+    <nav class="footer-col" aria-label="Footer: ${group.title}">
+      <h2>${group.title}</h2>
+      <ul>${group.links.map((link) => makeNavItem(link, currentPage)).join("")}</ul>
+    </nav>`).join("");
+
   return `
     <footer class="site-footer">
       <div class="container">
-        <div class="footer-grid">
+        <div class="footer-cta">
           <div>
-            <p class="footer-brand"><img src="${BRAND.logo}" alt="" width="40" height="40">${BRAND.name}</p>
-            <p>${BRAND.tagline} Free, structured football training for ${BRAND.audience}.</p>
+            <p class="footer-cta__title">${cta.title}</p>
+            <p class="footer-cta__text">${cta.text}</p>
           </div>
-          <nav aria-label="Footer: main pages">
-            <h2>Train</h2>
-            <ul>${mainLinks}</ul>
-          </nav>
-          <nav aria-label="Footer: more">
-            <h2>More</h2>
-            <ul>${extraLinks}</ul>
-          </nav>
+          <a class="btn btn--primary btn--arrow" href="${cta.href}">${cta.label}</a>
         </div>
-        <p class="footer-disclaimer"><strong>Disclaimer:</strong> ${DISCLAIMER}</p>
-        <p class="footer-disclaimer">© ${year} ${BRAND.name}. Founded by ${BRAND.founder}. Your data stays on your device.</p>
+
+        <div class="footer-main">
+          <div class="footer-about">
+            <a class="footer-brand" href="index.html" aria-label="${BRAND.name} home">
+              <img src="${BRAND.logo}" alt="" width="44" height="44">
+              <span>${BRAND.name}</span>
+            </a>
+            <p>${BRAND.tagline} Structured football training for ${BRAND.audience}, founded in Mumbai by ${BRAND.founder}.</p>
+            <ul class="footer-chips">
+              <li>Free to start</li>
+              <li>No sign-up</li>
+              <li>Data stays on your device</li>
+            </ul>
+          </div>
+          <div class="footer-links">${groups}</div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-touchline" aria-hidden="true"><span class="footer-ball"></span></div>
+        <div class="container footer-bottom__inner">
+          <p class="footer-safety">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FFC857"/><rect x="10.8" y="5.5" width="2.4" height="8.5" rx="1" fill="#0D1B2A"/><rect x="10.8" y="16" width="2.4" height="2.4" rx="1" fill="#0D1B2A"/></svg>
+            <span><strong>Safety:</strong> ${DISCLAIMER}</span>
+          </p>
+          <p class="footer-copy">© ${year} ${BRAND.name} · Founded by ${BRAND.founder}</p>
+        </div>
       </div>
     </footer>`;
 }

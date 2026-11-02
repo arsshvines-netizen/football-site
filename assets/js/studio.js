@@ -14,6 +14,7 @@
 
 import { loadData, removeData, downloadFile, escapeHTML, askToConfirm } from "./storage.js";
 import { BRAND } from "./config.js";
+import { SOURCES } from "./data/sources.js";
 import {
   FEEDBACK_KEY as STORAGE_KEY, FEEDBACK_VERSION as DATA_VERSION, RATING_QUESTIONS, TASKS,
 } from "./data/feedback.js";
@@ -143,7 +144,18 @@ function setUpGate() {
   });
 }
 
+// ---------- Sources still to check ----------
+function renderSourceChecks() {
+  const list = document.getElementById("source-checks");
+  const todo = SOURCES.filter((source) => !source.checked);
+  list.innerHTML = todo.length
+    ? todo.map((source) => `<li><strong>${escapeHTML(source.author)}</strong>: "${escapeHTML(source.title)}"${source.url ? "" : " <em>(link missing)</em>"}</li>`).join("")
+    : "<li>All sources are checked.</li>";
+  document.getElementById("source-check-count").textContent = todo.length;
+}
+
 setUpGate();
+renderSourceChecks();
 document.getElementById("download-feedback").addEventListener("click", onDownload);
 document.getElementById("delete-feedback").addEventListener("click", onDeleteAll);
 if (isUnlocked()) unlock();

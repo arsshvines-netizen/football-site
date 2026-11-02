@@ -21,17 +21,17 @@ The "Auto" column was filled by an automated browser test (Chromium, emulated at
 | 13b | Programmes | Mark session as done → saved to tracker; Undo removes it | Pass | | | |
 | 14 | Programmes | Level-up checklist ticks are remembered after reload | Pass | | | |
 | 15 | Programmes | Print this plan → print preview shows all sessions, no menu | Pass* | | | |
-| 16 | Drills | Position / Level / Focus filters work | Pass | | | |
-| 17 | Drills | Text search works; result count updates | Pass | | | |
+| 16 | Drills | Position chips, level switch and focus filter work; drill of the day shows | Pass | | | |
+| 17 | Drills | Text search works; result count updates; 12 shown, "Show more" adds 12 | Pass | | | |
 | 18 | Drills | "No results" message + Clear filters | Pass | | | |
-| 19 | Drills | Card opens detail popup with diagram; Escape/× closes it | Pass | | | |
+| 19 | Drills | Card opens popup with diagram; ♥ saves (Saved chip); Copy link; Escape/× closes | Pass | | | |
 | 20 | Drills | URL links work (?position=winger, ?drill=gk-07) | Pass | | | |
-| 21 | Fitness | Contents links jump to each section | Pass | | | |
+| 21 | Fitness | 7 tabs, one topic at a time; arrow keys move tabs; fitness.html#safety opens that tab | Pass | | | |
 | 22 | Fitness | Warm-up timer: Start, Pause, Resume, Reset | Pass | | | |
-| 23 | Fitness | Strength table stacks into cards on phone | Pass | | | |
+| 23 | Fitness | Strength and week-plan level switchers change the content | Pass | | | |
 | 24 | Nutrition | Plate picture and key show | Pass | | | |
-| 25 | Nutrition | Vegetarian / non-vegetarian switch changes meals | Pass | | | |
-| 26 | Tracker | Empty state shown when no data | Pass | | | |
+| 25 | Nutrition | 5 tabs; day + veg/non-veg switches change meals; myth cards flip to the fact | Pass | | | |
+| 26 | Tracker | 5 tabs (Overview, Log, Rate, History, Profile & data); empty states with buttons | Pass | | | |
 | 27 | Tracker | Log session saves; empty date / negative minutes rejected | Pass | | | |
 | 28 | Tracker | Skill ratings save; line chart draws | Pass | | | |
 | 29 | Tracker | Bar chart of minutes per week draws | Pass | | | |
@@ -42,7 +42,7 @@ The "Auto" column was filled by an automated browser test (Chromium, emulated at
 | 34 | Tracker | Reset (with "Are you sure?") clears everything | Pass | | | |
 | 35 | Tracker | Large data: 600 sessions load and chart correctly | Pass | | | |
 | 36 | Tracker | Data still there after closing and reopening browser | | | | |
-| 37 | Feedback | Validation shows errors for missing answers | Pass | | | |
+| 37 | Feedback | Step-by-step (5 steps); Next checks each step; Save on the last step | Pass | | | |
 | 38 | Feedback | Save response; summary table updates | Pass | | | |
 | 39 | Feedback | Download gives JSON and CSV files | Pass | | | |
 | 40 | Sources | List shows in MLA format, A-Z | Pass | | | |
@@ -53,6 +53,8 @@ The "Auto" column was filled by an automated browser test (Chromium, emulated at
 | 46 | Feedback | Market research answers saved; results only in Creator Studio | Pass | | | |
 | 47 | Studio | Locked until code entered; shows results; downloads JSON + CSV | Pass | | | |
 | 48 | Animations | Fade-up, counters, ticker, progress bar, back-to-top; all off with reduced motion | Pass | | | |
+| 49 | Footer | Same on every page; next-step card changes per page; disclaimer shown | Pass | | | |
+| 50 | Home | Position quiz: 4 questions, result links to that position's drills | Pass | | | |
 | 42 | Links | `python3 tools/check_site.py` reports PASS | Pass | | | |
 
 \* Print layout checked by CSS review only. Do a real print preview to confirm.
