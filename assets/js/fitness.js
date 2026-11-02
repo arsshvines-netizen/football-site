@@ -7,6 +7,8 @@
 // - Level switchers for Strength and the example week
 // =========================================================
 
+import { WARM_UP_VIDEOS, WARM_UP_FULL_VIDEO } from "./data/videos.js";
+import { videoHTML, openVideo } from "./video.js";
 import { WARM_UP, STRENGTH, SPEED, ENDURANCE, MOBILITY, WEEKLY_SCHEDULES } from "./data/fitness.js";
 import { setUpTabs, setUpSwitch } from "./tabs.js";
 import { escapeHTML } from "./storage.js";
@@ -23,9 +25,19 @@ function buildWarmUpList() {
   document.getElementById("warmup-list").innerHTML = WARM_UP.map((step, i) => `
     <li class="move" data-move="${i}">
       <span class="move__num" aria-hidden="true">${i + 1}</span>
-      <span class="move__text"><strong>${escapeHTML(step.name)}</strong><span>${escapeHTML(step.how)}</span></span>
+      <span class="move__text"><strong>${escapeHTML(step.name)}</strong><span>${escapeHTML(step.how)}</span>
+        ${WARM_UP_VIDEOS[step.name] ? `<button type="button" class="move__watch" data-watch="${i}" aria-label="Watch: ${escapeHTML(step.name)}">▶ Watch</button>` : ""}</span>
       <span class="move__time">${formatTime(step.seconds)}</span>
     </li>`).join("");
+  // The whole warm-up as one video (only shown once a video is added)
+  document.getElementById("warmup-video").innerHTML = videoHTML(WARM_UP_FULL_VIDEO, "Watch the full warm-up");
+  // "▶ Watch" opens that move's clip in a popup
+  document.getElementById("warmup-list").addEventListener("click", (event) => {
+    const button = event.target.closest("[data-watch]");
+    if (!button) return;
+    const step = WARM_UP[Number(button.dataset.watch)];
+    openVideo(WARM_UP_VIDEOS[step.name], step.name, button);
+  });
   const total = WARM_UP.reduce((sum, s) => sum + s.seconds, 0);
   document.getElementById("warmup-total").textContent = `${Math.round(total / 60)} minutes`;
 }

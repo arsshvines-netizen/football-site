@@ -9,6 +9,7 @@
 // - ♥ saves a drill on this device (favourites.js)
 // =========================================================
 
+import { DRILL_VIDEOS } from "./data/videos.js";
 import { DRILLS, POSITION_LABELS, LEVEL_LABELS, FOCUS_LABELS } from "./data/drills.js";
 import { openDrillModal } from "./drill-modal.js";
 import { drawDiagram } from "./diagrams.js";
@@ -123,7 +124,7 @@ function cardHTML(drill) {
           <span class="badge badge--${drill.level}">${LEVEL_LABELS[drill.level]}</span>
         </p>
         <h3><button type="button" class="drill-card__button" data-drill="${drill.id}">${escapeHTML(drill.name)}</button></h3>
-        <p class="drill-card__facts">⏱ ${drill.durationMin} min · 👥 ${escapeHTML(drill.players)}</p>
+        <p class="drill-card__facts">⏱ ${drill.durationMin} min · 👥 ${escapeHTML(drill.players)}${DRILL_VIDEOS[drill.id] ? ' · <span class="video-tag">▶ Video</span>' : ""}</p>
       </div>
     </li>`;
 }

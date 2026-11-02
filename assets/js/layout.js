@@ -23,14 +23,22 @@ function makeNavItem(link, currentPage) {
   return `<li><a href="${link.href}"${current}>${link.label}</a></li>`;
 }
 
+// The logo text: "PITCH" in white and "PATH" in orange (set in config.js)
+function wordmarkHTML() {
+  const accent = BRAND.nameAccent;
+  if (!accent || !BRAND.name.endsWith(accent)) return `<span class="brand__name">${BRAND.name}</span>`;
+  const start = BRAND.name.slice(0, BRAND.name.length - accent.length);
+  return `<span class="brand__name">${start}<span class="brand__accent">${accent}</span></span>`;
+}
+
 function buildHeader(currentPage) {
   const items = NAV_LINKS.map((link) => makeNavItem(link, currentPage)).join("");
   return `
     <header class="site-header">
       <div class="container site-header__inner">
         <a class="brand" href="index.html" aria-label="${BRAND.name} home">
-          <img src="${BRAND.logo}" alt="" width="38" height="38">
-          <span>${BRAND.name}</span>
+          <img src="${BRAND.logo}" alt="" width="48" height="48">
+          <span class="brand__text">${wordmarkHTML()}<span class="brand__tagline">${BRAND.tagline}</span></span>
         </a>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
           <span class="nav-toggle__bars" aria-hidden="true"></span>
@@ -78,8 +86,8 @@ function buildFooter(currentPage) {
         <div class="footer-main">
           <div class="footer-about">
             <a class="footer-brand" href="index.html" aria-label="${BRAND.name} home">
-              <img src="${BRAND.logo}" alt="" width="44" height="44">
-              <span>${BRAND.name}</span>
+              <img src="${BRAND.logo}" alt="" width="52" height="52">
+              ${wordmarkHTML()}
             </a>
             <p>${BRAND.tagline} Structured football training for ${BRAND.audience}, founded in Mumbai by ${BRAND.founder}.</p>
             <ul class="footer-chips">

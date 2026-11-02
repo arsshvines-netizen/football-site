@@ -16,6 +16,8 @@
 import { LEVELS, WARM_UP_MIN, COOL_DOWN_MIN, WEEK_BONUS_MIN } from "./data/programmes.js";
 import { WARM_UP, STRENGTH, SPEED, ENDURANCE, MOBILITY } from "./data/fitness.js";
 import { openDrillModal, findDrill } from "./drill-modal.js";
+import { DRILL_VIDEOS, WARM_UP_FULL_VIDEO } from "./data/videos.js";
+import { videoHTML } from "./video.js";
 import { loadData, saveData, removeData, escapeHTML, askToConfirm } from "./storage.js";
 
 const PLAN_KEY = "pitchpath-my-plan";                // { level, programmeId }
@@ -113,7 +115,7 @@ function fitnessListHTML(link) {
 
 function stepBodyHTML(step) {
   if (step.kind === "warmup") {
-    return `<p>Get your body ready. Do each move for about 30-60 seconds:</p>
+    return `${videoHTML(WARM_UP_FULL_VIDEO, "Watch the warm-up")}<p>Get your body ready. Do each move for about 30-60 seconds:</p>
       <ul class="step-list">${WARM_UP.map((w) => `<li><strong>${escapeHTML(w.name)}</strong>: ${escapeHTML(w.how)}</li>`).join("")}</ul>`;
   }
   if (step.kind === "cooldown") {
@@ -125,7 +127,7 @@ function stepBodyHTML(step) {
   const drill = a.drill ? findDrill(a.drill) : null;
   let html = "";
   if (drill) {
-    html += `<p>${escapeHTML(drill.setup)}</p>
+    html += `${videoHTML(DRILL_VIDEOS[drill.id], `Watch: ${drill.name}`)}<p>${escapeHTML(drill.setup)}</p>
       <ol class="step-list">${drill.steps.map((s) => `<li>${escapeHTML(s)}</li>`).join("")}</ol>
       <p class="step-tip"><strong>Tip:</strong> ${escapeHTML(drill.coachingPoints[0])}</p>
       <button type="button" class="btn btn--outline btn--small" data-open-drill="${drill.id}">See diagram and full details</button>`;

@@ -6,6 +6,7 @@
 
 export const BRAND = {
   name: "PITCHPATH",              // change this to rename the whole site
+  nameAccent: "PATH",             // the end of the name shown in orange in the logo ("" for none)
   founder: "Arssh Gupta",         // shown on the Home and About pages
   tagline: "Train with a plan.",
   audience: "young footballers aged 12-15",

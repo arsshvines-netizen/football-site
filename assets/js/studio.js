@@ -15,6 +15,8 @@
 import { loadData, removeData, downloadFile, escapeHTML, askToConfirm } from "./storage.js";
 import { BRAND } from "./config.js";
 import { SOURCES } from "./data/sources.js";
+import { DRILL_VIDEOS, WARM_UP_VIDEOS, WARM_UP_FULL_VIDEO } from "./data/videos.js";
+import { DRILLS } from "./data/drills.js";
 import {
   FEEDBACK_KEY as STORAGE_KEY, FEEDBACK_VERSION as DATA_VERSION, RATING_QUESTIONS, TASKS,
 } from "./data/feedback.js";
@@ -154,8 +156,24 @@ function renderSourceChecks() {
   document.getElementById("source-check-count").textContent = todo.length;
 }
 
+// ---------- Videos still to add ----------
+function renderVideoChecks() {
+  const missing = [];
+  if (!WARM_UP_FULL_VIDEO) missing.push("<strong>Full warm-up</strong>: suggested file <code>warm-up/full.mp4</code>");
+  DRILLS.forEach((drill) => {
+    if (!DRILL_VIDEOS[drill.id]) missing.push(`<strong>${escapeHTML(drill.name)}</strong> (${drill.id}): suggested file <code>drills/${drill.id}.mp4</code>`);
+  });
+  const movesMissing = Object.keys(WARM_UP_VIDEOS).filter((name) => !WARM_UP_VIDEOS[name]).length;
+  if (movesMissing) missing.push(`Optional: ${movesMissing} short clips, one per warm-up move`);
+  document.getElementById("video-checks").innerHTML = missing.length
+    ? missing.map((item) => `<li>${item}</li>`).join("")
+    : "<li>All videos are added. 🎉</li>";
+  document.getElementById("video-count").textContent = DRILLS.filter((d) => !DRILL_VIDEOS[d.id]).length + (WARM_UP_FULL_VIDEO ? 0 : 1);
+}
+
 setUpGate();
 renderSourceChecks();
+renderVideoChecks();
 document.getElementById("download-feedback").addEventListener("click", onDownload);
 document.getElementById("delete-feedback").addEventListener("click", onDeleteAll);
 if (isUnlocked()) unlock();

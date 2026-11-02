@@ -84,3 +84,14 @@ Calculated with the WCAG relative-luminance formula.
 |---|---|---|---|---|
 | White text on page header, at the brightest point of the yellow glow | #FFFFFF | ~#307E56 | 5.08:1 | PASS |
 | White text on page header, darkest end of gradient | #FFFFFF | #08573E | 8.60:1 | PASS |
+
+### Version 8 (bigger logo, big Start button, videos)
+| Pair | Text | Background | Ratio | Result |
+|---|---|---|---|---|
+| Orange "PATH" in the logo on navy header | #F26B21 | #0D1B2A | 5.72:1 | PASS |
+| Logo tagline on navy | #B8C4CF | #0D1B2A | 9.80:1 | PASS |
+| Home intro line on navy | #D5DEE6 | #0D1B2A | 12.77:1 | PASS |
+| "Start training" and its small line on orange | #0D1B2A | #F26B21 | 5.72:1 | PASS |
+| Yellow arrow on navy circle (Start button) | #FFC857 | #0D1B2A | 11.31:1 | PASS |
+| "▶ Video" tag on white drill card | #B8460C | #FFFFFF | 5.36:1 | PASS |
+| Video caption on navy | #F7F9FA | #0D1B2A | 16.47:1 | PASS |

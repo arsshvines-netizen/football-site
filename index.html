@@ -39,13 +39,21 @@
       <div class="container hero__grid">
         <div class="hero__text">
           <span class="eyebrow hero-in" style="--delay:0ms">Founded by a Mumbai City FC player</span>
-          <h1 id="hero-title" class="hero-in" style="--delay:120ms">Train smarter. <span class="highlight">Play better.</span></h1>
-          <p class="lead hero-in" style="--delay:240ms">Step-by-step football training for players aged 12-15. Plans for your level, drills for your position, and a tracker to see yourself improve.</p>
-          <div class="btn-row hero-in" style="--delay:360ms">
-            <a class="btn btn--primary btn--arrow" href="programmes.html">Start Training</a>
-            <a class="btn btn--outline" href="tracker.html">Track My Progress</a>
+          <!-- Each word rises in one after another (see .hero-word in pages.css) -->
+          <h1 id="hero-title" class="hero-title">
+            <span class="hero-word" style="--i:0">Train</span> <span class="hero-word" style="--i:1">smarter.</span>
+            <span class="highlight"><span class="hero-word" style="--i:2">Play</span> <span class="hero-word" style="--i:3">better.</span></span>
+          </h1>
+          <p class="lead hero-in" style="--delay:750ms">Football plans, drills and fitness for players aged 12-15.</p>
+          <div class="hero__actions hero-in" style="--delay:900ms">
+            <!-- The big main button: the one thing we want every visitor to press -->
+            <a class="btn-start" href="programmes.html">
+              <span class="btn-start__ball" aria-hidden="true">⚽</span>
+              <span class="btn-start__text">Start training <small>Free · takes 1 minute</small></span>
+              <span class="btn-start__arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="hero__link" href="tracker.html">or track my progress</a>
           </div>
-          <ul class="hero__proof hero-in" style="--delay:480ms" aria-label="Why PITCHPATH"><li>✓ Free to start</li><li>✓ No sign-up</li><li>✓ No adverts</li></ul>
         </div>
         <!-- Hero visual: the animated ball path, with floating "app" cards
              that show what using PITCHPATH looks like -->
@@ -115,11 +123,11 @@
         <p class="kicker" data-reveal>All in one place</p>
         <h2 id="areas-title" data-reveal>Everything you need</h2>
         <ul class="area-tiles">
-          <li data-reveal><a class="area-tile area-tile--green" href="programmes.html"><span class="area-tile__icon" aria-hidden="true">📋</span><span class="area-tile__title">Programmes</span><span class="area-tile__text">4-week plans for 3 levels</span><span class="area-tile__go" aria-hidden="true">Open →</span></a></li>
-          <li data-reveal><a class="area-tile area-tile--orange" href="drills.html"><span class="area-tile__icon" aria-hidden="true">🎯</span><span class="area-tile__title">Drills</span><span class="area-tile__text">25 drills for 5 positions</span><span class="area-tile__go" aria-hidden="true">Open →</span></a></li>
-          <li data-reveal><a class="area-tile area-tile--navy" href="fitness.html"><span class="area-tile__icon" aria-hidden="true">⚡</span><span class="area-tile__title">Fitness</span><span class="area-tile__text">Warm-ups, speed and strength</span><span class="area-tile__go" aria-hidden="true">Open →</span></a></li>
-          <li data-reveal><a class="area-tile area-tile--yellow" href="nutrition.html"><span class="area-tile__icon" aria-hidden="true">🥗</span><span class="area-tile__title">Nutrition</span><span class="area-tile__text">Food and drink that fuels you</span><span class="area-tile__go" aria-hidden="true">Open →</span></a></li>
-          <li data-reveal><a class="area-tile area-tile--white" href="tracker.html"><span class="area-tile__icon" aria-hidden="true">📈</span><span class="area-tile__title">Tracker</span><span class="area-tile__text">Log sessions, earn badges</span><span class="area-tile__go" aria-hidden="true">Open →</span></a></li>
+          <li data-reveal><a class="area-tile area-tile--green" href="programmes.html"><span class="area-tile__icon" aria-hidden="true">📋</span><span class="area-tile__title">Programmes</span><span class="area-tile__go" aria-hidden="true">Open →</span></a></li>
+          <li data-reveal><a class="area-tile area-tile--orange" href="drills.html"><span class="area-tile__icon" aria-hidden="true">🎯</span><span class="area-tile__title">Drills</span><span class="area-tile__go" aria-hidden="true">Open →</span></a></li>
+          <li data-reveal><a class="area-tile area-tile--navy" href="fitness.html"><span class="area-tile__icon" aria-hidden="true">⚡</span><span class="area-tile__title">Fitness</span><span class="area-tile__go" aria-hidden="true">Open →</span></a></li>
+          <li data-reveal><a class="area-tile area-tile--yellow" href="nutrition.html"><span class="area-tile__icon" aria-hidden="true">🥗</span><span class="area-tile__title">Nutrition</span><span class="area-tile__go" aria-hidden="true">Open →</span></a></li>
+          <li data-reveal><a class="area-tile area-tile--white" href="tracker.html"><span class="area-tile__icon" aria-hidden="true">📈</span><span class="area-tile__title">Tracker</span><span class="area-tile__go" aria-hidden="true">Open →</span></a></li>
         </ul>
       </div>
     </section>
@@ -129,8 +137,7 @@
       <div class="container">
         <div class="position-box on-dark" data-reveal>
           <h2 id="position-title">Pick your position</h2>
-          <p>Jump straight to the drills made for your role on the pitch.</p>
-          <nav class="position-picker" aria-label="Drills by position">
+                    <nav class="position-picker" aria-label="Drills by position">
             <a href="drills.html?position=goalkeeper">
               <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M12 40V20c0-3 2-4 4-4V8c0-2 4-2 4 0v7-10c0-2 4-2 4 0v10-8c0-2 4-2 4 0v9-5c0-2 4-2 4 0v16c0 7-4 13-10 13z" fill="#FFC857" stroke="#0D1B2A" stroke-width="2"/></svg>
               Goalkeeper
@@ -168,7 +175,7 @@
           <span class="eyebrow">Meet the founder</span>
           <h2 id="founder-title">Built by a player who's been there</h2>
           <blockquote class="founder__quote">
-            <p>"I've trained with my club and gone through all kinds of programmes, drills and fitness routines. I noticed young players starting out often can't find a structured plan for their age, position and level. So I built one."</p>
+            <p>"Young players starting out can't find a plan for their age, position and level. So I built one."</p>
           </blockquote>
           <p class="founder__name"><strong><span class="founder-name">Arssh Gupta</span></strong> · Mumbai City FC · Represented Mumbai and ISSO at the SGFI National Games</p>
           <a class="btn btn--outline btn--arrow" href="about.html">My story</a>
@@ -189,7 +196,7 @@
         <div class="plans-banner on-dark" data-reveal>
           <div>
             <h2 id="home-plans-title">Free to start. Always.</h2>
-            <p>Every programme, drill and guide is free. <strong>Plus</strong> (personal plans and video feedback) and <strong>Team</strong> (for coaches) are coming soon.</p>
+            <p>Every programme, drill and guide is free. No sign-up.</p>
           </div>
           <a class="btn btn--outline btn--arrow" href="plans.html">Compare plans</a>
         </div>

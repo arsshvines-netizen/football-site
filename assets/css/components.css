@@ -557,7 +557,7 @@ main { animation: page-in 0.5s ease both; }
 .site-header { transition: box-shadow 0.25s; }
 .site-header__inner { transition: min-height 0.25s; }
 .site-header.is-scrolled { box-shadow: 0 8px 24px rgba(13, 27, 42, 0.35); }
-.site-header.is-scrolled .site-header__inner { min-height: 58px; }
+/* (The header used to shrink here; that moved the whole page while scrolling, so it now keeps its height.) */
 .brand img { transition: transform 0.4s cubic-bezier(0.3, 1.6, 0.5, 1); }
 .brand:hover img { transform: rotate(-12deg) scale(1.08); }
 
@@ -630,9 +630,9 @@ main { animation: page-in 0.5s ease both; }
 /* =========================================================
    TABS (tabs.js): one topic at a time, with a sliding pill
    ========================================================= */
-.tabset { scroll-margin-top: 70px; }
+.tabset { scroll-margin-top: 84px; }
 .tabset__list {
-  position: sticky; top: 58px; z-index: 40;             /* stays under the header while scrolling */
+  position: sticky; top: 72px; z-index: 40;             /* stays under the header while scrolling */
   display: flex; gap: var(--space-1);
   padding: 6px; margin: 0 0 var(--space-4);
   background: var(--color-white);
@@ -660,7 +660,7 @@ main { animation: page-in 0.5s ease both; }
   background: var(--color-dark); border-radius: 999px;
   transition: transform 0.35s cubic-bezier(0.3, 1.3, 0.5, 1), width 0.35s cubic-bezier(0.3, 1.3, 0.5, 1);
 }
-[role="tabpanel"] { scroll-margin-top: 140px; }   /* room for the header + sticky tabs when opened from a link */
+[role="tabpanel"] { scroll-margin-top: 150px; }   /* room for the header + sticky tabs when opened from a link */
 [role="tabpanel"]:not([hidden]) { animation: panel-in 0.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
 [role="tabpanel"]:focus-visible { outline-offset: 6px; }
 @keyframes panel-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }

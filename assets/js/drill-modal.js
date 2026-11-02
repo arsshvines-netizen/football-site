@@ -11,6 +11,8 @@ import { DRILLS, POSITION_LABELS, LEVEL_LABELS, FOCUS_LABELS } from "./data/dril
 import { drawDiagram, diagramLegend } from "./diagrams.js";
 import { escapeHTML } from "./storage.js";
 import { saveButtonHTML, toggleSaved } from "./favourites.js";
+import { DRILL_VIDEOS } from "./data/videos.js";
+import { videoHTML, pauseVideos } from "./video.js";
 
 let modal = null;
 let returnFocusTo = null; // the button that opened the popup
@@ -39,6 +41,7 @@ export function drillDetailHTML(drill) {
       <div><dt>Equipment</dt><dd>${escapeHTML(drill.equipment)}</dd></div>
       <div><dt>Space</dt><dd>${escapeHTML(drill.space)}</dd></div>
     </dl>
+    ${videoHTML(DRILL_VIDEOS[drill.id], `Watch: ${drill.name}`)}
     <figure class="drill-diagram">
       ${drawDiagram(drill.diagram, description)}
       <figcaption>${diagramLegend()}</figcaption>
@@ -96,7 +99,10 @@ function createModal() {
   // Clicking the dark background closes it too
   modal.addEventListener("click", (event) => { if (event.target === modal) modal.close(); });
   // Escape closes <dialog> automatically. Afterwards, put focus back.
-  modal.addEventListener("close", () => { if (returnFocusTo) returnFocusTo.focus(); });
+  modal.addEventListener("close", () => {
+    pauseVideos(modal); // stop a drill video when the popup closes
+    if (returnFocusTo) returnFocusTo.focus();
+  });
 }
 
 export function openDrillModal(id, opener) {
