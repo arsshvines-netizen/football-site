@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Progress Tracker | PITCHPATH</title>
+  <meta name="description" content="Log your football training, rate your skills and see your progress in charts. Your data stays on your device.">
+  <link rel="icon" href="assets/img/logo-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <script type="module" src="assets/js/layout.js"></script>
+  <script type="module" src="assets/js/tracker.js"></script>
+</head>
+<body data-title="Progress Tracker">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div id="site-header"></div>
+  <noscript>
+    <nav class="noscript-nav" aria-label="Main (no JavaScript)">
+      <a href="index.html">Home</a><a href="programmes.html">Programmes</a><a href="drills.html">Drills</a><a href="fitness.html">Fitness</a><a href="nutrition.html">Nutrition</a><a href="tracker.html">Tracker</a><a href="about.html">About</a><a href="feedback.html">Feedback</a><a href="sources.html">Sources</a>
+    </nav>
+    <p class="notice notice--warning container">The tracker needs JavaScript turned on to work.</p>
+  </noscript>
+
+  <main id="main" tabindex="-1">
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Progress tracker</span>
+        <h1>Track your progress</h1>
+        <p id="welcome">Log your sessions, rate your skills and watch yourself improve.</p>
+        <p class="privacy-note">
+          <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="6" y="14" width="20" height="15" rx="3" fill="#FFC857"/><path d="M10 14V10a6 6 0 0 1 12 0v4" fill="none" stroke="#FFC857" stroke-width="3"/></svg>
+          Your data stays on this device in your browser. Nothing is sent anywhere.
+        </p>
+      </div>
+    </section>
+
+    <div class="container">
+      <p class="notice" id="global-message" role="status"></p>
+
+      <!-- DASHBOARD -->
+      <section class="section--tight" aria-labelledby="dash-title">
+        <h2 id="dash-title">Your dashboard</h2>
+        <div class="stat-grid">
+          <div class="stat"><div class="stat__value" id="stat-sessions">0</div><div class="stat__label">Total sessions</div></div>
+          <div class="stat"><div class="stat__value" id="stat-minutes">0</div><div class="stat__label">Total minutes</div></div>
+          <div class="stat"><div class="stat__value" id="stat-streak">0</div><div class="stat__label">Week streak (weeks in a row you hit your goal)</div></div>
+          <div class="stat">
+            <div class="stat__value" id="stat-goal">0/3</div>
+            <div class="stat__label">Sessions this week vs goal</div>
+            <div class="goal-track" role="progressbar" aria-label="Weekly goal progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="goal-bar" id="goal-bar"></div></div>
+          </div>
+        </div>
+        <p id="goal-text" class="muted" style="margin-top:var(--space-2)"></p>
+
+        <div class="grid grid--2" style="margin-top:var(--space-4)">
+          <div class="chart-card">
+            <h3>Skill ratings over time</h3>
+            <div class="field" style="max-width:260px;margin-bottom:var(--space-3)">
+              <label for="skill-choice">Show</label>
+              <select id="skill-choice"></select>
+            </div>
+            <div id="skill-chart"></div>
+            <div id="skill-table"></div>
+          </div>
+          <div class="chart-card">
+            <h3>Minutes trained per week</h3>
+            <p class="muted">Last 8 weeks</p>
+            <div id="minutes-chart"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FORMS -->
+      <div class="tracker-forms section--tight">
+        <section class="tracker-panel" id="log-session" aria-labelledby="log-title">
+          <h2 id="log-title">Log a session</h2>
+          <form id="session-form" novalidate>
+            <div class="form-grid form-grid--2">
+              <div class="field">
+                <label for="session-date">Date</label>
+                <input id="session-date" name="date" type="date" required>
+                <span class="field-error" data-error-for="date"></span>
+              </div>
+              <div class="field">
+                <label for="session-type">Session type</label>
+                <select id="session-type" name="type" required></select>
+                <span class="field-error" data-error-for="type"></span>
+              </div>
+              <div class="field">
+                <label for="session-duration">Duration (minutes)</label>
+                <input id="session-duration" name="duration" type="number" min="1" max="300" step="1" inputmode="numeric" required>
+                <span class="field-error" data-error-for="duration"></span>
+              </div>
+              <div class="field">
+                <label for="session-position">Position played</label>
+                <select id="session-position" name="position"></select>
+                <span class="field-error" data-error-for="position"></span>
+              </div>
+            </div>
+            <div class="field" style="margin-top:var(--space-3)">
+              <label for="session-effort">Effort (1-10)</label>
+              <input id="session-effort" name="effort" type="range" min="1" max="10" step="1" value="5" aria-describedby="effort-value">
+              <span class="effort-value" id="effort-value" aria-live="polite"></span>
+              <span class="field-error" data-error-for="effort"></span>
+              <details>
+                <summary>What do the effort numbers mean?</summary>
+                <ul class="effort-scale" id="effort-scale"></ul>
+              </details>
+            </div>
+            <div class="field" style="margin-top:var(--space-3)">
+              <label for="session-notes">Notes <span class="hint">(optional, max 300 characters)</span></label>
+              <textarea id="session-notes" name="notes" maxlength="300" placeholder="e.g. Worked on my weak foot. Felt good."></textarea>
+            </div>
+            <div class="btn-row"><button type="submit" class="btn btn--primary">Save session</button></div>
+            <p class="notice" id="session-message" role="status"></p>
+          </form>
+        </section>
+
+        <section class="tracker-panel" id="rate-skills" aria-labelledby="rate-title">
+          <h2 id="rate-title">Rate your skills</h2>
+          <p class="muted">Be honest! Rate yourself every 2-4 weeks to see how you're improving. 1 = need lots of work, 5 = excellent.</p>
+          <form id="rating-form" novalidate>
+            <div class="field" style="max-width:240px;margin-bottom:var(--space-3)">
+              <label for="rating-date">Date</label>
+              <input id="rating-date" name="date" type="date" required>
+              <span class="field-error" data-error-for="date"></span>
+            </div>
+            <div class="rating-grid" id="rating-fields"></div>
+            <div class="btn-row"><button type="submit" class="btn btn--green">Save ratings</button></div>
+            <p class="notice" id="rating-message" role="status"></p>
+          </form>
+        </section>
+      </div>
+
+      <!-- HISTORY -->
+      <section class="section--tight" aria-labelledby="history-heading">
+        <h2 id="history-heading" tabindex="-1">Session history</h2>
+        <div id="history"></div>
+      </section>
+
+      <!-- PROFILE + DATA -->
+      <div class="tracker-forms section--tight">
+        <section class="tracker-panel" aria-labelledby="profile-title">
+          <h2 id="profile-title">Your profile <span class="hint" style="font-size:1rem;text-transform:none">(optional)</span></h2>
+          <p class="muted">Use a nickname. You don't need your real name.</p>
+          <form id="profile-form" novalidate>
+            <div class="form-grid form-grid--2">
+              <div class="field">
+                <label for="profile-nickname">Nickname</label>
+                <input id="profile-nickname" name="nickname" type="text" maxlength="20" autocomplete="off">
+              </div>
+              <div class="field">
+                <label for="profile-goal">Weekly goal (sessions)</label>
+                <input id="profile-goal" name="weeklyGoal" type="number" min="1" max="7" step="1" inputmode="numeric">
+                <span class="field-error" data-error-for="weeklyGoal"></span>
+              </div>
+              <div class="field">
+                <label for="profile-position">Main position</label>
+                <select id="profile-position" name="position"></select>
+                <span class="field-error" data-error-for="position"></span>
+              </div>
+              <div class="field">
+                <label for="profile-level">Level</label>
+                <select id="profile-level" name="level"></select>
+                <span class="field-error" data-error-for="level"></span>
+              </div>
+            </div>
+            <div class="btn-row"><button type="submit" class="btn btn--green">Save profile</button></div>
+            <p class="notice" id="profile-message" role="status"></p>
+          </form>
+        </section>
+
+        <section class="tracker-panel" aria-labelledby="data-title">
+          <h2 id="data-title">Your data</h2>
+          <p>Download a backup file, or move your data to another device by importing the file there.</p>
+          <div class="btn-row">
+            <button type="button" class="btn btn--green" id="export-btn">Export (download JSON)</button>
+          </div>
+          <div class="field">
+            <label for="import-file">Import a backup file (.json)</label>
+            <input id="import-file" type="file" accept=".json,application/json">
+            <span class="hint">You'll be asked to confirm before anything is replaced.</span>
+          </div>
+          <div class="btn-row">
+            <button type="button" class="btn btn--danger" id="reset-btn">Reset: delete all data</button>
+          </div>
+          <p class="notice" id="data-message" role="status"></p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+</body>
+</html>

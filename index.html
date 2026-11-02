@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PITCHPATH: Train with a plan.</title>
+  <meta name="description" content="Free, structured football training for young players aged 12-15: programmes, position drills, fitness, nutrition and a progress tracker.">
+  <link rel="icon" href="assets/img/logo-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <script type="module" src="assets/js/layout.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div id="site-header"></div>
+  <noscript>
+    <nav class="noscript-nav" aria-label="Main (no JavaScript)">
+      <a href="index.html">Home</a><a href="programmes.html">Programmes</a><a href="drills.html">Drills</a><a href="fitness.html">Fitness</a><a href="nutrition.html">Nutrition</a><a href="tracker.html">Tracker</a><a href="about.html">About</a><a href="feedback.html">Feedback</a><a href="sources.html">Sources</a>
+    </nav>
+    <p class="notice notice--warning container">Some parts of this site (drills, tracker, timers) need JavaScript turned on.</p>
+  </noscript>
+
+  <main id="main" tabindex="-1">
+    <!-- HERO -->
+    <section class="hero on-dark" aria-labelledby="hero-title">
+      <svg class="hero__pitch" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="#F7F9FA" stroke-width="4">
+          <rect x="40" y="40" width="1120" height="520"/>
+          <line x1="600" y1="40" x2="600" y2="560"/>
+          <circle cx="600" cy="300" r="110"/>
+          <rect x="40" y="170" width="160" height="260"/>
+          <rect x="1000" y="170" width="160" height="260"/>
+        </g>
+      </svg>
+      <div class="container hero__grid">
+        <div>
+          <span class="eyebrow">For players aged 12-15</span>
+          <h1 id="hero-title">Train smarter. <span class="highlight">Play better.</span></h1>
+          <p class="lead">Step-by-step football training you can follow on your own or with a coach: plans for your level, drills for your position, and a tracker to see yourself improve.</p>
+          <div class="btn-row">
+            <a class="btn btn--primary" href="programmes.html">Start Training</a>
+            <a class="btn btn--outline" href="tracker.html">Track My Progress</a>
+          </div>
+        </div>
+        <svg class="hero__art" viewBox="0 0 380 380" aria-hidden="true" focusable="false">
+          <!-- An illustrated 'path' up the pitch: cones, ball and an arrow -->
+          <circle cx="190" cy="190" r="170" fill="#0B6E4F"/>
+          <circle cx="190" cy="190" r="110" fill="none" stroke="#F7F9FA" stroke-width="6" opacity="0.5"/>
+          <line x1="190" y1="20" x2="190" y2="360" stroke="#F7F9FA" stroke-width="5" opacity="0.3"/>
+          <path d="M70 290 C130 280 140 200 200 170 S280 120 300 90" fill="none" stroke="#F26B21" stroke-width="16" stroke-linecap="round" stroke-dasharray="2 26"/>
+          <polygon points="280,60 330,70 305,115" fill="#F26B21"/>
+          <polygon points="120,250 108,276 132,276" fill="#FFC857" stroke="#0D1B2A" stroke-width="3"/>
+          <polygon points="200,150 188,176 212,176" fill="#FFC857" stroke="#0D1B2A" stroke-width="3"/>
+          <circle cx="70" cy="290" r="24" fill="#F7F9FA" stroke="#0D1B2A" stroke-width="4"/>
+          <polygon points="70,278 81,286 77,299 63,299 59,286" fill="#0D1B2A"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section" aria-labelledby="how-title">
+      <div class="container">
+        <h2 id="how-title">How it works</h2>
+        <ol class="steps grid grid--3">
+          <li class="card step">
+            <span class="step__number" aria-hidden="true">1</span>
+            <h3>Choose your level</h3>
+            <p>Beginner, Intermediate or Advanced. Each level tells you who it's for and what you need before you start.</p>
+          </li>
+          <li class="card card--orange step">
+            <span class="step__number" aria-hidden="true">2</span>
+            <h3>Train with the plan</h3>
+            <p>Follow a 4-week programme with 3 sessions a week, using drills made for your position.</p>
+          </li>
+          <li class="card card--navy step">
+            <span class="step__number" aria-hidden="true">3</span>
+            <h3>Track your progress</h3>
+            <p>Log every session, rate your skills and watch your charts grow. Then level up!</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- FIVE CONTENT AREAS -->
+    <section class="band band--tint" aria-labelledby="areas-title">
+      <div class="container">
+        <h2 id="areas-title">Everything you need</h2>
+        <ul class="grid grid--5" style="list-style:none;padding:0">
+          <li class="card card--link">
+            <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="5" y="6" width="22" height="22" rx="3" fill="none" stroke="#0B6E4F" stroke-width="3"/><line x1="5" y1="12" x2="27" y2="12" stroke="#0B6E4F" stroke-width="3"/><line x1="11" y1="3" x2="11" y2="8" stroke="#0B6E4F" stroke-width="3"/><line x1="21" y1="3" x2="21" y2="8" stroke="#0B6E4F" stroke-width="3"/><path d="M10 20l3 3 7-7" fill="none" stroke="#B8460C" stroke-width="3"/></svg></span>
+            <h3><a href="programmes.html">Programmes</a></h3>
+            <p>4-week plans for 3 levels, getting harder step by step.</p>
+          </li>
+          <li class="card card--link card--orange">
+            <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><polygon points="9,6 3,26 15,26" fill="#F26B21" stroke="#0D1B2A" stroke-width="1.5"/><polygon points="23,6 17,26 29,26" fill="#F26B21" stroke="#0D1B2A" stroke-width="1.5"/></svg></span>
+            <h3><a href="drills.html">Position drills</a></h3>
+            <p>40 drills for keepers, defenders, midfielders, wingers and strikers.</p>
+          </li>
+          <li class="card card--link card--navy">
+            <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M18 2L6 18h9l-2 12 12-17h-9z" fill="#FFC857" stroke="#0D1B2A" stroke-width="2" stroke-linejoin="round"/></svg></span>
+            <h3><a href="fitness.html">Fitness</a></h3>
+            <p>Warm-ups, speed, strength and recovery, safe for your age.</p>
+          </li>
+          <li class="card card--link card--yellow">
+            <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 9c-4-3-11-1-11 7 0 7 5 13 8 13 1.5 0 2-1 3-1s1.5 1 3 1c3 0 8-6 8-13 0-8-7-10-11-7z" fill="#0B6E4F"/><path d="M16 9c0-3 2-6 5-6" fill="none" stroke="#0D1B2A" stroke-width="2.5"/></svg></span>
+            <h3><a href="nutrition.html">Nutrition</a></h3>
+            <p>Simple food and drink advice to fuel training and growing.</p>
+          </li>
+          <li class="card card--link">
+            <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="4" y="18" width="5" height="10" fill="#0B6E4F"/><rect x="13" y="12" width="5" height="16" fill="#0B6E4F"/><rect x="22" y="6" width="5" height="22" fill="#0B6E4F"/><path d="M4 12L13 7l6 3 9-7" fill="none" stroke="#B8460C" stroke-width="2.5"/></svg></span>
+            <h3><a href="tracker.html">Progress tracker</a></h3>
+            <p>Log sessions, rate skills and see your progress in charts.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PICK YOUR POSITION -->
+    <section class="section" aria-labelledby="position-title">
+      <div class="container">
+        <div class="band--dark on-dark" style="border-radius:var(--radius);padding:var(--space-4)">
+          <h2 id="position-title">Pick your position</h2>
+          <p style="color:var(--text-muted-on-dark)">Jump straight to the drills made for your role on the pitch.</p>
+          <nav class="position-picker" aria-label="Drills by position">
+            <a href="drills.html?position=goalkeeper">
+              <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M12 40V20c0-3 2-4 4-4V8c0-2 4-2 4 0v7-10c0-2 4-2 4 0v10-8c0-2 4-2 4 0v9-5c0-2 4-2 4 0v16c0 7-4 13-10 13z" fill="#FFC857" stroke="#0D1B2A" stroke-width="2"/></svg>
+              Goalkeeper
+            </a>
+            <a href="drills.html?position=defender">
+              <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M22 4l15 6v11c0 9-7 16-15 19C14 37 7 30 7 21V10z" fill="#0B6E4F" stroke="#F7F9FA" stroke-width="2.5"/></svg>
+              Defender
+            </a>
+            <a href="drills.html?position=midfielder">
+              <svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="17" fill="none" stroke="#F7F9FA" stroke-width="3"/><path d="M22 9l5 13-5 13-5-13z" fill="#F26B21"/></svg>
+              Midfielder
+            </a>
+            <a href="drills.html?position=winger">
+              <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M6 34C14 30 20 22 24 12l-6 1 12-9 3 14-4-5c-3 10-10 18-23 21z" fill="#FFC857"/></svg>
+              Winger
+            </a>
+            <a href="drills.html?position=striker">
+              <svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="17" fill="none" stroke="#F7F9FA" stroke-width="3"/><circle cx="22" cy="22" r="10" fill="none" stroke="#F26B21" stroke-width="3"/><circle cx="22" cy="22" r="4" fill="#FFC857"/></svg>
+              Striker
+            </a>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY -->
+    <section class="section" aria-labelledby="why-title" style="padding-top:0">
+      <div class="container">
+        <h2 id="why-title">Why <span class="brand-name">PITCHPATH</span>?</h2>
+        <ul class="why-list">
+          <li><strong>Structured:</strong> every programme builds week by week, so you always know what to do next.</li>
+          <li><strong>Position-specific:</strong> drills made for what your position actually does in a match.</li>
+          <li><strong>Safe for your age:</strong> bodyweight fitness, real-food nutrition and plenty of rest.</li>
+          <li><strong>Built by a young player:</strong> made by a student who wanted a clear plan to follow, for players like you.</li>
+          <li><strong>Free and private:</strong> no sign-up, no adverts. Your data stays on your device.</li>
+          <li><strong>Track your progress:</strong> see your skills and training time improve over weeks.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- DISCLAIMER STRIP -->
+    <section class="disclaimer" aria-label="Safety reminder">
+      <div class="container">
+        <p>
+          <svg viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="12" fill="#0D1B2A"/><rect x="12.5" y="7" width="3" height="10" fill="#FFC857"/><rect x="12.5" y="19" width="3" height="3" fill="#FFC857"/></svg>
+          <span><strong>Safety first:</strong> <span class="brand-disclaimer">This website gives general training information for young players. It is not medical advice.</span></span>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+</body>
+</html>

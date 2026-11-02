@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Training Programmes | PITCHPATH</title>
+  <meta name="description" content="4-week football training programmes for beginner, intermediate and advanced young players.">
+  <link rel="icon" href="assets/img/logo-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <script type="module" src="assets/js/layout.js"></script>
+  <script type="module" src="assets/js/programmes.js"></script>
+</head>
+<body data-title="Training Programmes">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div id="site-header"></div>
+  <noscript>
+    <nav class="noscript-nav" aria-label="Main (no JavaScript)">
+      <a href="index.html">Home</a><a href="programmes.html">Programmes</a><a href="drills.html">Drills</a><a href="fitness.html">Fitness</a><a href="nutrition.html">Nutrition</a><a href="tracker.html">Tracker</a><a href="about.html">About</a><a href="feedback.html">Feedback</a><a href="sources.html">Sources</a>
+    </nav>
+    <p class="notice notice--warning container">The programmes need JavaScript turned on to show.</p>
+  </noscript>
+
+  <main id="main" tabindex="-1">
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Training programmes</span>
+        <h1>Train with a plan</h1>
+        <p>Choose your level, then pick a programme: <strong>Technical Skills</strong>, <strong>Game Understanding</strong> or <strong>Physical Development</strong>. Each one is 4 weeks long with 3 sessions a week, and gets a little harder each week.</p>
+        <div class="btn-row no-print">
+          <button type="button" class="btn btn--primary" id="print-plan">Print this plan</button>
+          <a class="btn btn--outline" style="color:#fff;border-color:#fff" href="tracker.html">Log a session</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="levels" aria-labelledby="levels-title">
+      <div class="container">
+        <h2 id="levels-title">Choose your level</h2>
+        <div class="tabs" id="level-tabs" role="tablist" aria-label="Training level"></div>
+        <div id="level-panel" role="tabpanel" tabindex="0"></div>
+        <p class="notice notice--warning" style="margin-top:var(--space-5)"><strong>Remember:</strong> always warm up, stop if something hurts, and keep at least 1-2 rest days every week. If you already train with a club, do fewer programme sessions. Ask your coach how they fit together.</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+</body>
+</html>

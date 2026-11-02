@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Position Drills | PITCHPATH</title>
+  <meta name="description" content="40 football drills for goalkeepers, defenders, midfielders, wingers and strikers, with diagrams.">
+  <link rel="icon" href="assets/img/logo-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <script type="module" src="assets/js/layout.js"></script>
+  <script type="module" src="assets/js/drills.js"></script>
+</head>
+<body data-title="Position Drills">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div id="site-header"></div>
+  <noscript>
+    <nav class="noscript-nav" aria-label="Main (no JavaScript)">
+      <a href="index.html">Home</a><a href="programmes.html">Programmes</a><a href="drills.html">Drills</a><a href="fitness.html">Fitness</a><a href="nutrition.html">Nutrition</a><a href="tracker.html">Tracker</a><a href="about.html">About</a><a href="feedback.html">Feedback</a><a href="sources.html">Sources</a>
+    </nav>
+    <p class="notice notice--warning container">The drills list needs JavaScript turned on to show.</p>
+  </noscript>
+
+  <main id="main" tabindex="-1">
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Position drills</span>
+        <h1>Drills for your position</h1>
+        <p>Filter by position, level and focus, or search. Tap a drill to see how to set it up, a diagram, coaching tips and ways to make it easier or harder.</p>
+      </div>
+    </section>
+
+    <div class="container">
+      <form class="filters" id="drill-filters" role="search" aria-label="Filter drills">
+        <div class="filters__grid">
+          <div class="field">
+            <label for="filter-position">Position</label>
+            <select id="filter-position" name="position"><option value="">All positions</option></select>
+          </div>
+          <div class="field">
+            <label for="filter-level">Level</label>
+            <select id="filter-level" name="level"><option value="">All levels</option></select>
+          </div>
+          <div class="field">
+            <label for="filter-focus">Focus</label>
+            <select id="filter-focus" name="focus"><option value="">All focuses</option></select>
+          </div>
+          <div class="field">
+            <label for="filter-search">Search</label>
+            <input id="filter-search" name="q" type="search" placeholder="e.g. cross, turn, rondo" autocomplete="off">
+          </div>
+          <button type="button" class="btn btn--outline" id="clear-filters">Clear filters</button>
+        </div>
+      </form>
+
+      <p class="results-count" id="results-count" aria-live="polite"></p>
+      <ul class="drill-grid grid grid--3" id="drill-results"></ul>
+
+      <p class="notice heading-note"><strong>Why no heading drills?</strong> Many football associations limit heading practice for young players. Follow your club's and national association's rules on heading, and ask your coach.</p>
+    </div>
+
+    <dialog class="modal" id="drill-modal" aria-labelledby="drill-modal-title">
+      <div class="modal__header">
+        <h2 id="drill-modal-title">Drill</h2>
+        <button type="button" class="modal__close" aria-label="Close drill details">×</button>
+      </div>
+      <div class="modal__body" id="drill-modal-body"></div>
+    </dialog>
+  </main>
+
+  <div id="site-footer"></div>
+</body>
+</html>

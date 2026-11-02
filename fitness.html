@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fitness | PITCHPATH</title>
+  <meta name="description" content="Safe, bodyweight football fitness for young players: warm-up, speed, strength, endurance, recovery and injury prevention.">
+  <link rel="icon" href="assets/img/logo-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <script type="module" src="assets/js/layout.js"></script>
+  <script type="module" src="assets/js/fitness.js"></script>
+</head>
+<body data-title="Fitness">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div id="site-header"></div>
+  <noscript>
+    <nav class="noscript-nav" aria-label="Main (no JavaScript)">
+      <a href="index.html">Home</a><a href="programmes.html">Programmes</a><a href="drills.html">Drills</a><a href="fitness.html">Fitness</a><a href="nutrition.html">Nutrition</a><a href="tracker.html">Tracker</a><a href="about.html">About</a><a href="feedback.html">Feedback</a><a href="sources.html">Sources</a>
+    </nav>
+  </noscript>
+
+  <main id="main" tabindex="-1">
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Fitness</span>
+        <h1>Fit for football</h1>
+        <p>Safe fitness for players aged 12-15. Everything here uses your own bodyweight: <strong>no heavy weights and no maximal lifting.</strong> Good technique always comes first.</p>
+        <nav aria-label="On this page">
+          <ul class="toc">
+            <li><a href="#why">Why it matters</a></li>
+            <li><a href="#warm-up">Warm-up</a></li>
+            <li><a href="#speed">Speed</a></li>
+            <li><a href="#strength">Strength</a></li>
+            <li><a href="#endurance">Endurance</a></li>
+            <li><a href="#mobility">Cool-down</a></li>
+            <li><a href="#recovery">Rest and sleep</a></li>
+            <li><a href="#safety">Safety</a></li>
+            <li><a href="#schedule">Weekly plan</a></li>
+          </ul>
+        </nav>
+      </div>
+    </section>
+
+    <div class="container">
+      <section class="content-section" id="why" aria-labelledby="why-title">
+        <h2 id="why-title">Why fitness matters in football</h2>
+        <div class="grid grid--3">
+          <div class="card"><h3>Run all game</h3><p>A match has lots of short sprints, jogging and walking. Stamina helps you keep playing well until the final whistle.</p></div>
+          <div class="card card--orange"><h3>Win the race</h3><p>Being quick over the first few steps helps you get to the ball first, attack space and recover when you lose it.</p></div>
+          <div class="card card--navy"><h3>Stay strong and safe</h3><p>Strong legs and core help you hold off players, keep your balance and lower your chance of getting injured.</p></div>
+        </div>
+      </section>
+
+      <section class="content-section" id="warm-up" aria-labelledby="warmup-title">
+        <h2 id="warmup-title">Warm-up routine</h2>
+        <p>Do this before <strong>every</strong> session and match. It gets your muscles warm and ready, and helps prevent injuries. Total time: <strong id="warmup-total">10:00</strong>.</p>
+        <div class="warmup-layout">
+          <ol id="warmup-list"></ol>
+          <div class="timer on-dark" aria-labelledby="timer-title">
+            <h3 id="timer-title" class="visually-hidden">Warm-up timer</h3>
+            <p id="timer-step" class="muted" style="color:var(--text-muted-on-dark)">Step 1</p>
+            <p class="timer__name" id="timer-name">Easy jog</p>
+            <p class="timer__clock" id="timer-clock" aria-hidden="true">2:00</p>
+            <div class="timer__track" aria-hidden="true"><div class="timer__bar" id="timer-bar"></div></div>
+            <p class="timer__how" id="timer-how"></p>
+            <p id="timer-next" style="color:var(--color-accent);font-weight:700"></p>
+            <div class="btn-row">
+              <button type="button" class="btn btn--primary" id="timer-start">Start warm-up</button>
+              <button type="button" class="btn btn--outline" id="timer-pause">Pause</button>
+              <button type="button" class="btn btn--outline" id="timer-reset">Reset</button>
+            </div>
+            <p class="visually-hidden" id="timer-announce" aria-live="polite"></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section" id="speed" aria-labelledby="speed-title">
+        <h2 id="speed-title">Speed and agility</h2>
+        <p>Speed work only helps when you are fresh. Do it near the <strong>start</strong> of a session (after the warm-up), keep sprints short, and rest fully between each one. If you are slowing down, stop.</p>
+        <ul id="speed-list"></ul>
+      </section>
+
+      <section class="content-section" id="strength" aria-labelledby="strength-title">
+        <h2 id="strength-title">Strength and stability</h2>
+        <p>Start with the beginner version. Only move on when you can do every rep with perfect form. Rest 60 seconds between sets. 2 strength sessions a week is plenty.</p>
+        <div class="table-wrap">
+          <table class="stack-table strength-table">
+            <caption class="visually-hidden">Strength exercises with beginner, intermediate and advanced versions</caption>
+            <thead><tr><th scope="col">Exercise</th><th scope="col">Beginner</th><th scope="col">Intermediate</th><th scope="col">Advanced</th></tr></thead>
+            <tbody id="strength-body"></tbody>
+          </table>
+        </div>
+        <p class="notice">Strength training with your own bodyweight is a normal, safe part of training for young people <strong>when the technique is good</strong>. Ask a coach to check your form, especially when you try a new exercise.</p>
+      </section>
+
+      <section class="content-section" id="endurance" aria-labelledby="endurance-title">
+        <h2 id="endurance-title">Endurance</h2>
+        <p>Football is a stop-start game, so <strong>intervals</strong> (hard, then easy, then hard again) are better than long slow runs. Small-sided games (like 3v3 or 4v4) are a great way to build stamina with the ball.</p>
+        <div class="grid grid--3" id="endurance-cards"></div>
+      </section>
+
+      <section class="content-section" id="mobility" aria-labelledby="mobility-title">
+        <h2 id="mobility-title">Mobility and cool-down</h2>
+        <p>After training, walk or jog easily for 2-3 minutes, then stretch gently. Never bounce, and never stretch into pain. You should only feel a mild pull.</p>
+        <ul id="mobility-list"></ul>
+      </section>
+
+      <section class="content-section" id="recovery" aria-labelledby="recovery-title">
+        <h2 id="recovery-title">Rest, sleep and recovery</h2>
+        <div class="grid grid--3">
+          <div class="card">
+            <h3>Rest days</h3>
+            <p>Your body gets stronger <em>between</em> sessions, not during them. Have at least 1-2 full rest days every week, and never train hard the day before a match.</p>
+          </div>
+          <div class="card card--navy">
+            <h3>Sleep</h3>
+            <p>Sleep experts recommend <strong>9-12 hours</strong> a night for 12-year-olds and <strong>8-10 hours</strong> for 13-18 year-olds. Put screens away before bed and try to sleep at the same time each night.</p>
+          </div>
+          <div class="card card--orange">
+            <h3>Listen to your body</h3>
+            <p>Feeling very tired, sore for days, grumpy or not enjoying football? These can be signs you need more rest. Tell your coach or parent and take an easier week.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section" id="safety" aria-labelledby="safety-title">
+        <h2 id="safety-title">Injury prevention and safety</h2>
+        <div class="safety-box">
+          <h3>Golden rules</h3>
+          <ul>
+            <li><strong>Always warm up</strong> before training and matches.</li>
+            <li><strong>Stop if there is pain.</strong> Never train through pain. Being a bit tired is normal; sharp pain is not.</li>
+            <li><strong>Train on safe surfaces:</strong> check for holes, glass, wet or icy patches, and use the right boots.</li>
+            <li><strong>Drink water</strong> before, during and after training.</li>
+            <li><strong>Tell a coach or parent</strong> if you feel unwell, dizzy or injured.</li>
+            <li><strong>See a doctor</strong> if pain lasts more than a few days, keeps coming back, or there is swelling.</li>
+            <li><strong>Build up slowly.</strong> Don't suddenly double how much you train. Growing bodies need time.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="content-section" id="schedule" aria-labelledby="schedule-title">
+        <h2 id="schedule-title">Weekly schedule examples</h2>
+        <p>These examples fit around school and club training. Every week includes rest. Pick the one closest to your life and adjust it with your coach or parents.</p>
+        <div class="schedules" id="schedules"></div>
+      </section>
+
+      <p class="notice notice--warning" style="margin-top:var(--space-5)"><span class="brand-disclaimer"></span> Information sources are on the <a href="sources.html">Sources page</a>.</p>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+</body>
+</html>

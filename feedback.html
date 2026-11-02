@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Feedback | PITCHPATH</title>
+  <meta name="description" content="Tester feedback form. Responses are saved on this device only.">
+  <link rel="icon" href="assets/img/logo-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <script type="module" src="assets/js/layout.js"></script>
+  <script type="module" src="assets/js/feedback.js"></script>
+</head>
+<body data-title="Feedback">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div id="site-header"></div>
+  <noscript>
+    <nav class="noscript-nav" aria-label="Main (no JavaScript)">
+      <a href="index.html">Home</a><a href="programmes.html">Programmes</a><a href="drills.html">Drills</a><a href="fitness.html">Fitness</a><a href="nutrition.html">Nutrition</a><a href="tracker.html">Tracker</a><a href="about.html">About</a><a href="feedback.html">Feedback</a><a href="sources.html">Sources</a>
+    </nav>
+    <p class="notice notice--warning container">The feedback form needs JavaScript turned on to work.</p>
+  </noscript>
+
+  <main id="main" tabindex="-1">
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Tester feedback</span>
+        <h1>Tell us what you think</h1>
+        <p>Thanks for testing! Please answer honestly. Use your <strong>tester code</strong> (like T1), not your real name. Answers are saved on this device only. Nothing is sent online.</p>
+      </div>
+    </section>
+
+    <div class="container section--tight">
+      <form id="feedback-form" novalidate>
+        <section class="form-section" aria-labelledby="about-you">
+          <h2 id="about-you">About you</h2>
+          <div class="form-grid form-grid--3">
+            <div class="field">
+              <label for="fb-code">Tester code</label>
+              <input id="fb-code" name="testerCode" type="text" placeholder="e.g. T1" maxlength="4" autocomplete="off">
+              <span class="field-error" data-error-for="testerCode"></span>
+            </div>
+            <div class="field">
+              <label for="fb-age">Age group</label>
+              <select id="fb-age" name="ageGroup">
+                <option value="">Choose</option>
+                <option value="11-or-under">11 or under</option>
+                <option value="12-13">12-13</option>
+                <option value="14-15">14-15</option>
+                <option value="16-plus">16+</option>
+                <option value="adult">Adult (coach / parent)</option>
+              </select>
+              <span class="field-error" data-error-for="ageGroup"></span>
+            </div>
+            <div class="field">
+              <label for="fb-position">Position</label>
+              <select id="fb-position" name="position">
+                <option value="">Choose</option>
+                <option value="goalkeeper">Goalkeeper</option>
+                <option value="defender">Defender</option>
+                <option value="midfielder">Midfielder</option>
+                <option value="winger">Winger</option>
+                <option value="striker">Striker</option>
+                <option value="none">Don't play / not sure</option>
+              </select>
+              <span class="field-error" data-error-for="position"></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="form-section" aria-labelledby="ratings-title">
+          <h2 id="ratings-title">Ratings</h2>
+          <div id="rating-questions"></div>
+        </section>
+
+        <section class="form-section" aria-labelledby="tasks-title">
+          <h2 id="tasks-title">Navigation tasks</h2>
+          <p class="muted">The tester starts on the Home page for each task. The observer records the result.</p>
+          <div id="task-questions"></div>
+        </section>
+
+        <section class="form-section" aria-labelledby="comments-title">
+          <h2 id="comments-title">Your comments</h2>
+          <div class="form-grid" id="free-text"></div>
+        </section>
+
+        <div class="btn-row"><button type="submit" class="btn btn--primary">Save response</button></div>
+        <p class="notice" id="feedback-message" role="status"></p>
+      </form>
+
+      <section class="form-section" aria-labelledby="saved-title" style="margin-top:var(--space-5)">
+        <h2 id="saved-title">Saved responses (<span id="response-count">0</span>)</h2>
+        <div id="feedback-summary"></div>
+        <div class="btn-row">
+          <button type="button" class="btn btn--green" id="download-feedback">Download all responses (JSON and CSV)</button>
+          <button type="button" class="btn btn--danger" id="delete-feedback">Delete all responses</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+</body>
+</html>

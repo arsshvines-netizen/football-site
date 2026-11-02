@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nutrition | PITCHPATH</title>
+  <meta name="description" content="Simple, balanced food and drink guidance for young footballers: the football plate, hydration, match-day timing and meal ideas.">
+  <link rel="icon" href="assets/img/logo-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <script type="module" src="assets/js/layout.js"></script>
+  <script type="module" src="assets/js/nutrition.js"></script>
+</head>
+<body data-title="Nutrition">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div id="site-header"></div>
+  <noscript>
+    <nav class="noscript-nav" aria-label="Main (no JavaScript)">
+      <a href="index.html">Home</a><a href="programmes.html">Programmes</a><a href="drills.html">Drills</a><a href="fitness.html">Fitness</a><a href="nutrition.html">Nutrition</a><a href="tracker.html">Tracker</a><a href="about.html">About</a><a href="feedback.html">Feedback</a><a href="sources.html">Sources</a>
+    </nav>
+  </noscript>
+
+  <main id="main" tabindex="-1">
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Nutrition</span>
+        <h1>Fuel your game</h1>
+        <p>Simple food and drink habits to give you energy for training, help you recover, and support a growing body. <strong>No diets and no counting.</strong> Just eat enough, eat a mix, and drink water.</p>
+        <nav aria-label="On this page">
+          <ul class="toc">
+            <li><a href="#balanced">Eat balanced</a></li>
+            <li><a href="#plate">Football plate</a></li>
+            <li><a href="#hydration">Hydration</a></li>
+            <li><a href="#timing">Match-day timing</a></li>
+            <li><a href="#sample">Sample days</a></li>
+            <li><a href="#myths">Myths vs facts</a></li>
+          </ul>
+        </nav>
+      </div>
+    </section>
+
+    <div class="container">
+      <p class="notice notice--warning" style="margin-top:var(--space-4)"><strong>Important:</strong> supplements, energy drinks and protein powders are <strong>not needed</strong> for young players. Normal, balanced meals give you everything you need.</p>
+
+      <section class="content-section" id="balanced" aria-labelledby="balanced-title">
+        <h2 id="balanced-title">Eat enough, eat balanced</h2>
+        <p>You're training <em>and</em> growing, so your body needs plenty of fuel. Eat regular meals and snacks, and don't skip meals, especially breakfast.</p>
+        <div class="grid grid--3">
+          <div class="card card--yellow"><h3>Carbohydrates</h3><p><strong>Your main fuel.</strong> Gives you energy to run and think. Rice, pasta, bread, potatoes, oats, chapati, noodles, cereals.</p></div>
+          <div class="card card--orange"><h3>Protein</h3><p><strong>Builds and repairs muscles.</strong> Beans, lentils, eggs, milk, yoghurt, chicken, fish, tofu, paneer, nuts.</p></div>
+          <div class="card"><h3>Fruit and vegetables</h3><p><strong>Vitamins and minerals</strong> to keep you healthy and help you recover. Aim for lots of different colours each day.</p></div>
+          <div class="card card--navy"><h3>Healthy fats</h3><p><strong>Needed in small amounts</strong> for energy and health. Nuts, seeds, avocado, olive oil, oily fish.</p></div>
+          <div class="card"><h3>Calcium and iron</h3><p><strong>Calcium</strong> (milk, yoghurt, cheese, fortified plant milks) for strong bones. <strong>Iron</strong> (beans, lentils, leafy greens, meat, eggs) for energy.</p></div>
+          <div class="card card--yellow"><h3>Treats are OK</h3><p>No food is "banned". Enjoy treats sometimes, as part of a normal, varied diet.</p></div>
+        </div>
+      </section>
+
+      <section class="content-section" id="plate" aria-labelledby="plate-title">
+        <h2 id="plate-title">The football plate</h2>
+        <p>A simple way to build a meal on a training day. You don't need to measure anything. Just use this as a rough guide.</p>
+        <div class="plate-layout">
+          <div id="plate-svg"></div>
+          <ul class="plate-key" id="plate-key"></ul>
+        </div>
+      </section>
+
+      <section class="content-section" id="hydration" aria-labelledby="hydration-title">
+        <h2 id="hydration-title">Hydration</h2>
+        <div class="grid grid--2">
+          <div>
+            <ul class="check-list">
+              <li>Drink water regularly <strong>through the day</strong>, not just at training.</li>
+              <li><strong>Before:</strong> have a drink of water in the hour or two before training.</li>
+              <li><strong>During:</strong> take sips of water at every break.</li>
+              <li><strong>After:</strong> keep drinking to replace what you lost in sweat.</li>
+              <li>Drink more on hot days or when you sweat a lot.</li>
+              <li>Water is the best choice. Milk is also a great drink after training.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>The pee colour check</h3>
+            <p>A simple way to check if you're drinking enough is to look at the colour of your urine (pee) when you go to the toilet.</p>
+            <ul class="urine-scale">
+              <li style="background:#FFF9D6">Pale straw: well hydrated 👍</li>
+              <li style="background:#FFE680">Yellow: drink some water</li>
+              <li style="background:#F5C542">Dark yellow: drink water now</li>
+            </ul>
+            <p class="muted" style="margin-top:var(--space-2)">Some foods and vitamins can change the colour. If you're ever worried, talk to a parent or doctor.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section" id="timing" aria-labelledby="timing-title">
+        <h2 id="timing-title">Training and match-day timing</h2>
+        <p>When you eat matters too. Here's a simple plan for a training or match day:</p>
+        <ol class="timeline" id="timeline"></ol>
+      </section>
+
+      <section class="content-section" id="sample" aria-labelledby="sample-title">
+        <h2 id="sample-title">Sample days of meals and snacks</h2>
+        <p>Ideas using everyday, affordable foods. Swap foods for ones your family eats, and leave out anything you're allergic to.</p>
+        <fieldset class="field" style="margin-bottom:var(--space-4)">
+          <legend>Show meal ideas:</legend>
+          <div class="radio-row">
+            <label><input type="radio" name="meal-type" value="veg" checked> Vegetarian</label>
+            <label><input type="radio" name="meal-type" value="nonVeg"> Non-vegetarian</label>
+          </div>
+        </fieldset>
+        <div class="grid grid--2" id="sample-days" aria-live="polite"></div>
+      </section>
+
+      <section class="content-section" id="myths" aria-labelledby="myths-title">
+        <h2 id="myths-title">Myths vs facts</h2>
+        <div class="grid grid--3" id="myth-list"></div>
+      </section>
+
+      <section class="content-section" aria-labelledby="different-title">
+        <h2 id="different-title">Everyone is different</h2>
+        <p>Every young person is different and still growing. How much you need to eat changes with your age, growth and how active you are. <strong>If you have allergies, a medical condition, special dietary needs, or any worries about food or your body, talk to a parent and ask a doctor or registered dietitian.</strong></p>
+        <p>Where this information came from: see the <a href="sources.html">Sources page</a>.</p>
+      </section>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+</body>
+</html>
