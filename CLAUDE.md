@@ -11,7 +11,7 @@ Full spec: `website-spec.md`. Read it before big changes.
 6. Users are 12-15. No personal data collection, nothing sent anywhere (localStorage only). No weight-loss, calorie, dieting or supplement advice, no maximal lifting, no training through pain.
 7. Brand lives in ONE place: `assets/js/config.js` (name, tagline, nav) and `assets/css/variables.css` (colours, fonts).
 8. Don't invent facts. Keep fitness/nutrition general and conservative, list sources in `assets/js/data/sources.js`, and flag anything uncertain for the coach to check.
-9. Every text/background pair must meet WCAG 2.2 AA (4.5:1). Palette is "Sky & Navy": white text on sky blue FAILS, so use navy text on sky-blue buttons and #0B5C8E for sky-coloured text.
+9. Every text/background pair must meet WCAG 2.2 AA (4.5:1). White text on orange FAILS: use navy text on orange buttons and #B8460C for orange text.
 10. All paths relative. Run `python3 tools/check_site.py` after changes.
 
 ## Structure

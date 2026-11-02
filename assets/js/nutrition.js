@@ -28,12 +28,12 @@ function buildPlate() {
     const largeArc = sliceAngle > Math.PI ? 1 : 0;
     const labelX = centre + radius * 0.62 * Math.cos(midAngle);
     const labelY = centre + radius * 0.62 * Math.sin(midAngle);
-    const darkText = ["#A9DCFA", "#7CC6F2", "#4A90C2"].includes(part.color);
+    const darkText = ["#FFC857", "#F26B21", "#4A90C2"].includes(part.color);
     return `
       <g class="plate-slice" style="animation-delay:${i * 150}ms">
         <path d="M${centre},${centre} L${x1.toFixed(1)},${y1.toFixed(1)} A${radius},${radius} 0 ${largeArc} 1 ${x2.toFixed(1)},${y2.toFixed(1)} Z"
           fill="${part.color}" stroke="#FFFFFF" stroke-width="3"/>
-        <text x="${labelX.toFixed(1)}" y="${(labelY + 6).toFixed(1)}" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="16" fill="${darkText ? "#0A1F44" : "#FFFFFF"}">${i + 1}</text>
+        <text x="${labelX.toFixed(1)}" y="${(labelY + 6).toFixed(1)}" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="16" fill="${darkText ? "#0D1B2A" : "#FFFFFF"}">${i + 1}</text>
       </g>`;
   }).join("");
 

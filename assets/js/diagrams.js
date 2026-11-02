@@ -168,14 +168,14 @@ const LAYOUTS = {
 const COLORS = {
   pitch: "#0B6E4F",
   lines: "rgba(247,249,250,0.45)",
-  cone: "#7CC6F2",
-  pass: "#F6F8FB",
-  run: "#A9DCFA",
+  cone: "#F26B21",
+  pass: "#F7F9FA",
+  run: "#FFC857",
   team: {
-    a: { fill: "#0A1F44", text: "#F6F8FB" }, // attacker / your player
-    d: { fill: "#7CC6F2", text: "#0A1F44" }, // defender
-    g: { fill: "#A9DCFA", text: "#0A1F44" }, // goalkeeper
-    s: { fill: "#F6F8FB", text: "#0A1F44" }, // server / coach
+    a: { fill: "#0D1B2A", text: "#F7F9FA" }, // attacker / your player
+    d: { fill: "#F26B21", text: "#0D1B2A" }, // defender
+    g: { fill: "#FFC857", text: "#0D1B2A" }, // goalkeeper
+    s: { fill: "#F7F9FA", text: "#0D1B2A" }, // server / coach
   },
 };
 
@@ -215,29 +215,29 @@ function drawGoal(side) {
     return `
       <rect x="320" y="55" width="76" height="150" fill="none" stroke="${COLORS.lines}" stroke-width="2"/>
       <rect x="366" y="95" width="30" height="70" fill="none" stroke="${COLORS.lines}" stroke-width="2"/>
-      <rect x="390" y="108" width="8" height="44" fill="#F6F8FB"/>`;
+      <rect x="390" y="108" width="8" height="44" fill="#F7F9FA"/>`;
   }
   if (side === "left") {
     return `
       <rect x="4" y="55" width="76" height="150" fill="none" stroke="${COLORS.lines}" stroke-width="2"/>
-      <rect x="2" y="108" width="8" height="44" fill="#F6F8FB"/>`;
+      <rect x="2" y="108" width="8" height="44" fill="#F7F9FA"/>`;
   }
   return "";
 }
 
 function drawCone([x, y]) {
-  return `<polygon points="${x},${y - 7} ${x - 6},${y + 5} ${x + 6},${y + 5}" fill="${COLORS.cone}" stroke="#0A1F44" stroke-width="1"/>`;
+  return `<polygon points="${x},${y - 7} ${x - 6},${y + 5} ${x + 6},${y + 5}" fill="${COLORS.cone}" stroke="#0D1B2A" stroke-width="1"/>`;
 }
 
 function drawPlayer([x, y, letter, team]) {
   const c = COLORS.team[team] || COLORS.team.a;
   return `
-    <circle cx="${x}" cy="${y}" r="12" fill="${c.fill}" stroke="#0A1F44" stroke-width="2"/>
+    <circle cx="${x}" cy="${y}" r="12" fill="${c.fill}" stroke="#0D1B2A" stroke-width="2"/>
     <text x="${x}" y="${y + 5}" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="${c.text}">${letter}</text>`;
 }
 
 function drawBall([x, y]) {
-  return `<circle cx="${x}" cy="${y}" r="5" fill="#FFFFFF" stroke="#0A1F44" stroke-width="1.5"/>`;
+  return `<circle cx="${x}" cy="${y}" r="5" fill="#FFFFFF" stroke="#0D1B2A" stroke-width="1.5"/>`;
 }
 
 // Main function: returns the SVG as text.
@@ -290,10 +290,10 @@ export function drawDiagram(key, description = "Drill diagram") {
 export function diagramLegend() {
   return `
     <ul class="diagram-legend">
-      <li><svg viewBox="0 0 30 12" aria-hidden="true"><line x1="0" y1="6" x2="24" y2="6" stroke="#0A1F44" stroke-width="2.5"/><path d="M22,1 L30,6 L22,11z" fill="#0A1F44"/></svg> Solid line = pass or shot</li>
-      <li><svg viewBox="0 0 30 12" aria-hidden="true"><line x1="0" y1="6" x2="24" y2="6" stroke="#0B5C8E" stroke-width="2.5" stroke-dasharray="5 3"/><path d="M22,1 L30,6 L22,11z" fill="#0B5C8E"/></svg> Dashed line = run without the ball</li>
-      <li><svg viewBox="0 0 30 12" aria-hidden="true"><path d="M0,6 L4,2 L8,10 L12,2 L16,10 L20,2 L24,6" stroke="#0A1F44" stroke-width="2" fill="none"/><path d="M22,1 L30,6 L22,11z" fill="#0A1F44"/></svg> Wavy line = dribble</li>
-      <li><svg viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,1 1,13 13,13" fill="#7CC6F2" stroke="#0A1F44"/></svg> Triangle = cone</li>
+      <li><svg viewBox="0 0 30 12" aria-hidden="true"><line x1="0" y1="6" x2="24" y2="6" stroke="#0D1B2A" stroke-width="2.5"/><path d="M22,1 L30,6 L22,11z" fill="#0D1B2A"/></svg> Solid line = pass or shot</li>
+      <li><svg viewBox="0 0 30 12" aria-hidden="true"><line x1="0" y1="6" x2="24" y2="6" stroke="#B8460C" stroke-width="2.5" stroke-dasharray="5 3"/><path d="M22,1 L30,6 L22,11z" fill="#B8460C"/></svg> Dashed line = run without the ball</li>
+      <li><svg viewBox="0 0 30 12" aria-hidden="true"><path d="M0,6 L4,2 L8,10 L12,2 L16,10 L20,2 L24,6" stroke="#0D1B2A" stroke-width="2" fill="none"/><path d="M22,1 L30,6 L22,11z" fill="#0D1B2A"/></svg> Wavy line = dribble</li>
+      <li><svg viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,1 1,13 13,13" fill="#F26B21" stroke="#0D1B2A"/></svg> Triangle = cone</li>
       <li>Letters: A, B, C = players · D = defender · G = goalkeeper · S = server/coach</li>
     </ul>`;
 }

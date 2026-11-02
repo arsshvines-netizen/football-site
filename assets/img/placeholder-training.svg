@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Placeholder: Replace with your own training photo">
-  <rect width="800" height="500" fill="#1565C0"/>
-  <g fill="none" stroke="#F6F8FB" stroke-opacity="0.35" stroke-width="5">
+  <rect width="800" height="500" fill="#0B6E4F"/>
+  <g fill="none" stroke="#F7F9FA" stroke-opacity="0.35" stroke-width="5">
     <rect x="30" y="30" width="740" height="440"/>
     <line x1="400" y1="30" x2="400" y2="470"/>
     <circle cx="400" cy="250" r="80"/>
     <rect x="30" y="140" width="110" height="220"/>
     <rect x="660" y="140" width="110" height="220"/>
   </g>
-  <rect x="180" y="205" width="440" height="90" rx="16" fill="#0A1F44"/>
-  <text x="400" y="245" text-anchor="middle" font-family="system-ui, Arial, sans-serif" font-size="26" font-weight="700" fill="#A9DCFA">PHOTO PLACEHOLDER</text>
-  <text x="400" y="278" text-anchor="middle" font-family="system-ui, Arial, sans-serif" font-size="20" fill="#F6F8FB">Replace with your own training photo</text>
+  <rect x="180" y="205" width="440" height="90" rx="16" fill="#0D1B2A"/>
+  <text x="400" y="245" text-anchor="middle" font-family="system-ui, Arial, sans-serif" font-size="26" font-weight="700" fill="#FFC857">PHOTO PLACEHOLDER</text>
+  <text x="400" y="278" text-anchor="middle" font-family="system-ui, Arial, sans-serif" font-size="20" fill="#F7F9FA">Replace with your own training photo</text>
 </svg>

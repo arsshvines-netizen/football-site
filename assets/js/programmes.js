@@ -190,10 +190,10 @@ function ringHTML(done, total) {
   const circumference = 2 * Math.PI * 52;
   return `
     <svg class="ring" viewBox="0 0 120 120" role="img" aria-label="${done} of ${total} sessions done">
-      <circle cx="60" cy="60" r="52" fill="none" stroke="#132C5A" stroke-width="12"/>
-      <circle class="ring__bar" cx="60" cy="60" r="52" fill="none" stroke="#A9DCFA" stroke-width="12" stroke-linecap="round"
+      <circle cx="60" cy="60" r="52" fill="none" stroke="#1B2D40" stroke-width="12"/>
+      <circle class="ring__bar" cx="60" cy="60" r="52" fill="none" stroke="#FFC857" stroke-width="12" stroke-linecap="round"
         stroke-dasharray="${circumference}" stroke-dashoffset="${circumference * (1 - done / total)}" transform="rotate(-90 60 60)"/>
-      <text x="60" y="58" text-anchor="middle" font-size="28" font-weight="900" fill="#F6F8FB">${done}</text>
+      <text x="60" y="58" text-anchor="middle" font-size="28" font-weight="900" fill="#F7F9FA">${done}</text>
       <text x="60" y="80" text-anchor="middle" font-size="12" fill="#B8C4CF">of ${total} done</text>
     </svg>`;
 }
@@ -431,7 +431,7 @@ function finishSession(effort) {
 
 function celebrateHTML() {
   const done = doneCount(getProgramme());
-  const colours = ["#7CC6F2", "#A9DCFA", "#1565C0", "#F6F8FB"];
+  const colours = ["#F26B21", "#FFC857", "#0B6E4F", "#F7F9FA"];
   const confetti = Array.from({ length: 28 }, (_, i) =>
     `<span class="confetti" style="--x:${(i * 37) % 100}%;--d:${(i % 7) * 110}ms;--c:${colours[i % 4]}"></span>`).join("");
   return `

@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="PITCHPATH icon">
   <title>PITCHPATH icon</title>
-  <rect width="64" height="64" rx="14" fill="#1565C0"/>
-  <line x1="32" y1="5" x2="32" y2="59" stroke="#F6F8FB" stroke-width="3" opacity="0.35"/>
-  <circle cx="32" cy="32" r="16" fill="none" stroke="#F6F8FB" stroke-width="4"/>
-  <path d="M14 49 C24 46 27 33 38 26 L45 21.5" fill="none" stroke="#7CC6F2" stroke-width="6" stroke-linecap="round"/>
-  <path d="M40 14 L55 15 L48 28 Z" fill="#7CC6F2"/>
-  <circle cx="14" cy="49" r="5.5" fill="#A9DCFA" stroke="#0A1F44" stroke-width="2"/>
+  <rect width="64" height="64" rx="14" fill="#0B6E4F"/>
+  <line x1="32" y1="5" x2="32" y2="59" stroke="#F7F9FA" stroke-width="3" opacity="0.35"/>
+  <circle cx="32" cy="32" r="16" fill="none" stroke="#F7F9FA" stroke-width="4"/>
+  <path d="M14 49 C24 46 27 33 38 26 L45 21.5" fill="none" stroke="#F26B21" stroke-width="6" stroke-linecap="round"/>
+  <path d="M40 14 L55 15 L48 28 Z" fill="#F26B21"/>
+  <circle cx="14" cy="49" r="5.5" fill="#FFC857" stroke="#0D1B2A" stroke-width="2"/>
 </svg>

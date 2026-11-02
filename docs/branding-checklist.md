@@ -5,9 +5,9 @@
 |---|---|---|
 | Name | PITCHPATH (placeholder) | `assets/js/config.js` |
 | Tagline | "Train with a plan." | `assets/js/config.js` |
-| Logo | Original SVG: ball → curved sky-blue arrow path over a pitch centre circle | `assets/img/logo.svg`, `logo-dark.svg`, `logo-icon.svg` |
-| Colours | "Sky & Navy": Royal blue #1565C0, Sky blue #7CC6F2, Deep navy #0A1F44, Off-white #F6F8FB, Pale sky #A9DCFA (+ deep sky #0B5C8E for text) | `assets/css/variables.css` |
-| Heading font | Arial Black / Segoe UI Black (heavy system sans-serif) | `--font-heading` |
+| Logo | Original SVG: ball → curved orange arrow path over a pitch centre circle | `assets/img/logo.svg`, `logo-dark.svg`, `logo-icon.svg` |
+| Colours | Green #0B6E4F, Orange #F26B21, Navy #0D1B2A, Off-white #F7F9FA, Yellow #FFC857 (+ deep orange #B8460C for text) | `assets/css/variables.css` |
+| Heading font | Extra-bold system sans-serif (same family as body; version 7) | `--font-heading` |
 | Body font | System UI sans-serif, 16px, line height 1.6 | `--font-body` |
 | Style | Bold uppercase headings, diagonal section edges, rounded cards with coloured top edge, pill buttons, pitch-line SVGs | `components.css` |
 
@@ -30,45 +30,57 @@ Brand kit evidence: screenshot the **Brand kit** section on `about.html`.
 | 404.html | | | | | |
 
 ## Contrast ratios (WCAG 2.2 AA: at least 4.5:1 for normal text)
-Version 6 palette: **"Sky & Navy"** (chosen by the creator). Calculated with the WCAG relative-luminance formula.
+Calculated with the WCAG relative-luminance formula.
 
 | Pair used on the site | Text | Background | Ratio | Result |
 |---|---|---|---|---|
-| Navy text on off-white page | #0A1F44 | #F6F8FB | 15.27:1 | PASS |
-| Navy text on white card | #0A1F44 | #FFFFFF | 16.25:1 | PASS |
-| Off-white text on navy header/footer | #F6F8FB | #0A1F44 | 15.27:1 | PASS |
-| Grey footer text on navy | #B8C4CF | #0A1F44 | 9.16:1 | PASS |
-| Pale-sky text on navy (highlights, selected tabs) | #A9DCFA | #0A1F44 | 11.07:1 | PASS |
-| Navy text on pale sky (active nav, challenge box) | #0A1F44 | #A9DCFA | 11.07:1 | PASS |
-| White text on royal blue (page heroes, blue button) | #FFFFFF | #1565C0 | 5.75:1 | PASS |
-| Navy text on sky-blue button | #0A1F44 | #7CC6F2 | 8.68:1 | PASS |
-| Royal-blue link text on off-white | #1565C0 | #F6F8FB | 5.40:1 | PASS |
-| Deep sky text (kicker labels) on off-white | #0B5C8E | #F6F8FB | 6.72:1 | PASS |
-| Deep sky text on white | #0B5C8E | #FFFFFF | 7.15:1 | PASS |
-| Muted grey text on off-white | #4A5866 | #F6F8FB | 6.86:1 | PASS |
-| Muted grey text on blue tint | #4A5866 | #E7F1FB | 6.38:1 | PASS |
-| Dark blue on blue tint (badges, Undo link) | #0D47A1 | #E7F1FB | 7.55:1 | PASS |
-| Navy on blue tint (today timeline, done rows) | #0A1F44 | #E7F1FB | 14.22:1 | PASS |
+| Navy text on off-white page | #0D1B2A | #F7F9FA | 16.47:1 | PASS |
+| Navy text on white card | #0D1B2A | #FFFFFF | 17.39:1 | PASS |
+| Off-white text on navy header/footer | #F7F9FA | #0D1B2A | 16.47:1 | PASS |
+| Grey footer text on navy | #B8C4CF | #0D1B2A | 9.80:1 | PASS |
+| Yellow text on navy (highlights) | #FFC857 | #0D1B2A | 11.31:1 | PASS |
+| Navy text on yellow (active nav, disclaimer) | #0D1B2A | #FFC857 | 11.31:1 | PASS |
+| White text on green (page heroes, green button) | #FFFFFF | #0B6E4F | 6.25:1 | PASS |
+| Navy text on orange button | #0D1B2A | #F26B21 | 5.72:1 | PASS |
+| Green link text on off-white | #0B6E4F | #F7F9FA | 5.92:1 | PASS |
+| Deep orange text on white | #B8460C | #FFFFFF | 5.36:1 | PASS |
+| Muted grey text on off-white | #4A5866 | #F7F9FA | 6.91:1 | PASS |
+| Dark green on light-green tint (badges) | #08573E | #E6F2ED | 7.49:1 | PASS |
 | Brown on pale yellow (intermediate badge) | #7A4A00 | #FFF1D6 | 6.70:1 | PASS |
 | Dark orange on pale orange (advanced badge) | #8A3208 | #FDE3D3 | 6.73:1 | PASS |
 | Error red on white | #B3261E | #FFFFFF | 6.54:1 | PASS |
-| Pale sky on light navy (position picker) | #A9DCFA | #132C5A | 9.32:1 | PASS |
-| Off-white on light navy | #F6F8FB | #132C5A | 12.85:1 | PASS |
-| White text on footer card (light stripe) | #FFFFFF | #1A6FCF | 4.98:1 | PASS |
-| Grey text on footer bottom bar | #B8C4CF | #06142E | 10.32:1 | PASS |
-| Pale-sky 'Safety' label on footer bottom bar | #A9DCFA | #06142E | 12.47:1 | PASS |
-| Navy on blue plate slice | #0A1F44 | #4A90C2 | 4.69:1 | PASS |
-| White 'Done' pill on royal blue | #FFFFFF | #1565C0 | 5.75:1 | PASS |
-| Off-white 'Up next' pill on navy | #F6F8FB | #0A1F44 | 15.27:1 | PASS |
-| Navy 'Later' pill on grey | #0A1F44 | #D5DDE3 | 11.82:1 | PASS |
-| Navy text on sky 'Session done!' chip | #0A1F44 | #7CC6F2 | 8.68:1 | PASS |
-| Royal-blue 'Open →' on white tile | #1565C0 | #FFFFFF | 5.75:1 | PASS |
-| Off-white text on plans banner (darkest point of gradient is navy; lightest is royal blue) | #F6F8FB | #1565C0 | 5.40:1 | PASS |
-| White bold text on plans banner (royal-blue end) | #FFFFFF | #1565C0 | 5.75:1 | PASS |
+| Error red on pale red | #B3261E | #FDECEA | 5.72:1 | PASS |
+| Navy on blue plate slice | #0D1B2A | #4A90C2 | 5.02:1 | PASS |
+| Yellow on light navy (position picker) | #FFC857 | #1B2D40 | 9.13:1 | PASS |
+| Off-white on light navy | #F7F9FA | #1B2D40 | 13.29:1 | PASS |
+| Navy on green tint (empty states) | #0D1B2A | #E6F2ED | 15.15:1 | PASS |
+
+### Pairs added in version 5 (footer, tabs, drills, nutrition, quiz)
+| Pair | Text | Background | Ratio | Result |
+|---|---|---|---|---|
+| White text on footer card (light stripe) | #FFFFFF | #0D7655 | 5.62:1 | PASS |
+| White text on footer card (dark stripe) | #FFFFFF | #0B6E4F | 6.25:1 | PASS |
+| Grey text on footer bottom bar | #B8C4CF | #091421 | 10.44:1 | PASS |
+| Yellow "Safety" label on footer bottom bar | #FFC857 | #091421 | 12.04:1 | PASS |
+| Yellow selected tab / chip on navy | #FFC857 | #0D1B2A | 11.31:1 | PASS |
+| Dark green level switch text on tint | #08573E | #E6F2ED | 7.49:1 | PASS |
+| White hero chips on darkened green | #FFFFFF | #0C5142 | 9.25:1 | PASS |
+| Deep orange meal / quiz labels on white | #B8460C | #FFFFFF | 5.36:1 | PASS |
+| Dark green "Fact" label on white | #08573E | #FFFFFF | 8.60:1 | PASS |
+| Navy on orange area tile | #0D1B2A | #F26B21 | 5.72:1 | PASS |
+| Navy on current warm-up move | #0D1B2A | #FFF6EF | 16.30:1 | PASS |
 
 ### Pairs that FAIL, so the site never uses them for text
 | Pair | Ratio | What we do instead |
 |---|---|---|
-| White on sky blue #7CC6F2 | 1.87:1 | Navy text on sky-blue buttons |
-| Sky blue #7CC6F2 on white | 1.87:1 | Deep sky #0B5C8E for sky-coloured text |
-| Pale sky #A9DCFA on white | 1.47:1 | Pale sky only on navy or royal blue |
+| White on orange #F26B21 | 3.04:1 | Navy text on orange buttons |
+| Orange #F26B21 on white | 3.04:1 | Deep orange #B8460C for orange text |
+| Orange on green | 2.06:1 | Never used |
+| Yellow on white | 1.54:1 | Yellow only on navy |
+| Yellow on green | 4.07:1 | Never used for normal text |
+
+### Version 7 ("calm and clean" polish, same colours)
+| Pair | Text | Background | Ratio | Result |
+|---|---|---|---|---|
+| White text on page header, at the brightest point of the yellow glow | #FFFFFF | ~#307E56 | 5.08:1 | PASS |
+| White text on page header, darkest end of gradient | #FFFFFF | #08573E | 8.60:1 | PASS |

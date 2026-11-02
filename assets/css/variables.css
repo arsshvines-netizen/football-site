@@ -6,29 +6,30 @@
    ========================================================= */
 
 :root {
-  /* ---- Brand colours: "Sky & Navy" (version 6, picked by the creator) ---- */
-  --color-primary: #1565C0;       /* royal blue (white text on it: 5.75:1) */
-  --color-primary-dark: #0D47A1;  /* darker blue for hovers */
-  --color-secondary: #7CC6F2;     /* sky blue (backgrounds only, with navy text: 8.7:1) */
-  --color-secondary-text: #0B5C8E;/* deep sky, safe for TEXT on light backgrounds (6.7:1) */
-  --color-dark: #0A1F44;          /* deep navy */
-  --color-dark-2: #132C5A;        /* slightly lighter navy for cards on dark */
-  --color-light: #F6F8FB;         /* off-white */
+  /* ---- Brand colours (from the spec) ---- */
+  --color-primary: #0B6E4F;       /* pitch green */
+  --color-primary-dark: #08573E;  /* darker green for hovers */
+  --color-secondary: #F26B21;     /* energy orange (backgrounds only, with navy text) */
+  --color-secondary-text: #B8460C;/* darker orange, safe for TEXT on light backgrounds */
+  --color-dark: #0D1B2A;          /* night navy */
+  --color-dark-2: #1B2D40;        /* slightly lighter navy for cards on dark */
+  --color-light: #F7F9FA;         /* off-white */
   --color-white: #FFFFFF;
-  --color-accent: #A9DCFA;        /* pale sky (backgrounds, or text on navy only: 11:1) */
-  --color-tint: #E7F1FB;          /* very light blue for soft panels */
+  --color-accent: #FFC857;        /* highlight yellow (backgrounds or text on navy only) */
+  --color-tint: #E6F2ED;          /* very light green for soft panels */
 
   /* ---- Text colours ---- */
-  --text-on-light: #0A1F44;
-  --text-on-dark: #F6F8FB;
+  --text-on-light: #0D1B2A;
+  --text-on-dark: #F7F9FA;
   --text-muted: #4A5866;          /* grey text on light backgrounds (6.9:1) */
   --text-muted-on-dark: #B8C4CF;  /* grey text on navy (9.8:1) */
   --color-error: #B3261E;         /* error red text on light (6.5:1) */
   --color-border: #D5DDE3;
 
   /* ---- Fonts (maximum two families) ---- */
-  /* Headings: heavy, sporty system fonts */
-  --font-heading: "Arial Black", "Segoe UI Black", "Helvetica Neue", Impact, Arial, sans-serif;
+  /* Headings: the same clean system font as the body, extra bold.
+     (Version 7: swapped Arial Black for a calmer, more modern look.) */
+  --font-heading: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   /* Body: easy-to-read system fonts */
   --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
@@ -44,12 +45,12 @@
   --space-6: 4rem;
 
   /* ---- Shapes and effects ---- */
-  --radius: 14px;
+  --radius: 18px;
   --radius-small: 8px;
-  --shadow: 0 6px 20px rgba(10, 31, 68, 0.10);
-  --shadow-hover: 0 10px 28px rgba(10, 31, 68, 0.18);
-  --focus-ring: 3px solid #0A1F44;
-  --angle: 4vw;                   /* height of the diagonal section dividers */
+  --shadow: 0 1px 2px rgba(13, 27, 42, 0.06), 0 8px 24px rgba(13, 27, 42, 0.07);
+  --shadow-hover: 0 2px 4px rgba(13, 27, 42, 0.06), 0 16px 36px rgba(13, 27, 42, 0.14);
+  --focus-ring: 3px solid #0D1B2A;
+  --angle: 0px;                   /* diagonal section edges: 0 = straight (version 7). Try 4vw for angled. */
   --max-width: 1160px;
   --header-height: 68px;
 }
