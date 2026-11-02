@@ -7,6 +7,7 @@
 
 import { BRAND, NAV_LINKS, FOOTER_EXTRA_LINKS, DISCLAIMER } from "./config.js";
 import { setUpMobileMenu } from "./nav.js";
+import { startEffects } from "./effects.js";
 
 // Work out which page we are on, e.g. "drills.html".
 function getCurrentPage() {
@@ -101,6 +102,7 @@ function buildLayout() {
   fillBrandName();
   setTitle();
   setUpMobileMenu();
+  startEffects(); // animations (see effects.js)
 }
 
 buildLayout();

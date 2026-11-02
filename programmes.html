@@ -28,22 +28,61 @@
       <div class="container">
         <span class="eyebrow">Training programmes</span>
         <h1>Train with a plan</h1>
-        <p>Choose your level, then pick a programme: <strong>Technical Skills</strong>, <strong>Game Understanding</strong> or <strong>Physical Development</strong>. Each one is 4 weeks long with 3 sessions a week, and gets a little harder each week.</p>
-        <div class="btn-row no-print">
-          <button type="button" class="btn btn--primary" id="print-plan">Print this plan</button>
-          <a class="btn btn--outline" style="color:#fff;border-color:#fff" href="tracker.html">Log a session</a>
-        </div>
+        <p>Three steps: choose your level, choose a programme, then follow it week by week. Everything you need, including drills and the warm-up, opens right here.</p>
       </div>
     </section>
 
-    <section class="section" id="levels" aria-labelledby="levels-title">
-      <div class="container">
-        <h2 id="levels-title">Choose your level</h2>
+    <div class="container">
+      <!-- STEP 1 -->
+      <section class="step-section is-active" id="step-1" aria-labelledby="step-1-title">
+        <div class="step-section__head">
+          <span class="step-number" aria-hidden="true">1</span>
+          <h2 id="step-1-title">Choose your level</h2>
+        </div>
         <div class="tabs" id="level-tabs" role="tablist" aria-label="Training level"></div>
-        <div id="level-panel" role="tabpanel" tabindex="0"></div>
-        <p class="notice notice--warning" style="margin-top:var(--space-5)"><strong>Remember:</strong> always warm up, stop if something hurts, and keep at least 1-2 rest days every week. If you already train with a club, do fewer programme sessions. Ask your coach how they fit together.</p>
-      </div>
-    </section>
+        <div class="level-info" id="level-info" role="tabpanel">
+          <div class="level-info__who">
+            <h3>Who it's for</h3>
+            <p id="level-who"></p>
+          </div>
+          <div class="level-info__before">
+            <h3>Before you start</h3>
+            <ul class="check-list" id="level-before"></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 2 -->
+      <section class="step-section is-active" id="step-2" aria-labelledby="step-2-title">
+        <div class="step-section__head">
+          <span class="step-number" aria-hidden="true">2</span>
+          <h2 id="step-2-title">Choose a programme</h2>
+        </div>
+        <div class="programme-picker" id="programme-picker"></div>
+      </section>
+
+      <!-- STEP 3 -->
+      <section class="step-section" id="step-3" aria-labelledby="step-3-title">
+        <div class="step-section__head">
+          <span class="step-number" aria-hidden="true">3</span>
+          <h2 id="step-3-title">Train</h2>
+        </div>
+        <div class="programme-view" id="programme-view" aria-live="polite"></div>
+      </section>
+
+      <!-- EXTRAS -->
+      <section class="section--tight" aria-labelledby="addons-title">
+        <h2 id="addons-title">Drills for your position</h2>
+        <div id="addons"></div>
+      </section>
+
+      <section class="levelup" aria-labelledby="levelup-title">
+        <h2 id="levelup-title">Ready to level up?</h2>
+        <div id="levelup"></div>
+      </section>
+
+      <p class="notice notice--warning" style="margin-top:var(--space-5)"><strong>Remember:</strong> always warm up, stop if something hurts, and keep at least 1-2 rest days every week. If you already train with a club, do fewer sessions and ask your coach how they fit together.</p>
+    </div>
   </main>
 
   <div id="site-footer"></div>

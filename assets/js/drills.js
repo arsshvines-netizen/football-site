@@ -4,11 +4,11 @@
 // - Filters are read from / written to the URL, so links like
 //   drills.html?position=winger open already filtered
 // - drills.html?drill=wing-01 opens that drill's detail view
-// - Clicking a card opens a detail popup (<dialog>)
+// - Clicking a card opens the drill popup from drill-modal.js
 // =========================================================
 
 import { DRILLS, POSITION_LABELS, LEVEL_LABELS, FOCUS_LABELS } from "./data/drills.js";
-import { drawDiagram, diagramLegend } from "./diagrams.js";
+import { openDrillModal } from "./drill-modal.js";
 import { escapeHTML } from "./storage.js";
 
 const form = document.getElementById("drill-filters");
@@ -19,11 +19,6 @@ const searchInput = document.getElementById("filter-search");
 const clearButton = document.getElementById("clear-filters");
 const resultsCount = document.getElementById("results-count");
 const resultsGrid = document.getElementById("drill-results");
-const modal = document.getElementById("drill-modal");
-const modalTitle = document.getElementById("drill-modal-title");
-const modalBody = document.getElementById("drill-modal-body");
-
-let lastFocusedCard = null; // so focus can go back after closing the popup
 
 // ---------- Fill the dropdowns from the data ----------
 
@@ -113,59 +108,6 @@ function render() {
   resultsGrid.innerHTML = drills.map(cardHTML).join("");
 }
 
-// ---------- Detail popup ----------
-
-function listHTML(items, ordered) {
-  const tag = ordered ? "ol" : "ul";
-  return `<${tag}>${items.map((i) => `<li>${escapeHTML(i)}</li>`).join("")}</${tag}>`;
-}
-
-function detailHTML(drill) {
-  const description = `Diagram for ${drill.name}. ${drill.setup}`;
-  return `
-    <p>
-      <span class="badge badge--dark">${POSITION_LABELS[drill.position]}</span>
-      <span class="badge badge--${drill.level}">${LEVEL_LABELS[drill.level]}</span>
-      ${drill.focus.map((f) => `<span class="badge">${FOCUS_LABELS[f]}</span>`).join("")}
-    </p>
-    <dl class="drill-facts">
-      <div><dt>Duration</dt><dd>${drill.durationMin} min</dd></div>
-      <div><dt>Players</dt><dd>${escapeHTML(drill.players)}</dd></div>
-      <div><dt>Equipment</dt><dd>${escapeHTML(drill.equipment)}</dd></div>
-      <div><dt>Space</dt><dd>${escapeHTML(drill.space)}</dd></div>
-    </dl>
-    <figure class="drill-diagram">
-      ${drawDiagram(drill.diagram, description)}
-      <figcaption>${diagramLegend()}</figcaption>
-    </figure>
-    <h3>Setup</h3>
-    <p>${escapeHTML(drill.setup)}</p>
-    <h3>Step by step</h3>
-    ${listHTML(drill.steps, true)}
-    <h3>Coaching points</h3>
-    ${listHTML(drill.coachingPoints, false)}
-    <div class="grid grid--2 easier-harder">
-      <div class="card"><h3>Make it easier</h3><p>${escapeHTML(drill.easier)}</p></div>
-      <div class="card card--orange"><h3>Make it harder</h3><p>${escapeHTML(drill.harder)}</p></div>
-    </div>
-    <p class="notice notice--warning">Always warm up first. Stop if anything hurts and tell your coach or a parent.</p>`;
-}
-
-function openDrill(id) {
-  const drill = DRILLS.find((d) => d.id === id);
-  if (!drill) return;
-  modalTitle.textContent = drill.name;
-  modalBody.innerHTML = detailHTML(drill);
-  if (typeof modal.showModal === "function") modal.showModal();
-  else modal.setAttribute("open", ""); // very old browsers
-  modal.querySelector(".modal__close").focus();
-}
-
-function closeDrill() {
-  if (typeof modal.close === "function") modal.close();
-  else modal.removeAttribute("open");
-}
-
 // ---------- Events ----------
 
 function onFiltersChanged() {
@@ -190,15 +132,8 @@ function setUpEvents() {
     const card = event.target.closest(".drill-card");
     if (!card) return;
     const button = card.querySelector("[data-drill]");
-    lastFocusedCard = button;
-    openDrill(button.dataset.drill);
+    openDrillModal(button.dataset.drill, button); // shared popup (drill-modal.js)
   });
-
-  modal.querySelector(".modal__close").addEventListener("click", closeDrill);
-  // Click on the dark background closes the popup
-  modal.addEventListener("click", (event) => { if (event.target === modal) closeDrill(); });
-  // Escape closes <dialog> automatically. When it closes, put focus back.
-  modal.addEventListener("close", () => { if (lastFocusedCard) lastFocusedCard.focus(); });
 }
 
 // ---------- Start ----------
@@ -209,4 +144,4 @@ fillSelect(focusSelect, FOCUS_LABELS);
 const drillFromURL = readFiltersFromURL();
 setUpEvents();
 render();
-if (drillFromURL) openDrill(drillFromURL);
+if (drillFromURL) openDrillModal(drillFromURL);

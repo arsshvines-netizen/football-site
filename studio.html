@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Creator-only page: keep it out of search engines -->
+  <meta name="robots" content="noindex, nofollow">
+  <title>Creator Studio | PITCHPATH</title>
+  <link rel="icon" href="assets/img/logo-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <script type="module" src="assets/js/layout.js"></script>
+  <script type="module" src="assets/js/studio.js"></script>
+</head>
+<body data-title="Creator Studio">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div id="site-header"></div>
+
+  <main id="main" tabindex="-1">
+    <!-- THE CODE SCREEN -->
+    <section class="gate" id="gate" aria-labelledby="gate-title">
+      <div class="container">
+        <form class="gate__box" id="gate-form" novalidate>
+          <img src="assets/img/logo-icon.svg" alt="" width="56" height="56">
+          <h1 id="gate-title">Creator Studio</h1>
+          <p class="muted">This page is for the founder only.</p>
+          <div class="field">
+            <label for="gate-code">Creator code</label>
+            <input id="gate-code" type="password" autocomplete="off">
+            <span class="field-error" id="gate-error" aria-live="polite"></span>
+          </div>
+          <div class="btn-row"><button type="submit" class="btn btn--primary">Open studio</button></div>
+          <a href="index.html">Back to the website</a>
+        </form>
+      </div>
+    </section>
+
+    <!-- THE STUDIO (hidden until the code is entered) -->
+    <div id="studio" hidden>
+      <section class="page-hero">
+        <div class="container">
+          <span class="eyebrow">Creator only</span>
+          <h2 class="studio-title" id="studio-title" tabindex="-1">Creator Studio</h2>
+          <p>Brand kit, business plan and tester results for the MYP Personal Project. This page isn't linked anywhere on the website.</p>
+          <button type="button" class="btn btn--outline" style="color:#fff;border-color:#fff" id="lock-btn">Lock studio</button>
+        </div>
+      </section>
+
+      <div class="container">
+        <nav class="studio-nav" aria-label="Studio sections">
+          <a href="#results">Tester results</a>
+          <a href="#brand-kit">Brand kit</a>
+          <a href="#business">Business plan</a>
+          <a href="#evidence">Evidence files</a>
+        </nav>
+
+        <!-- 1. TESTER RESULTS -->
+        <section class="content-section" id="results" aria-labelledby="results-title">
+          <h2 id="results-title">Tester results (<span id="response-count">0</span>)</h2>
+          <p class="muted">Responses saved by testers in <strong>this browser</strong> on the <a href="feedback.html">Feedback page</a>. Run your tests on this device, or ask testers to send you their downloads.</p>
+          <div id="feedback-summary"></div>
+          <div class="btn-row">
+            <button type="button" class="btn btn--green" id="download-feedback">Download all responses (JSON and CSV)</button>
+            <button type="button" class="btn btn--danger" id="delete-feedback">Delete all responses</button>
+          </div>
+          <p class="notice" id="studio-message" role="status"></p>
+        </section>
+
+        <!-- 2. BRAND KIT -->
+        <section class="content-section" id="brand-kit" aria-labelledby="kit-title">
+          <h2 id="kit-title">Brand kit</h2>
+
+          <h3>Logo</h3>
+          <div class="logo-showcase">
+            <div class="logo-tile logo-tile--light"><img src="assets/img/logo.svg" alt="Full logo on a light background" width="330" height="80"></div>
+            <div class="logo-tile logo-tile--dark"><img src="assets/img/logo-dark.svg" alt="Full logo on a dark background" width="330" height="80"></div>
+            <div class="logo-tile logo-tile--light logo-tile--icon"><img src="assets/img/logo-icon.svg" alt="Icon version of the logo" width="96" height="96"></div>
+          </div>
+          <p class="muted" style="margin-top:var(--space-2)">The icon shows a curved path (orange arrow) starting from a ball and moving forward over the centre circle of a pitch: progress, step by step. Original design.</p>
+
+          <h3 style="margin-top:var(--space-5)">Colour palette</h3>
+          <ul class="swatches">
+            <li class="swatch"><div class="swatch__colour" style="background:#0B6E4F"></div><div class="swatch__info"><strong>Pitch green</strong>#0B6E4F · Primary</div></li>
+            <li class="swatch"><div class="swatch__colour" style="background:#F26B21"></div><div class="swatch__info"><strong>Energy orange</strong>#F26B21 · Secondary</div></li>
+            <li class="swatch"><div class="swatch__colour" style="background:#0D1B2A"></div><div class="swatch__info"><strong>Night navy</strong>#0D1B2A · Dark / text</div></li>
+            <li class="swatch"><div class="swatch__colour" style="background:#F7F9FA"></div><div class="swatch__info"><strong>Off-white</strong>#F7F9FA · Light</div></li>
+            <li class="swatch"><div class="swatch__colour" style="background:#FFC857"></div><div class="swatch__info"><strong>Highlight yellow</strong>#FFC857 · Accent</div></li>
+            <li class="swatch"><div class="swatch__colour" style="background:#B8460C"></div><div class="swatch__info"><strong>Deep orange</strong>#B8460C · Orange for text</div></li>
+          </ul>
+
+          <h3 style="margin-top:var(--space-5)">Typography</h3>
+          <div class="grid grid--2">
+            <div class="type-sample">
+              <p class="muted">Headings: heavy sans-serif (Arial Black / Segoe UI Black)</p>
+              <p class="type-sample__heading">Train smarter. Play better.</p>
+            </div>
+            <div class="type-sample">
+              <p class="muted">Body text: system sans-serif, 16px, line height 1.6</p>
+              <p class="type-sample__body">Clear, friendly text that's easy to read on any phone, tablet or laptop.</p>
+            </div>
+          </div>
+
+          <h3 style="margin-top:var(--space-5)">Buttons and badges</h3>
+          <div class="button-samples">
+            <span class="btn btn--primary">Primary button</span>
+            <span class="btn btn--green">Green button</span>
+            <span class="btn btn--outline">Outline button</span>
+            <span class="badge badge--beginner">Beginner</span>
+            <span class="badge badge--intermediate">Intermediate</span>
+            <span class="badge badge--advanced">Advanced</span>
+          </div>
+
+          <h3 style="margin-top:var(--space-5)">Style rules</h3>
+          <ul class="rules-list">
+            <li>Bold, UPPERCASE headings. Angled (diagonal) section edges, inspired by pitch markings.</li>
+            <li>Rounded cards with a coloured top edge. Plenty of white space.</li>
+            <li>Smooth, short animations (fade-up on scroll, rolling ball, counters). Turned off for people who choose reduced motion.</li>
+            <li>Orange buttons always use navy text (white on orange is too hard to read).</li>
+            <li>Never use orange text on green, or yellow text on white.</li>
+            <li>All text meets WCAG 2.2 AA contrast (at least 4.5:1). Full table: docs/branding-checklist.md.</li>
+            <li>Only original SVG illustrations and the founder's own photos. No club crests, no copyrighted images.</li>
+            <li>Friendly, encouraging, clear voice. Written for 12-15 year olds.</li>
+          </ul>
+        </section>
+
+        <!-- 3. BUSINESS PLAN -->
+        <section class="content-section" id="business" aria-labelledby="business-title">
+          <h2 id="business-title">Business and marketing plan</h2>
+
+          <div class="grid grid--2">
+            <div class="card card--orange">
+              <h3>Target customer</h3>
+              <dl class="profile-list">
+                <div><dt>Who</dt><dd>Aspiring footballers aged 12-15</dd></div>
+                <div><dt>Level</dt><dd>Beginners to club players</dd></div>
+                <div><dt>Goal</dt><dd>Get better, get selected, enjoy the game</dd></div>
+                <div><dt>Problem</dt><dd>No clear plan for their age, position and level</dd></div>
+                <div><dt>Also reaches</dt><dd>Parents (they decide and pay) and youth coaches</dd></div>
+              </dl>
+            </div>
+            <div class="card card--navy">
+              <h3>Value proposition</h3>
+              <p class="value-prop">"For young footballers aged 12-15 who want to improve but don't know where to start, <span class="brand-name">PITCHPATH</span> is a free, structured training plan built around your position and level, so you always know what to train next and can see yourself improve."</p>
+            </div>
+          </div>
+
+          <h3 style="margin-top:var(--space-5)">Brand positioning</h3>
+          <div class="positioning">
+            <figure class="positioning__map">
+              <svg viewBox="0 0 420 340" role="img" aria-labelledby="pos-title pos-desc">
+                <title id="pos-title">Positioning map</title>
+                <desc id="pos-desc">Cost from low to high across the bottom, structure from random to structured up the side. Online videos: low cost, random. Adult fitness apps: medium cost, medium structure. Private academies: high cost, structured. PITCHPATH: low cost and highly structured.</desc>
+                <rect x="50" y="20" width="350" height="270" rx="8" fill="#FFFFFF" stroke="#D5DDE3" stroke-width="2"/>
+                <line x1="225" y1="20" x2="225" y2="290" stroke="#D5DDE3" stroke-width="2" stroke-dasharray="6 5"/>
+                <line x1="50" y1="155" x2="400" y2="155" stroke="#D5DDE3" stroke-width="2" stroke-dasharray="6 5"/>
+                <text x="225" y="318" text-anchor="middle" font-size="14" font-weight="700" fill="#0D1B2A">Cost to the player →</text>
+                <text x="58" y="306" font-size="12" fill="#4A5866">Low</text>
+                <text x="392" y="306" text-anchor="end" font-size="12" fill="#4A5866">High</text>
+                <text x="22" y="155" text-anchor="middle" font-size="14" font-weight="700" fill="#0D1B2A" transform="rotate(-90 22 155)">Structured plan →</text>
+                <circle cx="105" cy="255" r="10" fill="#4A5866"/><text x="122" y="260" font-size="13" fill="#0D1B2A">Online videos</text>
+                <circle cx="255" cy="185" r="10" fill="#4A5866"/><text x="272" y="190" font-size="13" fill="#0D1B2A">Adult fitness apps</text>
+                <circle cx="355" cy="60" r="10" fill="#4A5866"/><text x="342" y="88" text-anchor="end" font-size="13" fill="#0D1B2A">Private academies</text>
+                <circle cx="100" cy="55" r="16" fill="#F26B21" stroke="#0D1B2A" stroke-width="3"/>
+                <text x="124" y="52" font-size="15" font-weight="800" fill="#0B6E4F">PITCHPATH</text>
+                <text x="124" y="70" font-size="12" fill="#4A5866">free + structured</text>
+              </svg>
+            </figure>
+            <div>
+              <p><strong>Our space:</strong> structured like an academy, but free and flexible like online videos.</p>
+              <ul class="check-list">
+                <li><strong>Versus online videos:</strong> a plan with progression, not random tricks.</li>
+                <li><strong>Versus academies:</strong> free to start; train when and where you want.</li>
+                <li><strong>Versus adult fitness apps:</strong> made for footballers aged 12-15, with safe training.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="grid grid--3" style="margin-top:var(--space-5)">
+            <div class="card">
+              <h3>Business model</h3>
+              <p><strong>Freemium.</strong> Starter is free forever. Plus (₹199/month) and Team (₹2,999/season) are shown as "Launching soon" to test demand before launch. Prices live in <code>assets/js/data/plans.js</code>.</p>
+            </div>
+            <div class="card card--orange">
+              <h3>Marketing channels</h3>
+              <ul>
+                <li>Instagram and YouTube Shorts: 30-second drill clips</li>
+                <li>Clubs and schools: posters with QR codes</li>
+                <li>Coaches: free session plans for squads</li>
+                <li>Word of mouth: badges and progress shared with teammates</li>
+              </ul>
+            </div>
+            <div class="card card--yellow">
+              <h3>Customer engagement</h3>
+              <ul>
+                <li>Challenge of the month (Home page)</li>
+                <li>Badges and streaks (Tracker)</li>
+                <li>Level-up checklists (Programmes)</li>
+                <li>Market-research questions (Feedback)</li>
+              </ul>
+            </div>
+          </div>
+
+          <h3 style="margin-top:var(--space-5)">Promotional materials</h3>
+          <div class="grid grid--3">
+            <div class="card"><h4>1. Social media post</h4><p>Instagram post announcing the free programmes.</p><p class="flag">Add your finished design here.</p></div>
+            <div class="card card--orange"><h4>2. Poster</h4><p>A4 poster for clubs and schools with a QR code.</p><p class="flag">Add your finished design here.</p></div>
+            <div class="card card--navy"><h4>3. Short video</h4><p>30-second reel: a drill, the tracker and the monthly challenge.</p><p class="flag">Add your finished design here.</p></div>
+          </div>
+        </section>
+
+        <!-- 4. EVIDENCE FILES -->
+        <section class="content-section" id="evidence" aria-labelledby="evidence-title">
+          <h2 id="evidence-title">Evidence files</h2>
+          <ul class="evidence-list">
+            <li><a href="docs/functionality-checklist.md">Functionality checklist</a></li>
+            <li><a href="docs/navigation-test-tasks.md">Navigation test tasks</a></li>
+            <li><a href="docs/content-checklist.md">Content checklist</a></li>
+            <li><a href="docs/branding-checklist.md">Branding checklist (with contrast ratios)</a></li>
+            <li><a href="docs/test-results/link-check.txt">Latest link check</a></li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+</body>
+</html>

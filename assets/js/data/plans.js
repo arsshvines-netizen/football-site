@@ -83,11 +83,11 @@ export const FAQS = [
   },
   {
     q: "Why are Plus and Team 'launching soon'?",
-    a: "We are testing the free product first and asking players, parents and coaches what they would pay for. This is called market research. Tell us what you think on the Feedback page.",
+    a: "We're making sure the free training is as good as it can be first, and asking players, parents and coaches what they want from the paid plans. Tell us what you'd like on the Feedback page.",
   },
   {
     q: "Who makes the content?",
-    a: "PITCHPATH was started by a young club footballer who has followed many training programmes himself. Drills and programmes are checked with a qualified football coach.",
+    a: "PITCHPATH was founded by Arssh Gupta, who plays for Mumbai City FC and has represented Mumbai and ISSO at the SGFI National Games. Drills and programmes are checked with a qualified football coach.",
   },
   {
     q: "Do I need to create an account?",

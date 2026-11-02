@@ -14,10 +14,11 @@ The "Auto" column was filled by an automated browser test (Chromium, emulated at
 | 7 | Home | Start Training → Programmes; Track My Progress → Tracker | Pass | | | |
 | 8 | Home | 5 content cards link to the right pages | Pass | | | |
 | 9 | Home | "Pick your position" opens Drills already filtered | Pass | | | |
-| 10 | Programmes | Level tabs switch content; level saved in URL (?level=) | Pass | | | |
+| 10 | Programmes | Step 1-2-3 flow: level → programme → week tabs; choices saved in URL | Pass | | | |
 | 11 | Programmes | Arrow keys move between tabs | Pass | | | |
 | 12 | Programmes | Session accordions open/close | Pass | | | |
-| 13 | Programmes | Drill links in sessions open that drill | Pass | | | |
+| 13 | Programmes | "View drill" opens popup on the same page; warm-up/exercises open inline | Pass | | | |
+| 13b | Programmes | Mark session as done → saved to tracker; Undo removes it | Pass | | | |
 | 14 | Programmes | Level-up checklist ticks are remembered after reload | Pass | | | |
 | 15 | Programmes | Print this plan → print preview shows all sessions, no menu | Pass* | | | |
 | 16 | Drills | Position / Level / Focus filters work | Pass | | | |
@@ -49,7 +50,9 @@ The "Auto" column was filled by an automated browser test (Chromium, emulated at
 | 43 | Plans | 3 plan cards show; Starter → Programmes; Launching soon → Feedback; FAQ opens | Pass | | | |
 | 44 | Home | Challenge of the month shows current month; buttons work | Pass | | | |
 | 45 | Tracker | Badges show earned/locked and update after logging | Pass | | | |
-| 46 | Feedback | Market research answers saved and summarised | Pass | | | |
+| 46 | Feedback | Market research answers saved; results only in Creator Studio | Pass | | | |
+| 47 | Studio | Locked until code entered; shows results; downloads JSON + CSV | Pass | | | |
+| 48 | Animations | Fade-up, counters, ticker, progress bar, back-to-top; all off with reduced motion | Pass | | | |
 | 42 | Links | `python3 tools/check_site.py` reports PASS | Pass | | | |
 
 \* Print layout checked by CSS review only. Do a real print preview to confirm.

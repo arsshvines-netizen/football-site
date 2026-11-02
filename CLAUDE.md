@@ -18,12 +18,21 @@ Full spec: `website-spec.md`. Read it before big changes.
 - `*.html`: one file per page. Header and footer are injected by `assets/js/layout.js` into `#site-header` / `#site-footer`, with a `<noscript>` fallback nav.
 - `assets/css/`: `variables.css` (brand), `base.css` (reset/layout), `components.css` (shared pieces), `pages.css` (page-specific + print).
 - `assets/js/`: `config.js`, `layout.js`, `nav.js`, `storage.js` (safe localStorage), page scripts (`plans.js` for pricing/challenge/FAQ on Home + Plans, `programmes.js`, `drills.js`, `diagrams.js`, `fitness.js`, `nutrition.js`, `tracker.js`, `feedback.js`, `sources-page.js`).
-- `assets/js/data/`: all editable content (drills, programmes, fitness, nutrition, sources, plans = business model/prices/monthly challenge).
+- `assets/js/data/`: all editable content (drills, programmes, fitness, nutrition, sources, plans = business model/prices/monthly challenge, feedback = tester questions).
+- `assets/js/effects.js`: animations for every page (scroll reveal, counters, progress bar, tilt, back-to-top). Always respect prefers-reduced-motion.
+- `assets/js/drill-modal.js`: shared drill popup (Drills + Programmes pages).
+- `studio.html` + `studio.js`: creator-only page (brand kit, business plan, tester results). Unlinked, noindex, simple code gate. NOT real security: never put private info there.
+- `tools/`: `check_site.py` (link checker), `serve.py` (optional server with custom 404).
+- `docs/`: checklists and test results.
+
+## Programmes page flow
+One page, three steps: level → programme → train (week tabs, session accordions). Drills open in the popup and warm-up/fitness exercises open inline, so players never leave the page. "Mark session as done" also saves the session to the tracker.
+
+## Public vs creator content
+Public pages are customer-facing only. Brand kit, colours, marketing strategy and positioning belong in studio.html, not on About. About is the founder's football story (Arssh Gupta, Mumbai City FC; represented Mumbai and ISSO at the SGFI National Games).
 
 ## Business layer
 The site is presented as a real football training business (MYP project Criterion A learning goal: market research, value proposition, branding, pricing, marketing, customer engagement). Freemium model: Starter free; Plus and Team shown as 'Launching soon'. No payments and no data collection, so paid plans link to the Feedback page's market-research questions. Never invent testimonials or reviews.
-- `tools/`: `check_site.py` (link checker), `serve.py` (optional server with custom 404).
-- `docs/`: checklists and test results.
 
 ## Run
 `python3 -m http.server 8000` then open http://localhost:8000

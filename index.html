@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PITCHPATH: Train with a plan.</title>
-  <meta name="description" content="Free, structured football training for young players aged 12-15: programmes, position drills, fitness, nutrition and a progress tracker.">
+  <meta name="description" content="Free, structured football training for young players aged 12-15: programmes, position drills, fitness, nutrition and a progress tracker. Founded by Mumbai City FC player Arssh Gupta.">
   <link rel="icon" href="assets/img/logo-icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
@@ -28,120 +28,116 @@
     <section class="hero on-dark" aria-labelledby="hero-title">
       <svg class="hero__pitch" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
         <g fill="none" stroke="#F7F9FA" stroke-width="4">
-          <rect x="40" y="40" width="1120" height="520"/>
-          <line x1="600" y1="40" x2="600" y2="560"/>
-          <circle cx="600" cy="300" r="110"/>
-          <rect x="40" y="170" width="160" height="260"/>
-          <rect x="1000" y="170" width="160" height="260"/>
+          <rect class="draw" x="40" y="40" width="1120" height="520"/>
+          <line class="draw" x1="600" y1="40" x2="600" y2="560"/>
+          <circle class="draw" cx="600" cy="300" r="110"/>
+          <rect class="draw" x="40" y="170" width="160" height="260"/>
+          <rect class="draw" x="1000" y="170" width="160" height="260"/>
         </g>
       </svg>
       <div class="container hero__grid">
-        <div>
-          <span class="eyebrow">Made by a young footballer, for players aged 12-15</span>
-          <h1 id="hero-title">Train smarter. <span class="highlight">Play better.</span></h1>
-          <p class="lead">Step-by-step football training you can follow on your own or with a coach: plans for your level, drills for your position, and a tracker to see yourself improve.</p>
-          <div class="btn-row">
-            <a class="btn btn--primary" href="programmes.html">Start Training</a>
+        <div class="hero__text">
+          <span class="eyebrow hero-in" style="--delay:0ms">Founded by a Mumbai City FC player</span>
+          <h1 id="hero-title" class="hero-in" style="--delay:120ms">Train smarter. <span class="highlight">Play better.</span></h1>
+          <p class="lead hero-in" style="--delay:240ms">Step-by-step football training for players aged 12-15. Plans for your level, drills for your position, and a tracker to see yourself improve.</p>
+          <div class="btn-row hero-in" style="--delay:360ms">
+            <a class="btn btn--primary btn--arrow" href="programmes.html">Start Training</a>
             <a class="btn btn--outline" href="tracker.html">Track My Progress</a>
           </div>
-          <p class="hero__proof">Free to start · No sign-up · 9 programmes · 40 drills</p>
+          <p class="hero__proof hero-in" style="--delay:480ms">Free to start · No sign-up · No adverts</p>
         </div>
+        <!-- Animated illustration: the ball rolls along the "path" -->
         <svg class="hero__art" viewBox="0 0 380 380" aria-hidden="true" focusable="false">
-          <!-- An illustrated 'path' up the pitch: cones, ball and an arrow -->
           <circle cx="190" cy="190" r="170" fill="#0B6E4F"/>
-          <circle cx="190" cy="190" r="110" fill="none" stroke="#F7F9FA" stroke-width="6" opacity="0.5"/>
+          <circle class="spin-slow" cx="190" cy="190" r="110" fill="none" stroke="#F7F9FA" stroke-width="6" opacity="0.5" stroke-dasharray="40 18"/>
           <line x1="190" y1="20" x2="190" y2="360" stroke="#F7F9FA" stroke-width="5" opacity="0.3"/>
-          <path d="M70 290 C130 280 140 200 200 170 S280 120 300 90" fill="none" stroke="#F26B21" stroke-width="16" stroke-linecap="round" stroke-dasharray="2 26"/>
-          <polygon points="280,60 330,70 305,115" fill="#F26B21"/>
+          <path id="ball-path" d="M70 290 C130 280 140 200 200 170 S280 120 300 90" fill="none" stroke="#F26B21" stroke-width="16" stroke-linecap="round" stroke-dasharray="2 26" class="dash-move"/>
+          <polygon class="arrow-pulse" points="280,60 330,70 305,115" fill="#F26B21"/>
           <polygon points="120,250 108,276 132,276" fill="#FFC857" stroke="#0D1B2A" stroke-width="3"/>
           <polygon points="200,150 188,176 212,176" fill="#FFC857" stroke="#0D1B2A" stroke-width="3"/>
-          <circle cx="70" cy="290" r="24" fill="#F7F9FA" stroke="#0D1B2A" stroke-width="4"/>
-          <polygon points="70,278 81,286 77,299 63,299 59,286" fill="#0D1B2A"/>
+          <g class="rolling-ball">
+            <circle r="22" fill="#F7F9FA" stroke="#0D1B2A" stroke-width="4"/>
+            <polygon points="0,-11 10,-4 6,9 -6,9 -10,-4" fill="#0D1B2A"/>
+            <animateMotion dur="3.6s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.75;1" calcMode="linear" rotate="auto">
+              <mpath href="#ball-path"/>
+            </animateMotion>
+          </g>
         </svg>
       </div>
     </section>
 
-    <!-- PROBLEM AND SOLUTION (value proposition) -->
-    <section class="section" aria-labelledby="problem-title">
-      <div class="container">
-        <h2 id="problem-title">The problem we solve</h2>
-        <div class="problem-grid">
-          <div class="problem card card--navy">
-            <h3>The problem</h3>
-            <ul>
-              <li>Young players want to improve, but don't know <strong>what</strong> to practise or in what order.</li>
-              <li>Online videos show tricks, not a plan for your age, position and level.</li>
-              <li>Private coaching is expensive and only a few hours a week.</li>
-            </ul>
-          </div>
-          <div class="problem__arrow" aria-hidden="true">
-            <svg viewBox="0 0 60 60"><path d="M10 30h34" stroke="#F26B21" stroke-width="7" stroke-linecap="round"/><path d="M34 16l16 14-16 14" fill="none" stroke="#F26B21" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <div class="problem card">
-            <h3>Our solution</h3>
-            <ul class="check-list">
-              <li>A <strong>structured path</strong> from Beginner to Advanced, week by week.</li>
-              <li>Training for <strong>your position</strong>: keeper, defender, midfielder, winger or striker.</li>
-              <li><strong>Free</strong> to start, safe for ages 12-15, with a tracker to see your progress.</li>
-            </ul>
-          </div>
-        </div>
+    <!-- NUMBERS (count up when they scroll into view) -->
+    <section class="stats-strip" aria-label="PITCHPATH in numbers">
+      <div class="container stats-strip__grid">
+        <div class="count-stat" data-reveal><span class="count-stat__value" data-count="9">9</span><span class="count-stat__label">Programmes</span></div>
+        <div class="count-stat" data-reveal><span class="count-stat__value" data-count="40">40</span><span class="count-stat__label">Position drills</span></div>
+        <div class="count-stat" data-reveal><span class="count-stat__value" data-count="108">108</span><span class="count-stat__label">Planned sessions</span></div>
+        <div class="count-stat" data-reveal><span class="count-stat__value" data-count="5">5</span><span class="count-stat__label">Positions covered</span></div>
       </div>
     </section>
+
+    <!-- MOVING TICKER -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track">
+        <span>Technical skills</span><span>Game understanding</span><span>Speed and agility</span><span>Strength</span><span>Nutrition</span><span>Goalkeepers</span><span>Defenders</span><span>Midfielders</span><span>Wingers</span><span>Strikers</span>
+        <span>Technical skills</span><span>Game understanding</span><span>Speed and agility</span><span>Strength</span><span>Nutrition</span><span>Goalkeepers</span><span>Defenders</span><span>Midfielders</span><span>Wingers</span><span>Strikers</span>
+      </div>
+    </div>
 
     <!-- HOW IT WORKS -->
     <section class="section" aria-labelledby="how-title">
       <div class="container">
-        <h2 id="how-title">How it works</h2>
+        <h2 id="how-title" data-reveal>How it works</h2>
         <ol class="steps grid grid--3">
-          <li class="card step">
+          <li class="card step" data-reveal>
             <span class="step__number" aria-hidden="true">1</span>
             <h3>Choose your level</h3>
             <p>Beginner, Intermediate or Advanced. Each level tells you who it's for and what you need before you start.</p>
           </li>
-          <li class="card card--orange step">
+          <li class="card card--orange step" data-reveal>
             <span class="step__number" aria-hidden="true">2</span>
-            <h3>Train with the plan</h3>
-            <p>Follow a 4-week programme with 3 sessions a week, using drills made for your position.</p>
+            <h3>Pick a programme</h3>
+            <p>Technical skills, game understanding or physical development: 4 weeks, 3 sessions a week.</p>
           </li>
-          <li class="card card--navy step">
+          <li class="card card--navy step" data-reveal>
             <span class="step__number" aria-hidden="true">3</span>
-            <h3>Track your progress</h3>
-            <p>Log every session, rate your skills and watch your charts grow. Then level up!</p>
+            <h3>Train and track</h3>
+            <p>Tick off each session as you go. It's saved in your tracker so you can watch yourself improve.</p>
           </li>
         </ol>
+        <div class="btn-row" data-reveal><a class="btn btn--primary btn--arrow" href="programmes.html">Choose your level</a></div>
       </div>
     </section>
 
     <!-- FIVE CONTENT AREAS -->
     <section class="band band--tint" aria-labelledby="areas-title">
       <div class="container">
-        <h2 id="areas-title">Everything you need</h2>
-        <ul class="grid grid--5" style="list-style:none;padding:0">
-          <li class="card card--link">
+        <h2 id="areas-title" data-reveal>Everything you need</h2>
+        <ul class="grid grid--5 area-grid">
+          <li class="card card--link" data-reveal>
             <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="5" y="6" width="22" height="22" rx="3" fill="none" stroke="#0B6E4F" stroke-width="3"/><line x1="5" y1="12" x2="27" y2="12" stroke="#0B6E4F" stroke-width="3"/><line x1="11" y1="3" x2="11" y2="8" stroke="#0B6E4F" stroke-width="3"/><line x1="21" y1="3" x2="21" y2="8" stroke="#0B6E4F" stroke-width="3"/><path d="M10 20l3 3 7-7" fill="none" stroke="#B8460C" stroke-width="3"/></svg></span>
             <h3><a href="programmes.html">Programmes</a></h3>
             <p>4-week plans for 3 levels, getting harder step by step.</p>
           </li>
-          <li class="card card--link card--orange">
+          <li class="card card--link card--orange" data-reveal>
             <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><polygon points="9,6 3,26 15,26" fill="#F26B21" stroke="#0D1B2A" stroke-width="1.5"/><polygon points="23,6 17,26 29,26" fill="#F26B21" stroke="#0D1B2A" stroke-width="1.5"/></svg></span>
             <h3><a href="drills.html">Position drills</a></h3>
             <p>40 drills for keepers, defenders, midfielders, wingers and strikers.</p>
           </li>
-          <li class="card card--link card--navy">
+          <li class="card card--link card--navy" data-reveal>
             <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M18 2L6 18h9l-2 12 12-17h-9z" fill="#FFC857" stroke="#0D1B2A" stroke-width="2" stroke-linejoin="round"/></svg></span>
             <h3><a href="fitness.html">Fitness</a></h3>
             <p>Warm-ups, speed, strength and recovery, safe for your age.</p>
           </li>
-          <li class="card card--link card--yellow">
+          <li class="card card--link card--yellow" data-reveal>
             <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 9c-4-3-11-1-11 7 0 7 5 13 8 13 1.5 0 2-1 3-1s1.5 1 3 1c3 0 8-6 8-13 0-8-7-10-11-7z" fill="#0B6E4F"/><path d="M16 9c0-3 2-6 5-6" fill="none" stroke="#0D1B2A" stroke-width="2.5"/></svg></span>
             <h3><a href="nutrition.html">Nutrition</a></h3>
             <p>Simple food and drink advice to fuel training and growing.</p>
           </li>
-          <li class="card card--link">
+          <li class="card card--link" data-reveal>
             <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="4" y="18" width="5" height="10" fill="#0B6E4F"/><rect x="13" y="12" width="5" height="16" fill="#0B6E4F"/><rect x="22" y="6" width="5" height="22" fill="#0B6E4F"/><path d="M4 12L13 7l6 3 9-7" fill="none" stroke="#B8460C" stroke-width="2.5"/></svg></span>
             <h3><a href="tracker.html">Progress tracker</a></h3>
-            <p>Log sessions, rate skills and see your progress in charts.</p>
+            <p>Log sessions, earn badges and see your progress in charts.</p>
           </li>
         </ul>
       </div>
@@ -150,9 +146,9 @@
     <!-- PICK YOUR POSITION -->
     <section class="section" aria-labelledby="position-title">
       <div class="container">
-        <div class="band--dark on-dark" style="border-radius:var(--radius);padding:var(--space-4)">
+        <div class="position-box on-dark" data-reveal>
           <h2 id="position-title">Pick your position</h2>
-          <p style="color:var(--text-muted-on-dark)">Jump straight to the drills made for your role on the pitch.</p>
+          <p>Jump straight to the drills made for your role on the pitch.</p>
           <nav class="position-picker" aria-label="Drills by position">
             <a href="drills.html?position=goalkeeper">
               <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M12 40V20c0-3 2-4 4-4V8c0-2 4-2 4 0v7-10c0-2 4-2 4 0v10-8c0-2 4-2 4 0v9-5c0-2 4-2 4 0v16c0 7-4 13-10 13z" fill="#FFC857" stroke="#0D1B2A" stroke-width="2"/></svg>
@@ -179,84 +175,48 @@
       </div>
     </section>
 
-    <!-- AUDIENCE SEGMENTS -->
-    <section class="section" aria-labelledby="for-title">
-      <div class="container">
-        <h2 id="for-title">Built for</h2>
-        <div class="grid grid--3">
-          <div class="card card--orange">
-            <h3>Players aged 12-15</h3>
-            <p>Train on your own or with friends, follow a plan for your position, and see yourself improve every week.</p>
-            <p><a href="programmes.html">Find your programme →</a></p>
-          </div>
-          <div class="card">
-            <h3>Parents</h3>
-            <p>Safe, age-appropriate training with real-food nutrition, rest days and no sign-up. Free to start, no data collected.</p>
-            <p><a href="fitness.html#safety">Read our safety rules →</a></p>
-          </div>
-          <div class="card card--navy">
-            <h3>Coaches</h3>
-            <p>Ready-made session plans and 40 drills with diagrams you can use with your U12-U15 squad today.</p>
-            <p><a href="plans.html#coaches">For coaches and clubs →</a></p>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- FOUNDER -->
     <section class="band band--dark on-dark" aria-labelledby="founder-title">
       <div class="container founder">
-        <img class="founder__photo" src="assets/img/founder-action.jpg" alt="The founder, wearing number 9 and the captain's armband, watching a teammate dribble in a match" width="1200" height="800" loading="lazy">
-        <div>
+        <div class="founder__media" data-reveal>
+          <img class="founder__photo" src="assets/img/founder-action.jpg" alt="Arssh Gupta wearing number 9 and the captain's armband during a match" width="1200" height="800" loading="lazy">
+          <span class="founder__tag">Mumbai City FC</span>
+        </div>
+        <div data-reveal>
           <span class="eyebrow">Meet the founder</span>
-          <h2 id="founder-title">Why I started <span class="brand-name">PITCHPATH</span></h2>
+          <h2 id="founder-title">Built by a player who's been there</h2>
           <blockquote class="founder__quote">
-            <p>"Football has been a huge part of my life for years. I've trained with my club and gone through many different programmes, drills and fitness routines. I noticed that young footballers starting out often can't find a structured plan for their age, position and level. So I built one."</p>
+            <p>"I've trained with my club and gone through all kinds of programmes, drills and fitness routines. I noticed young players starting out often can't find a structured plan for their age, position and level. So I built one."</p>
           </blockquote>
-          <p class="founder__name"><strong><span class="founder-name">Arssh Gupta</span></strong>, founder and club footballer</p>
-          <a class="btn btn--outline" href="about.html">Read our story</a>
+          <p class="founder__name"><strong><span class="founder-name">Arssh Gupta</span></strong> · Mumbai City FC · Represented Mumbai and ISSO at the SGFI National Games</p>
+          <a class="btn btn--outline btn--arrow" href="about.html">My story</a>
         </div>
       </div>
     </section>
 
-    <!-- CHALLENGE OF THE MONTH (customer engagement) -->
+    <!-- CHALLENGE OF THE MONTH -->
     <section class="section" aria-labelledby="challenge-title">
       <div class="container">
-        <div class="challenge" id="challenge"></div>
+        <div class="challenge" id="challenge" data-reveal></div>
       </div>
     </section>
 
-    <!-- PLANS TEASER -->
+    <!-- PLANS -->
     <section class="section" aria-labelledby="home-plans-title" style="padding-top:0">
       <div class="container">
-        <h2 id="home-plans-title">Start free. Upgrade when you're ready.</h2>
+        <h2 id="home-plans-title" data-reveal>Start free. Upgrade when you're ready.</h2>
         <div class="plans" id="plans-grid"></div>
-        <p style="margin-top:var(--space-3)"><a href="plans.html">Compare plans and see how we compare with other options →</a></p>
-      </div>
-    </section>
-
-    <!-- WHY -->
-    <section class="section" aria-labelledby="why-title" style="padding-top:0">
-      <div class="container">
-        <h2 id="why-title">Why <span class="brand-name">PITCHPATH</span>?</h2>
-        <ul class="why-list">
-          <li><strong>Structured:</strong> every programme builds week by week, so you always know what to do next.</li>
-          <li><strong>Position-specific:</strong> drills made for what your position actually does in a match.</li>
-          <li><strong>Safe for your age:</strong> bodyweight fitness, real-food nutrition and plenty of rest.</li>
-          <li><strong>Built by a player:</strong> made by a club footballer who knows what young players actually need.</li>
-          <li><strong>Free and private:</strong> no sign-up, no adverts. Your data stays on your device.</li>
-          <li><strong>Track your progress:</strong> see your skills and training time improve over weeks.</li>
-        </ul>
+        <p style="margin-top:var(--space-3)"><a href="plans.html">Compare plans →</a></p>
       </div>
     </section>
 
     <!-- FINAL CALL TO ACTION -->
     <section class="cta-band on-dark" aria-labelledby="cta-title">
-      <div class="container cta-band__inner">
+      <div class="container cta-band__inner" data-reveal>
         <h2 id="cta-title">Your path starts with one session.</h2>
         <p>Pick your level, follow the plan, track your progress.</p>
         <div class="btn-row" style="justify-content:center">
-          <a class="btn btn--primary" href="programmes.html">Start training free</a>
+          <a class="btn btn--primary btn--arrow" href="programmes.html">Start training free</a>
           <a class="btn btn--outline" href="drills.html">Browse drills</a>
         </div>
       </div>

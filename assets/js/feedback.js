@@ -1,38 +1,15 @@
 // =========================================================
 // feedback.js: the tester Feedback form.
-// Saves responses in localStorage (this device only) and
-// exports them as JSON or CSV for your evidence.
+// Saves responses in localStorage (this device only).
+// The results (summary, JSON/CSV download) are on the
+// creator-only page studio.html.
 // Nothing is ever sent online.
 // =========================================================
 
-import { isStorageAvailable, loadData, saveData, removeData, downloadFile, escapeHTML, askToConfirm } from "./storage.js";
-import { BRAND } from "./config.js";
-
-const STORAGE_KEY = "pitchpath-feedback";
-const DATA_VERSION = 1;
-
-export const RATING_QUESTIONS = [
-  { key: "usefulness", text: "How useful is the content?" },
-  { key: "understandable", text: "How easy is the content to understand?" },
-  { key: "navigation", text: "How easy is it to find your way around?" },
-  { key: "visual", text: "How good does the website look?" },
-  { key: "professional", text: "How professional does it feel?" },
-  { key: "useAgain", text: "How likely are you to use it again?" },
-];
-
-export const TASKS = [
-  { key: "task1", text: "Find a winger programme" },
-  { key: "task2", text: "Find nutrition guidance" },
-  { key: "task3", text: "Open the progress tracker" },
-  { key: "task4", text: "Find a defender drill" },
-  { key: "task5", text: "Find the warm-up" },
-];
-
-const FREE_TEXT = [
-  { key: "liked", text: "What did you like?" },
-  { key: "confusing", text: "What was confusing?" },
-  { key: "change", text: "What would you change?" },
-];
+import { isStorageAvailable, loadData, saveData } from "./storage.js";
+import {
+  FEEDBACK_KEY as STORAGE_KEY, FEEDBACK_VERSION as DATA_VERSION, RATING_QUESTIONS, TASKS, FREE_TEXT,
+} from "./data/feedback.js";
 
 const storageWorks = isStorageAvailable();
 
@@ -168,80 +145,6 @@ function showMessage(text, type = "success") {
   el.textContent = text;
 }
 
-// ---------- Summary of saved responses ----------
-
-function average(key) {
-  if (!responses.length) return "–";
-  return (responses.reduce((sum, r) => sum + Number(r[key]), 0) / responses.length).toFixed(1);
-}
-
-function renderSummary() {
-  const wrap = document.getElementById("feedback-summary");
-  document.getElementById("response-count").textContent = responses.length;
-  if (!responses.length) {
-    wrap.innerHTML = `<p class="empty-state">No responses saved on this device yet. When a tester fills in the form, a summary will appear here.</p>`;
-    return;
-  }
-  const ratingRows = RATING_QUESTIONS.map((q) => `<tr><th scope="row">${q.text}</th><td>${average(q.key)} / 5</td></tr>`).join("");
-  const taskRows = TASKS.map((t) => {
-    const done = responses.filter((r) => r[`${t.key}Done`] === "yes").length;
-    return `<tr><th scope="row">${t.text}</th><td>${done}/${responses.length} unaided</td><td>${average(`${t.key}Clicks`)}</td><td>${average(`${t.key}Time`)} s</td></tr>`;
-  }).join("");
-  const codes = responses.map((r) => escapeHTML(r.testerCode)).join(", ");
-  const count = (key, value) => responses.filter((r) => r[key] === value).length;
-  const marketRows = `
-    <tr><th scope="row">Would pay for Plus</th><td>Yes ${count("wouldPay", "yes")} · Maybe ${count("wouldPay", "maybe")} · No ${count("wouldPay", "no")}</td></tr>
-    <tr><th scope="row">Most wanted feature</th><td>Personal plan ${count("bestFeature", "personal-plan")} · Video feedback ${count("bestFeature", "video-feedback")} · Team tools ${count("bestFeature", "team-tools")}</td></tr>
-    <tr><th scope="row">Top channel</th><td>Instagram ${count("channel", "instagram")} · YouTube ${count("channel", "youtube")} · Club ${count("channel", "club")} · School ${count("channel", "school")} · Friends ${count("channel", "friends")}</td></tr>`;
-  wrap.innerHTML = `
-    <p><strong>Testers:</strong> ${codes}</p>
-    <div class="grid grid--2">
-      <div class="table-wrap"><table>
-        <caption>Average ratings</caption>
-        <thead><tr><th scope="col">Question</th><th scope="col">Average</th></tr></thead>
-        <tbody>${ratingRows}</tbody></table></div>
-      <div class="table-wrap"><table>
-        <caption>Navigation tasks</caption>
-        <thead><tr><th scope="col">Task</th><th scope="col">Completed</th><th scope="col">Avg clicks</th><th scope="col">Avg time</th></tr></thead>
-        <tbody>${taskRows}</tbody></table></div>
-    </div>
-    <div class="table-wrap" style="margin-top:var(--space-4)"><table>
-      <caption>Market research</caption>
-      <tbody>${marketRows}</tbody></table></div>`;
-}
-
-// ---------- Export ----------
-
-function toCSV() {
-  if (!responses.length) return "";
-  const headers = Object.keys(responses[0]);
-  const escapeCell = (value) => `"${String(value ?? "").replaceAll('"', '""')}"`;
-  const lines = [headers.map(escapeCell).join(",")];
-  responses.forEach((r) => lines.push(headers.map((h) => escapeCell(r[h])).join(",")));
-  return lines.join("\r\n");
-}
-
-function onDownload() {
-  if (!responses.length) {
-    showMessage("There are no responses to download yet.", "error");
-    return;
-  }
-  const base = `${BRAND.name.toLowerCase()}-feedback-${new Date().toISOString().slice(0, 10)}`;
-  downloadFile(`${base}.json`, JSON.stringify({ version: DATA_VERSION, responses }, null, 2));
-  // Small delay so browsers allow the second download
-  setTimeout(() => downloadFile(`${base}.csv`, toCSV(), "text/csv"), 400);
-  showMessage(`Downloaded ${base}.json and ${base}.csv.`);
-}
-
-async function onDeleteAll() {
-  if (!responses.length) return;
-  if (!(await askToConfirm(`Delete all ${responses.length} saved responses from this device? Download them first if you need them.`, "Delete all"))) return;
-  responses = [];
-  removeData(STORAGE_KEY);
-  renderSummary();
-  showMessage("All responses deleted.");
-}
-
 function onSubmit(event) {
   event.preventDefault();
   const form = event.target;
@@ -257,7 +160,6 @@ function onSubmit(event) {
     return;
   }
   form.reset();
-  renderSummary();
   showMessage(`Thank you, ${result.response.testerCode}! Your response is saved on this device.`);
   document.getElementById("feedback-message").scrollIntoView({ block: "center" });
 }
@@ -265,8 +167,5 @@ function onSubmit(event) {
 // ---------- Start ----------
 
 buildForm();
-renderSummary();
 if (!storageWorks) showMessage("This browser can't save data (storage is off). Responses won't be kept.", "error");
 document.getElementById("feedback-form").addEventListener("submit", onSubmit);
-document.getElementById("download-feedback").addEventListener("click", onDownload);
-document.getElementById("delete-feedback").addEventListener("click", onDeleteAll);
