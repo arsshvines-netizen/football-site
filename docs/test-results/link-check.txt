@@ -1,2 +1,2 @@
-Checked 350 internal links and file references.
+Checked 403 internal links and file references.
 PASS: no broken links, no missing files, nothing loaded from the internet, no duplicate animation names.

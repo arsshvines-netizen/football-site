@@ -17,6 +17,7 @@ import { BRAND } from "./config.js";
 import { SOURCES } from "./data/sources.js";
 import { DRILL_VIDEOS, WARM_UP_VIDEOS, WARM_UP_FULL_VIDEO } from "./data/videos.js";
 import { DRILLS } from "./data/drills.js";
+import { isPlus, setPlus } from "./plus.js";
 import {
   FEEDBACK_KEY as STORAGE_KEY, FEEDBACK_VERSION as DATA_VERSION, RATING_QUESTIONS, TASKS,
 } from "./data/feedback.js";
@@ -171,7 +172,22 @@ function renderVideoChecks() {
   document.getElementById("video-count").textContent = DRILLS.filter((d) => !DRILL_VIDEOS[d.id]).length + (WARM_UP_FULL_VIDEO ? 0 : 1);
 }
 
+// ---------- Plus on this device (founder only) ----------
+function renderPlusSwitch() {
+  const on = isPlus();
+  document.getElementById("plus-state").textContent = on
+    ? "Plus is ON for this device. You'll see the ★ PLUS badge at the top of every page."
+    : "Plus is OFF for this device.";
+  document.getElementById("plus-toggle").textContent = on ? "Turn Plus off" : "Turn Plus on for me";
+}
+document.getElementById("plus-toggle").addEventListener("click", () => {
+  setPlus(!isPlus());
+  // Reload so the header badge and the Plus look update everywhere
+  window.location.reload();
+});
+
 setUpGate();
+renderPlusSwitch();
 renderSourceChecks();
 renderVideoChecks();
 document.getElementById("download-feedback").addEventListener("click", onDownload);

@@ -5,11 +5,17 @@
 //
 // Business model: "freemium". The core training is FREE, so
 // every young player can use it. Paid plans add personal
-// extras. Paid plans are NOT live yet: they are shown as
-// "Launching soon" so we can test demand first (market research).
+// extras. Plus is now unlocked (10 Plus drills + the Planner),
+// but payments are not set up yet (see PLUS_BUY_LINK).
+// Team is still "Launching soon" (market research).
 // =========================================================
 
 export const CURRENCY = "₹"; // change to "$", "£", "AED" etc. if needed
+
+// PLUS PAYMENT LINK: paste the payment page link here when it is
+// ready (for example a Razorpay or Stripe payment link). While it
+// is empty, every "Get Plus" button goes to the Plans page instead.
+export const PLUS_BUY_LINK = "";
 
 export const PLANS = [
   {
@@ -35,17 +41,17 @@ export const PLANS = [
     price: 199,
     period: "per month",
     yearly: "or ₹1,499 per year (save 37%)",
-    tagline: "For players who want personal feedback to improve faster.",
-    status: "soon",
+    tagline: "More drills and your own weekly planner, for players who want more.",
+    status: "available",
     highlight: true,
     features: [
       "Everything in Starter",
-      "A personal 4-week plan built for your position and level",
-      "Video feedback on 2 clips of your technique each month",
-      "Printable training cards for every session",
-      "Early access to new drills",
+      "10 extra Plus drills (2 for every position)",
+      "Weekly Planner: build your whole training week",
+      "Plus member badge and gold look",
     ],
-    cta: { label: "Launching soon", href: "feedback.html" },
+    // The button text. Where it goes is PLUS_BUY_LINK below.
+    cta: { label: "Get Plus", href: "plans.html#plans-title" },
   },
   {
     id: "team",
@@ -82,8 +88,12 @@ export const FAQS = [
     a: "Yes. The Starter plan is free forever, with no sign-up and no adverts. We believe every young player should have a structured plan, whatever their family can afford.",
   },
   {
-    q: "Why are Plus and Team 'launching soon'?",
-    a: "We're making sure the free training is as good as it can be first, and asking players, parents and coaches what they want from the paid plans. Tell us what you'd like on the Feedback page.",
+    q: "What do I get with Plus?",
+    a: "Plus adds 10 extra drills (2 for every position), the Weekly Planner where you build your whole training week, and a Plus member badge. Everything in Starter stays free. Payments open soon: always ask a parent before buying anything online.",
+  },
+  {
+    q: "Why is Team 'launching soon'?",
+    a: "We're asking coaches what they want from a team plan first. Tell us what you'd like on the Feedback page.",
   },
   {
     q: "Who makes the content?",

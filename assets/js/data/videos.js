@@ -46,6 +46,18 @@ export const DRILL_VIDEOS = {
   "str-06": "",    // One-Touch Finishing
   "str-07": "",    // Beat the Defender and Finish
   "str-08": "",    // Run in Behind
+
+  // PLUS drills
+  "gk-02": "",   // Scoop and Smother Ground Balls
+  "gk-05": "",   // Low Dive from Kneeling
+  "def-04": "",  // 1v1 Channel to End Line
+  "def-08": "",  // Defend the Box vs Low Crosses
+  "mid-06": "",  // Pass, Spin and Support
+  "mid-07": "",  // Third-Man Run
+  "wing-03": "",  // Cross to a Target Zone
+  "wing-07": "",  // Speed Dribble Race
+  "str-02": "",  // Lay-Off and Shoot
+  "str-05": "",  // Near-Post Runs
 };
 
 // The whole warm-up in one video (shown above the warm-up list)

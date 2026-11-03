@@ -19,7 +19,7 @@
   <div id="site-header"></div>
   <noscript>
     <nav class="noscript-nav" aria-label="Main (no JavaScript)">
-      <a href="index.html">Home</a><a href="programmes.html">Programmes</a><a href="drills.html">Drills</a><a href="fitness.html">Fitness</a><a href="nutrition.html">Nutrition</a><a href="tracker.html">Tracker</a><a href="plans.html">Plans</a><a href="about.html">About</a><a href="feedback.html">Feedback</a><a href="sources.html">Sources</a>
+      <a href="index.html">Home</a><a href="programmes.html">Programmes</a><a href="drills.html">Drills</a><a href="fitness.html">Fitness</a><a href="nutrition.html">Nutrition</a><a href="tracker.html">Tracker</a><a href="planner.html">Planner</a><a href="plans.html">Plans</a><a href="about.html">About</a><a href="feedback.html">Feedback</a><a href="sources.html">Sources</a>
     </nav>
     <p class="notice notice--warning container">The drills list needs JavaScript turned on to show.</p>
   </noscript>
@@ -63,6 +63,8 @@
     <div class="container section--tight">
       <!-- Drill of the day -->
       <div class="daily" id="drill-of-the-day"></div>
+      <!-- Plus: unlock message (or "unlocked" for Plus members), built by drills.js -->
+      <div class="plus-strip" id="plus-strip"></div>
 
       <form class="filters" id="drill-filters" role="search" aria-label="Filter drills">
         <div class="chip-row" role="group" aria-label="Position" id="position-chips"></div>

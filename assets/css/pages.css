@@ -1883,3 +1883,246 @@ h3 { font-size: clamp(1.25rem, 2.6vw, 1.5rem); letter-spacing: -0.02em; }
   .week-pick__name, .week-pick__count { white-space: nowrap; }
   .plan-screen .today__steps li:last-child:nth-child(odd) { grid-column: 1 / -1; }
 }
+
+/* =========================================================
+   VERSION 11: PITCHPATH PLUS
+   Gold = the Plus colour. Navy text on gold: 11.3:1.
+   Gold text only on navy (11.3:1), never on white.
+   ========================================================= */
+:root { --plus-gold: #FFC857; --plus-gold-2: #F5B83D; --plus-edge: #B98112; }
+
+/* Small gold "★ PLUS" tag */
+.plus-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 10px; border-radius: 999px;
+  background: linear-gradient(135deg, var(--plus-gold), var(--plus-gold-2));
+  color: var(--color-dark); font-weight: 900; font-size: 0.75rem; letter-spacing: 0.06em; white-space: nowrap;
+}
+
+/* Gold button with a pressable edge */
+.btn--gold {
+  background: linear-gradient(135deg, var(--plus-gold), var(--plus-gold-2));
+  color: var(--color-dark); box-shadow: 0 5px 0 var(--plus-edge);
+}
+.btn--gold:hover { color: var(--color-dark); transform: translateY(-2px); box-shadow: 0 7px 0 var(--plus-edge); }
+.btn--gold:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--plus-edge); }
+.btn--gold.is-disabled { cursor: not-allowed; box-shadow: none; transform: none; border: 2px dashed var(--plus-edge); }
+.plus-interest { display: inline-flex; min-height: 44px; align-items: center; font-weight: 800; color: var(--color-primary-dark); margin-left: var(--space-2); }
+.plus-owned { font-weight: 900; color: var(--color-primary-dark); margin-bottom: var(--space-2); }
+
+/* ---- Header: Planner star, and the PLUS badge (Plus members) ---- */
+.nav-plus { color: var(--plus-gold); margin-left: 4px; }
+.main-nav a[aria-current="page"] .nav-plus { color: var(--color-dark); }
+.plus-badge {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 16px;
+  margin-left: auto; border-radius: 999px; position: relative; overflow: hidden;
+  background: linear-gradient(135deg, var(--plus-gold), var(--plus-gold-2));
+  color: var(--color-dark); font-weight: 900; letter-spacing: 0.08em; text-decoration: none; font-size: 0.9rem;
+  box-shadow: 0 0 0 3px rgba(255, 200, 87, 0.25);
+}
+.plus-badge:hover { color: var(--color-dark); box-shadow: 0 0 0 5px rgba(255, 200, 87, 0.35); }
+/* A shine that sweeps across the badge now and then */
+.plus-badge::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 30px; left: -40px;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  transform: skewX(-20deg); animation: plus-shine 4s ease-in-out 1s infinite;
+}
+@keyframes plus-shine { 0%, 70% { left: -40px; } 100% { left: 120%; } }
+@media (min-width: 1025px) {
+  .site-header__inner .main-nav { order: 2; }
+  .site-header__inner .plus-badge { order: 3; margin-left: 0; }
+  .main-nav a { padding: 0 12px; }
+}
+@media (min-width: 1025px) and (max-width: 1240px) {
+  .main-nav a { padding: 0 8px; font-size: 0.95rem; }
+  .brand__tagline { display: none; }
+}
+/* Plus members: a gold line under the header on every page */
+body.is-plus .site-header { border-bottom-color: var(--plus-gold); }
+
+/* One-time "Welcome to Plus" message */
+.plus-toast {
+  position: fixed; left: 50%; bottom: 24px; z-index: 50; transform: translateX(-50%);
+  width: max-content; max-width: calc(100vw - 32px);
+  padding: 14px 22px; border-radius: 999px; border: 2px solid var(--plus-gold);
+  background: var(--color-dark); color: var(--color-white); font-weight: 800;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35); animation: toast-up 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.3) both;
+}
+.plus-toast span { color: var(--plus-gold); }
+@keyframes toast-up { from { opacity: 0; transform: translate(-50%, 30px); } }
+
+/* ---- "Unlock with Plus" popup ---- */
+.plus-popup { width: min(520px, calc(100vw - 24px)); background: var(--color-dark); color: var(--color-white); border: 3px solid var(--plus-gold); }
+.plus-popup__inner { position: relative; padding: var(--space-5) var(--space-4) var(--space-4); text-align: center; }
+.plus-popup__close { position: absolute; top: 12px; right: 12px; }
+.plus-popup__badge { display: inline-block; font-weight: 900; letter-spacing: 0.12em; font-size: 0.8rem; color: var(--plus-gold); margin-bottom: var(--space-2); }
+.plus-popup__title { color: var(--color-white); font-size: clamp(1.6rem, 5vw, 2.2rem); margin-bottom: var(--space-2); }
+.plus-popup__text { color: var(--text-muted-on-dark); }
+.plus-popup__small { color: var(--text-muted-on-dark); font-size: 0.9rem; margin: var(--space-3) 0 0; }
+.plus-perks { list-style: none; padding: 0; margin: var(--space-4) 0; display: grid; gap: var(--space-2); text-align: left; }
+.plus-perks li { margin: 0; display: flex; align-items: center; gap: var(--space-3); padding: 12px 16px; border-radius: 14px; background: var(--color-dark-2); color: var(--color-white); font-weight: 800; }
+.plus-perks li span { color: var(--plus-gold); font-size: 1.3rem; width: 28px; text-align: center; }
+
+/* ---- Drills page ---- */
+.drill-card--plus { border: 2px solid var(--plus-gold-2); }
+.drill-card--plus .drill-card__meta { flex-wrap: wrap; }
+.drill-card.is-locked .drill-card__thumb > svg { filter: blur(3px) grayscale(0.6); opacity: 0.6; }
+.drill-card__thumb { position: relative; }
+.drill-card__lock {
+  position: absolute; inset: 0; margin: auto; width: 56px; height: 56px; border-radius: 50%;
+  display: grid; place-items: center; font-size: 1.6rem;
+  background: var(--color-dark); box-shadow: 0 0 0 4px var(--plus-gold);
+}
+.plus-strip {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2) var(--space-3);
+  margin: var(--space-3) 0 var(--space-4); padding: var(--space-3) var(--space-4); border-radius: 20px;
+  background: var(--color-dark); color: var(--color-white);
+}
+.plus-strip:empty { display: none; }
+.plus-strip__text { margin: 0; font-weight: 800; display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
+
+/* ---- Plans page: the Plus card ---- */
+.plan--plus { border: 3px solid var(--plus-gold-2); }
+
+/* ---- Home: Plus promo ---- */
+.plus-promo {
+  position: relative; overflow: hidden; border-radius: 28px;
+  padding: var(--space-5) var(--space-4); color: var(--color-white);
+  background: radial-gradient(500px 300px at 90% 0%, rgba(255, 200, 87, 0.22), transparent 70%), var(--color-dark);
+  border: 3px solid var(--plus-gold);
+  display: grid; gap: var(--space-4); align-items: center;
+}
+@media (min-width: 800px) { .plus-promo { grid-template-columns: 1.2fr 1fr; padding: var(--space-6) var(--space-5); } }
+.plus-promo .home-h2 { color: var(--color-white); margin-bottom: var(--space-3); }
+.plus-promo .home-h2 span { color: var(--plus-gold); }
+.plus-promo p { color: var(--text-muted-on-dark); font-size: 1.15rem; }
+.plus-promo .plus-perks { margin: 0; }
+.plus-promo__member { display: none; }
+body.is-plus .plus-promo__buy { display: none; }
+body.is-plus .plus-promo__member { display: block; }
+
+/* ---- Planner page ---- */
+.page-hero--plus {
+  background: radial-gradient(600px 300px at 85% 10%, rgba(255, 200, 87, 0.25), transparent 70%), var(--color-dark);
+}
+.page-hero--plus .eyebrow--plus { background: linear-gradient(135deg, var(--plus-gold), var(--plus-gold-2)); color: var(--color-dark); }
+.page-hero--plus p { color: var(--color-white); }
+
+.planner-locked { position: relative; border-radius: 28px; overflow: hidden; min-height: 520px; display: grid; place-items: center; padding: var(--space-4); }
+.planner-locked__preview {
+  position: absolute; inset: 0; padding: var(--space-4);
+  display: grid; gap: var(--space-2); grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); align-content: start;
+  filter: blur(4px); opacity: 0.55; pointer-events: none; background: var(--color-tint);
+}
+.planner-locked__day { background: var(--color-white); border-radius: 14px; padding: var(--space-3); display: grid; gap: 6px; min-height: 120px; }
+.planner-locked__card {
+  position: relative; max-width: 480px; width: 100%; text-align: center;
+  background: var(--color-dark); color: var(--color-white); border: 3px solid var(--plus-gold);
+  border-radius: 24px; padding: var(--space-5) var(--space-4); box-shadow: 0 24px 60px rgba(13, 27, 42, 0.35);
+}
+.planner-locked__card h2 { color: var(--color-white); font-size: clamp(1.8rem, 5vw, 2.4rem); }
+.planner-locked__card p { color: var(--text-muted-on-dark); }
+
+.planner-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3); }
+.planner-top__hello { margin: 0; font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 900; letter-spacing: -0.03em; display: flex; align-items: center; gap: var(--space-2); }
+.planner-top__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.planner-summary {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-2);
+  background: var(--color-dark); border-radius: 22px; padding: var(--space-3); margin-bottom: var(--space-4);
+  border: 2px solid var(--plus-gold);
+}
+.planner-stat { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.planner-stat__value { font-size: clamp(1.6rem, 5vw, 2.4rem); font-weight: 900; color: var(--plus-gold); line-height: 1.1; }
+.planner-stat__label { color: var(--text-muted-on-dark); font-weight: 700; font-size: 0.85rem; }
+/* One row per day: day name | what's planned | + Add */
+.planner-board { display: grid; gap: var(--space-3); grid-template-columns: 1fr; }
+.plan-day {
+  display: flex; flex-direction: column; gap: var(--space-2); min-width: 0;
+  background: var(--color-white); border: 2px solid var(--color-border); border-radius: 20px; padding: var(--space-3);
+}
+.plan-day.is-today { border-color: var(--plus-gold-2); box-shadow: 0 0 0 4px rgba(255, 200, 87, 0.3); }
+.plan-day__head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-2); }
+.plan-day__name { font-size: 1.15rem; margin: 0; letter-spacing: -0.01em; }
+.plan-day__today { display: inline-block; font-size: 0.7rem; padding: 2px 8px; border-radius: 999px; background: var(--color-dark); color: var(--plus-gold); vertical-align: middle; }
+.plan-day__min { font-weight: 800; color: var(--text-muted); font-size: 0.85rem; white-space: nowrap; }
+.plan-day__items { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; flex: 1; align-content: start; }
+.plan-day__empty { color: var(--text-muted); font-size: 0.9rem; padding: 6px 0; }
+.plan-item {
+  display: grid; grid-template-columns: auto auto 1fr auto; align-items: center; gap: 6px;
+  background: var(--color-light); border-radius: 12px; padding: 6px; margin: 0;
+}
+.plan-item--rest { background: var(--color-tint); }
+.plan-item.is-done .plan-item__text { text-decoration: line-through; color: var(--text-muted); }
+.plan-item__tick {
+  width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--color-dark); background: var(--color-white);
+  font-weight: 900; cursor: pointer; display: grid; place-items: center; color: var(--color-white);
+}
+.plan-item__tick[aria-pressed="true"] { background: var(--color-primary); border-color: var(--color-primary); }
+.plan-item__icon { font-size: 1.05rem; }
+.plan-item__text { min-width: 0; display: flex; flex-direction: column; font-weight: 700; font-size: 0.92rem; line-height: 1.25; overflow-wrap: anywhere; }
+.plan-item__link { background: none; border: 0; padding: 0; font: inherit; font-weight: 700; text-align: left; color: var(--color-dark); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.plan-item__min { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); }
+.plan-item__remove { width: 32px; height: 32px; border: 0; background: none; border-radius: 50%; cursor: pointer; color: var(--text-muted); font-size: 0.9rem; }
+.plan-item__remove:hover { background: var(--color-border); color: var(--color-dark); }
+.plan-day__add {
+  min-height: 44px; border-radius: 12px; border: 2px dashed var(--color-border); background: transparent;
+  font: inherit; font-weight: 800; color: var(--color-primary-dark); cursor: pointer;
+}
+.plan-day__add:hover { border-color: var(--plus-gold-2); background: #FFF8E6; }
+.planner-note { margin-top: var(--space-4); }
+@media (min-width: 800px) {
+  .plan-day { display: grid; grid-template-columns: 170px 1fr 120px; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); }
+  .plan-day__head { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .plan-day__items { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .plan-item { width: min(100%, 300px); }
+  .plan-day__empty { padding: 0; }
+}
+@media (max-width: 600px) { .planner-summary { grid-template-columns: repeat(2, 1fr); } }
+
+/* Add popup */
+.planner-dialog { width: min(560px, calc(100vw - 24px)); }
+.planner-form__body { display: grid; gap: var(--space-3); }
+.planner-form [hidden] { display: none; }
+.type-choices { border: 0; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-2); }
+.type-choices legend { font-weight: 800; margin-bottom: var(--space-2); }
+.type-choice { position: relative; }
+.type-choice input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.type-choice > span {
+  display: flex; align-items: center; gap: 8px; min-height: 52px; padding: 0 12px;
+  border: 2px solid var(--color-border); border-radius: 14px; font-weight: 800; background: var(--color-white);
+}
+.type-choice input:checked + span { border-color: var(--color-dark); background: #FFF8E6; box-shadow: inset 0 0 0 1px var(--color-dark); }
+.type-choice input:focus-visible + span { outline: var(--focus-ring); outline-offset: 2px; }
+.planner-form select, .planner-form input[type="text"], .planner-form input[type="number"] { min-height: 48px; }
+
+@media print {
+  .planner-top__actions, .plan-day__add, .plan-item__remove, .planner-note, .page-hero--plus { display: none !important; }
+  .planner-board { grid-template-columns: 1fr !important; }
+  .plan-day { break-inside: avoid; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .plus-badge::after, .plus-toast { animation: none; }
+  .btn--gold:hover, .btn--gold:active { transform: none; }
+}
+/* Header fit: smaller laptops and phones need a tighter header */
+@media (min-width: 1025px) and (max-width: 1240px) {
+  .main-nav a { padding: 0 6px; font-size: 0.9rem; }
+  .brand__name { font-size: 1.35rem; }
+  .brand img { width: 40px; height: 40px; }
+  .plus-badge { padding: 0 12px; font-size: 0.8rem; }
+}
+@media (max-width: 480px) {
+  body.is-plus .brand__tagline { display: none; }
+  body.is-plus .brand__name { font-size: 1.3rem; }
+  body.is-plus .brand img { width: 40px; height: 40px; }
+  body.is-plus .site-header__inner { gap: var(--space-2); }
+  .plus-badge { padding: 0 10px; font-size: 0.78rem; min-height: 36px; letter-spacing: 0.04em; }
+  /* the Menu button keeps its bars; the word is read by screen readers only */
+  body.is-plus .nav-toggle__text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  body.is-plus .nav-toggle { padding: 0 var(--space-2); }
+}
+@media (max-width: 360px) {
+  body.is-plus .brand__name { font-size: 1.1rem; }
+  body.is-plus .brand img { width: 34px; height: 34px; }
+  body.is-plus .brand { gap: 6px; }
+}

@@ -8,6 +8,7 @@
 // =========================================================
 
 import { DRILLS, POSITION_LABELS, LEVEL_LABELS, FOCUS_LABELS } from "./data/drills.js";
+import { isPlus, openPlusPopup } from "./plus.js";
 import { drawDiagram, diagramLegend } from "./diagrams.js";
 import { escapeHTML } from "./storage.js";
 import { saveButtonHTML, toggleSaved } from "./favourites.js";
@@ -108,6 +109,12 @@ function createModal() {
 export function openDrillModal(id, opener) {
   const drill = findDrill(id);
   if (!drill) return;
+  // Plus drills only open for Plus members. Everyone else sees the
+  // "Unlock with Plus" popup instead (see plus.js).
+  if (drill.plus && !isPlus()) {
+    openPlusPopup(drill.name, "This is a Plus drill. Get Plus to unlock it and 9 more.", opener);
+    return;
+  }
   if (!modal) createModal();
   returnFocusTo = opener || document.activeElement;
   modal.querySelector("#drill-modal-title").textContent = drill.name;

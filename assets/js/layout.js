@@ -8,6 +8,8 @@
 import { BRAND, NAV_LINKS, FOOTER_GROUPS, DISCLAIMER } from "./config.js";
 import { setUpMobileMenu } from "./nav.js";
 import { startEffects } from "./effects.js";
+import { isPlus } from "./plus.js";
+import { loadData, saveData } from "./storage.js";
 
 // Work out which page we are on, e.g. "drills.html".
 function getCurrentPage() {
@@ -20,7 +22,8 @@ function getCurrentPage() {
 function makeNavItem(link, currentPage) {
   const isCurrent = link.href === currentPage;
   const current = isCurrent ? ' aria-current="page"' : "";
-  return `<li><a href="${link.href}"${current}>${link.label}</a></li>`;
+  const star = link.plus ? ' <span class="nav-plus" aria-hidden="true">★</span>' : "";
+  return `<li><a href="${link.href}"${current}>${link.label}${star}</a></li>`;
 }
 
 // The logo text: "PITCH" in white and "PATH" in orange (set in config.js)
@@ -40,6 +43,7 @@ function buildHeader(currentPage) {
           <img src="${BRAND.logo}" alt="" width="48" height="48">
           <span class="brand__text">${wordmarkHTML()}<span class="brand__tagline">${BRAND.tagline}</span></span>
         </a>
+        ${isPlus() ? `<a class="plus-badge" href="planner.html" aria-label="You're a Plus member. Open your Planner."><span aria-hidden="true">★</span> PLUS</a>` : ""}
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
           <span class="nav-toggle__bars" aria-hidden="true"></span>
           <span class="nav-toggle__text">Menu</span>
@@ -136,6 +140,20 @@ function setTitle() {
   document.title = pageTitle ? `${pageTitle} | ${BRAND.name}` : `${BRAND.name}: ${BRAND.tagline}`;
 }
 
+// Plus members: a gold look on every page, and a one-time welcome
+function setUpPlusLook() {
+  if (!isPlus()) return;
+  document.body.classList.add("is-plus");
+  if (loadData("pitchpath-plus-welcomed", false)) return;
+  saveData("pitchpath-plus-welcomed", true);
+  const toast = document.createElement("div");
+  toast.className = "plus-toast";
+  toast.setAttribute("role", "status");
+  toast.innerHTML = `<span aria-hidden="true">★</span> Welcome to Plus! Your Plus drills and Planner are unlocked.`;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 6000);
+}
+
 function buildLayout() {
   const currentPage = getCurrentPage();
   const headerSlot = document.getElementById("site-header");
@@ -143,6 +161,7 @@ function buildLayout() {
   if (headerSlot) headerSlot.outerHTML = buildHeader(currentPage);
   if (footerSlot) footerSlot.outerHTML = buildFooter(currentPage);
   fillBrandName();
+  setUpPlusLook();
   setTitle();
   setUpMobileMenu();
   startEffects(); // animations (see effects.js)

@@ -19,7 +19,7 @@
   <div id="site-header"></div>
   <noscript>
     <nav class="noscript-nav" aria-label="Main (no JavaScript)">
-      <a href="index.html">Home</a><a href="programmes.html">Programmes</a><a href="drills.html">Drills</a><a href="fitness.html">Fitness</a><a href="nutrition.html">Nutrition</a><a href="tracker.html">Tracker</a><a href="plans.html">Plans</a><a href="about.html">About</a><a href="feedback.html">Feedback</a><a href="sources.html">Sources</a>
+      <a href="index.html">Home</a><a href="programmes.html">Programmes</a><a href="drills.html">Drills</a><a href="fitness.html">Fitness</a><a href="nutrition.html">Nutrition</a><a href="tracker.html">Tracker</a><a href="planner.html">Planner</a><a href="plans.html">Plans</a><a href="about.html">About</a><a href="feedback.html">Feedback</a><a href="sources.html">Sources</a>
     </nav>
     <p class="notice notice--warning container">Some parts of this site (drills, tracker, timers) need JavaScript turned on.</p>
   </noscript>
@@ -206,13 +206,39 @@
       </div>
     </section>
 
+    <!-- PLUS: the paid plan, shown to everyone. Plus members see a
+         "thanks" version instead (body.is-plus, set by layout.js) -->
+    <section class="section home-section" aria-labelledby="plus-title">
+      <div class="container">
+        <div class="plus-promo" data-reveal>
+          <div>
+            <span class="plus-tag">★ PITCHPATH PLUS</span>
+            <h2 id="plus-title" class="home-h2">Go <span>Plus</span></h2>
+            <div class="plus-promo__buy">
+              <p>More drills. Your own weekly planner. A gold Plus badge.</p>
+              <a class="btn btn--gold btn--big btn--arrow" href="plans.html#plans-title">See Plus</a>
+            </div>
+            <div class="plus-promo__member">
+              <p>You're a Plus member. Your Plus drills and Planner are unlocked.</p>
+              <a class="btn btn--gold btn--big btn--arrow" href="planner.html">Open my Planner</a>
+            </div>
+          </div>
+          <ul class="plus-perks">
+            <li><span aria-hidden="true">⚽</span> 10 extra Plus drills</li>
+            <li><span aria-hidden="true">🗓️</span> Weekly Planner</li>
+            <li><span aria-hidden="true">★</span> Plus member badge</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <!-- PLANS (one slim banner) -->
     <section class="section section--compact" aria-labelledby="home-plans-title">
       <div class="container">
         <div class="plans-banner plans-banner--bold" data-reveal>
           <div>
             <h2 id="home-plans-title" class="home-h2">Free to start. Always.</h2>
-            <p>Every programme, drill and guide is free. No sign-up.</p>
+            <p>All programmes, 25 drills and every guide are free. No sign-up.</p>
           </div>
           <a class="btn btn--dark btn--arrow" href="plans.html">Compare plans</a>
         </div>

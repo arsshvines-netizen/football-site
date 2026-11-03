@@ -15,9 +15,11 @@ import { openDrillModal } from "./drill-modal.js";
 import { drawDiagram } from "./diagrams.js";
 import { getSaved, toggleSaved, saveButtonHTML } from "./favourites.js";
 import { escapeHTML } from "./storage.js";
+import { isPlus, PLUS_TAG, GET_PLUS_HREF } from "./plus.js";
 
 const PAGE_SIZE = 12;
-const POSITION_ICONS = { "": "⚽", goalkeeper: "🧤", defender: "🛡️", midfielder: "🧭", winger: "💨", striker: "🎯", saved: "♥" };
+const POSITION_ICONS = { "": "⚽", goalkeeper: "🧤", defender: "🛡️", midfielder: "🧭", winger: "💨", striker: "🎯", plus: "★", saved: "♥" };
+const PLUS_MEMBER = isPlus(); // is Plus switched on for this device?
 
 const form = document.getElementById("drill-filters");
 const chipRow = document.getElementById("position-chips");
@@ -36,7 +38,7 @@ let shown = PAGE_SIZE; // how many cards are on screen
 // ---------- Building the filter controls ----------
 
 function buildChips() {
-  const chips = [["", "All"], ...Object.entries(POSITION_LABELS), ["saved", "Saved"]];
+  const chips = [["", "All"], ...Object.entries(POSITION_LABELS), ["plus", "Plus"], ["saved", "Saved"]];
   chipRow.innerHTML = chips.map(([value, label]) => `
     <button type="button" class="chip" data-position="${value}" aria-pressed="false">
       <span class="chip__icon" aria-hidden="true">${POSITION_ICONS[value]}</span>${label}
@@ -76,7 +78,7 @@ function updateClearButton() {
 function readFiltersFromURL() {
   const params = new URLSearchParams(window.location.search);
   const position = params.get("position") || "";
-  if (position === "saved" || POSITION_LABELS[position]) filters.position = position;
+  if (position === "saved" || position === "plus" || POSITION_LABELS[position]) filters.position = position;
   if (LEVEL_LABELS[params.get("level")]) filters.level = params.get("level");
   if (FOCUS_LABELS[params.get("focus")]) filters.focus = params.get("focus");
   filters.q = params.get("q") || "";
@@ -105,7 +107,9 @@ function getFilteredDrills() {
   const saved = getSaved();
   return DRILLS.filter((drill) =>
     (!filters.position ||
-      (filters.position === "saved" ? saved.includes(drill.id) : drill.position === filters.position)) &&
+      (filters.position === "saved" ? saved.includes(drill.id)
+        : filters.position === "plus" ? drill.plus
+        : drill.position === filters.position)) &&
     (!filters.level || drill.level === filters.level) &&
     (!filters.focus || drill.focus.includes(filters.focus)) &&
     matchesSearch(drill, filters.q.trim()));
@@ -114,16 +118,21 @@ function getFilteredDrills() {
 // ---------- Cards ----------
 
 function cardHTML(drill) {
+  // Plus drills are locked unless Plus is switched on
+  const locked = drill.plus && !PLUS_MEMBER;
+  const classes = ["drill-card", drill.plus ? "drill-card--plus" : "", locked ? "is-locked" : ""].join(" ").trim();
+  const label = locked ? ` aria-label="${escapeHTML(drill.name)} (Plus drill, locked)"` : "";
   return `
-    <li class="drill-card">
-      <div class="drill-card__thumb" aria-hidden="true">${drawDiagram(drill.diagram, drill.name)}</div>
-      ${saveButtonHTML(drill.id, drill.name)}
+    <li class="${classes}">
+      <div class="drill-card__thumb" aria-hidden="true">${drawDiagram(drill.diagram, drill.name)}${locked ? '<span class="drill-card__lock">🔒</span>' : ""}</div>
+      ${locked ? "" : saveButtonHTML(drill.id, drill.name)}
       <div class="drill-card__body">
         <p class="drill-card__meta">
+          ${drill.plus ? PLUS_TAG : ""}
           <span class="badge badge--dark">${POSITION_LABELS[drill.position]}</span>
           <span class="badge badge--${drill.level}">${LEVEL_LABELS[drill.level]}</span>
         </p>
-        <h3><button type="button" class="drill-card__button" data-drill="${drill.id}">${escapeHTML(drill.name)}</button></h3>
+        <h3><button type="button" class="drill-card__button" data-drill="${drill.id}"${label}>${escapeHTML(drill.name)}</button></h3>
         <p class="drill-card__facts">⏱ ${drill.durationMin} min · 👥 ${escapeHTML(drill.players)}${DRILL_VIDEOS[drill.id] ? ' · <span class="video-tag">▶ Video</span>' : ""}</p>
       </div>
     </li>`;
@@ -155,7 +164,8 @@ function render() {
 
 function buildDrillOfTheDay() {
   const dayNumber = Math.floor(Date.now() / 86400000); // changes every day
-  const drill = DRILLS[dayNumber % DRILLS.length];
+  const pool = PLUS_MEMBER ? DRILLS : DRILLS.filter((d) => !d.plus);
+  const drill = pool[dayNumber % pool.length];
   document.getElementById("drill-of-the-day").innerHTML = `
     <div class="daily__thumb" aria-hidden="true">${drawDiagram(drill.diagram, drill.name)}</div>
     <div class="daily__text">
@@ -164,6 +174,19 @@ function buildDrillOfTheDay() {
       <p class="daily__meta">${POSITION_LABELS[drill.position]} · ${LEVEL_LABELS[drill.level]} · ${drill.durationMin} min</p>
     </div>
     <button type="button" class="btn btn--primary btn--arrow" data-drill="${drill.id}">Try it</button>`;
+}
+
+// ---------- Plus strip (above the drills) ----------
+
+function buildPlusStrip() {
+  const strip = document.getElementById("plus-strip");
+  if (!strip) return;
+  const plusCount = DRILLS.filter((d) => d.plus).length;
+  strip.innerHTML = PLUS_MEMBER
+    ? `<p class="plus-strip__text"><span class="plus-tag">★ PLUS</span> You've unlocked ${plusCount} extra Plus drills.</p>
+       <button type="button" class="btn btn--gold btn--small" data-show-plus>Show my Plus drills</button>`
+    : `<p class="plus-strip__text"><span class="plus-tag">★ PLUS</span> ${plusCount} more drills are waiting for you.</p>
+       <a class="btn btn--gold btn--small btn--arrow" href="${GET_PLUS_HREF}">Unlock with Plus</a>`;
 }
 
 // ---------- Events ----------
@@ -217,6 +240,7 @@ function setUpEvents() {
     const saveBtn = event.target.closest("[data-save]");
     if (saveBtn) { toggleSaved(saveBtn.dataset.save); return; }
     if (event.target.closest("[data-clear]")) { clearFilters(); return; }
+    if (event.target.closest("[data-show-plus]")) { filters.position = "plus"; onFiltersChanged(); return; }
     const opener = event.target.closest("[data-drill]") ||
       event.target.closest(".drill-card")?.querySelector("[data-drill]");
     if (opener) openDrillModal(opener.dataset.drill, opener);
@@ -235,6 +259,7 @@ buildChips();
 buildFocusOptions();
 const drillFromURL = readFiltersFromURL();
 buildDrillOfTheDay();
+buildPlusStrip();
 setUpEvents();
 showFilterState();
 render();

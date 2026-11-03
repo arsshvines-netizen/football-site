@@ -23,6 +23,7 @@ export const NAV_LINKS = [
   { label: "Fitness", href: "fitness.html" },
   { label: "Nutrition", href: "nutrition.html" },
   { label: "Tracker", href: "tracker.html" },
+  { label: "Planner", href: "planner.html", plus: true }, // plus: shows a gold ★ (Plus feature)
   { label: "Plans", href: "plans.html" },
   { label: "About", href: "about.html" },
 ];
@@ -43,6 +44,7 @@ export const FOOTER_GROUPS = [
     title: "Progress",
     links: [
       { label: "Tracker", href: "tracker.html" },
+      { label: "Planner ★ Plus", href: "planner.html" },
       { label: "Monthly challenge", href: "index.html#challenge" },
       { label: "Plans", href: "plans.html" },
     ],

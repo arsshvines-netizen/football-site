@@ -50,6 +50,7 @@
 
       <div class="container">
         <nav class="studio-nav" aria-label="Studio sections">
+          <a href="#plus">My Plus</a>
           <a href="#results">Tester results</a>
           <a href="#brand-kit">Brand kit</a>
           <a href="#business">Business plan</a>
@@ -57,6 +58,15 @@
           <a href="#to-check">Sources to check</a>
           <a href="#videos">Videos to add</a>
         </nav>
+
+        <!-- 0. PLUS ON THIS DEVICE (founder only) -->
+        <section class="content-section plus-switch" id="plus" aria-labelledby="plus-title">
+          <h2 id="plus-title">★ My Plus membership</h2>
+          <p>Turn Plus on for <strong>this device and browser only</strong>, so you can use the Plus drills and the Planner. Nobody else gets Plus unless they buy it.</p>
+          <p class="plus-switch__state" id="plus-state" aria-live="polite"></p>
+          <button type="button" class="btn btn--gold" id="plus-toggle"></button>
+          <p class="muted" style="margin-top:var(--space-3)">Do this on each device you use (phone, laptop). Clearing your browser data turns it off. Note: this is a simple demo lock saved in the browser, not real payment security.</p>
+        </section>
 
         <!-- 1. TESTER RESULTS -->
         <section class="content-section" id="results" aria-labelledby="results-title">
@@ -182,7 +192,7 @@
           <div class="grid grid--3" style="margin-top:var(--space-5)">
             <div class="card">
               <h3>Business model</h3>
-              <p><strong>Freemium.</strong> Starter is free forever. Plus (₹199/month) and Team (₹2,999/season) are shown as "Launching soon" to test demand before launch. Prices live in <code>assets/js/data/plans.js</code>.</p>
+              <p><strong>Freemium.</strong> Starter is free forever. Plus (₹199/month) is unlocked: 10 Plus drills, the Weekly Planner and a member badge (payment link not added yet: <code>PLUS_BUY_LINK</code>). Team (₹2,999/season) is still "Launching soon" to test demand. Prices live in <code>assets/js/data/plans.js</code>.</p>
             </div>
             <div class="card card--orange">
               <h3>Marketing channels</h3>

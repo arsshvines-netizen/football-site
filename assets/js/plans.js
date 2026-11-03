@@ -7,8 +7,9 @@
 //   #faq-list    -> frequently asked questions
 // =========================================================
 
-import { PLANS, CHALLENGE, FAQS, CURRENCY } from "./data/plans.js";
+import { PLANS, CHALLENGE, FAQS, CURRENCY, PLUS_BUY_LINK } from "./data/plans.js";
 import { DRILLS } from "./data/drills.js";
+import { isPlus } from "./plus.js";
 import { escapeHTML } from "./storage.js";
 
 function formatPrice(price) {
@@ -18,13 +19,18 @@ function formatPrice(price) {
 
 function planCardHTML(plan) {
   const soon = plan.status === "soon";
-  const badge = plan.highlight ? `<span class="plan__flag">Most popular</span>` : "";
-  const status = soon ? `<span class="badge badge--intermediate">Launching soon</span>` : `<span class="badge badge--beginner">Available now</span>`;
-  const button = soon
+  // Plus is new, so it says "New" (we don't claim "most popular" without real sales)
+  const badge = plan.highlight ? `<span class="plan__flag">${plan.id === "plus" ? "★ New" : "Recommended"}</span>` : "";
+  const paymentsSoon = plan.id === "plus" && !PLUS_BUY_LINK;
+  const status = soon ? `<span class="badge badge--intermediate">Launching soon</span>`
+    : paymentsSoon ? `<span class="badge badge--intermediate">Payments open soon</span>`
+    : `<span class="badge badge--beginner">Available now</span>`;
+  let button = soon
     ? `<a class="btn btn--outline" href="${plan.cta.href}">Tell us what you'd pay</a>`
     : `<a class="btn btn--primary" href="${plan.cta.href}">${escapeHTML(plan.cta.label)}</a>`;
+  if (plan.id === "plus") button = plusButtonHTML(plan);
   return `
-    <article class="plan ${plan.highlight ? "plan--highlight" : ""}" aria-labelledby="plan-${plan.id}">
+    <article class="plan ${plan.highlight ? "plan--highlight" : ""} ${plan.id === "plus" ? "plan--plus" : ""}" id="${plan.id}" aria-labelledby="plan-${plan.id}">
       ${badge}
       <p class="plan__status">${status}</p>
       <h3 id="plan-${plan.id}">${escapeHTML(plan.name)}</h3>
@@ -34,6 +40,17 @@ function planCardHTML(plan) {
       <ul class="check-list">${plan.features.map((f) => `<li>${escapeHTML(f)}</li>`).join("")}</ul>
       <div class="plan__cta">${button}</div>
     </article>`;
+}
+
+// The Plus card's button:
+// - Plus members see that they already have it
+// - with a payment link (data/plans.js) it opens the payment page
+// - without one yet, it says payments open soon
+function plusButtonHTML(plan) {
+  if (isPlus()) return `<p class="plus-owned">★ You're a Plus member</p><a class="btn btn--gold" href="planner.html">Open my Planner</a>`;
+  if (PLUS_BUY_LINK) return `<a class="btn btn--gold btn--arrow" href="${PLUS_BUY_LINK}">${escapeHTML(plan.cta.label)}</a>`;
+  return `<span class="btn btn--gold is-disabled" aria-disabled="true">Payments opening soon</span>
+    <a class="plus-interest" href="feedback.html">Want Plus? Tell us</a>`;
 }
 
 function buildPlans() {

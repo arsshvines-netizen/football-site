@@ -114,3 +114,11 @@ Calculated with the WCAG relative-luminance formula.
 | Yellow on dark green (step minutes) | 5.59:1 | Pass |
 | Yellow on navy (banner badge) | 11.3:1 | Pass |
 | Note: yellow on pitch green is only 4.07:1, so it is NOT used for text there. | | |
+
+## Version 11 (Plus) contrast checks
+| Text / background | Ratio | Result |
+|---|---|---|
+| Navy on gold (Plus tag, badge, gold buttons) | 11.3:1 (10:1 at the darker end) | Pass |
+| Gold on navy (Plus popup, planner numbers) | 11.3:1 | Pass |
+| White on navy (Plus cards) | 17:1 | Pass |
+| Light grey on navy (popup text) | 9.8:1 | Pass |

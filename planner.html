@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weekly Planner | PITCHPATH</title>
+  <meta name="description" content="PITCHPATH Plus: build your whole football training week. Saved on your device only.">
+  <link rel="icon" href="assets/img/logo-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <script type="module" src="assets/js/layout.js"></script>
+  <script type="module" src="assets/js/planner.js"></script>
+</head>
+<body data-title="Weekly Planner">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div id="site-header"></div>
+  <noscript>
+    <nav class="noscript-nav" aria-label="Main (no JavaScript)">
+      <a href="index.html">Home</a><a href="programmes.html">Programmes</a><a href="drills.html">Drills</a><a href="fitness.html">Fitness</a><a href="nutrition.html">Nutrition</a><a href="tracker.html">Tracker</a><a href="planner.html">Planner</a><a href="plans.html">Plans</a><a href="about.html">About</a><a href="feedback.html">Feedback</a><a href="sources.html">Sources</a>
+    </nav>
+    <p class="notice notice--warning container">The planner needs JavaScript turned on to work.</p>
+  </noscript>
+
+  <main id="main" tabindex="-1">
+    <section class="page-hero page-hero--plus">
+      <div class="container">
+        <span class="eyebrow eyebrow--plus">★ Plus feature</span>
+        <h1>Weekly Planner</h1>
+        <p>Plan your whole week. Add drills, sessions, matches and rest days.</p>
+      </div>
+    </section>
+
+    <!-- planner.js fills this in: the planner for Plus members,
+         or a locked preview with "Get Plus" for everyone else -->
+    <div class="container section--tight" id="planner-app"></div>
+  </main>
+
+  <div id="site-footer"></div>
+</body>
+</html>

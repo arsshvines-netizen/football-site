@@ -17,8 +17,8 @@ Full spec: `website-spec.md`. Read it before big changes.
 ## Structure
 - `*.html`: one file per page. Header and footer are injected by `assets/js/layout.js` into `#site-header` / `#site-footer`, with a `<noscript>` fallback nav.
 - `assets/css/`: `variables.css` (brand), `base.css` (reset/layout), `components.css` (shared pieces), `pages.css` (page-specific + print).
-- `assets/js/`: `config.js` (brand, nav, footer link groups), `layout.js` (header + footer), `nav.js`, `storage.js` (safe localStorage + in-page confirm box), page scripts (`plans.js` for pricing/challenge/FAQ on Home + Plans, `programmes.js`, `drills.js`, `diagrams.js`, `fitness.js`, `nutrition.js`, `tracker.js`, `feedback.js`, `sources-page.js`, `studio.js`).
-- Shared helpers: `video.js` (video player + popup), `tabs.js` (tabs + level switchers), `effects.js` (animations: scroll reveal, `data-in-view`, counters, progress bar, tilt, back-to-top; always respect prefers-reduced-motion), `drill-modal.js` (drill popup with save + copy link), `favourites.js` (saved drills), `quiz.js` (position quiz popup).
+- `assets/js/`: `config.js` (brand, nav, footer link groups), `layout.js` (header + footer), `nav.js`, `storage.js` (safe localStorage + in-page confirm box), page scripts (`plans.js` for pricing/challenge/FAQ on Home + Plans, `programmes.js`, `planner.js` (Plus), `drills.js`, `diagrams.js`, `fitness.js`, `nutrition.js`, `tracker.js`, `feedback.js`, `sources-page.js`, `studio.js`).
+- Shared helpers: `video.js` (video player + popup), `tabs.js` (tabs + level switchers), `effects.js` (animations: scroll reveal, `data-in-view`, counters, progress bar, tilt, back-to-top; always respect prefers-reduced-motion), `drill-modal.js` (drill popup with save + copy link), `favourites.js` (saved drills), `quiz.js` (position quiz popup), `plus.js` (Plus membership + unlock popup).
 - `assets/js/data/`: all editable content (drills, programmes, fitness, nutrition, sources, plans = business model/prices/monthly challenge, feedback = tester questions, quiz = position quiz, videos = training video file names).
 - Videos: clips live in `assets/video/` (MP4, under 1 min, under ~10MB) and are switched on by typing the file name in `assets/js/data/videos.js`. `video.js` shows them in the drill popup, the Fitness warm-up and programme sessions. Empty name = nothing shown. Studio lists missing videos. Only film the founder or players with parental consent.
 - `studio.html` + `studio.js`: creator-only page (brand kit, business plan, tester results, sources still to check). Unlinked, noindex, simple code gate. NOT real security: never put private info there.
@@ -42,7 +42,16 @@ A simple app, one screen at a time (programmes.js): 1) "What's your level?" 2) "
 Public pages are customer-facing only. Brand kit, colours, marketing strategy and positioning belong in studio.html, not on About. About is the founder's football story (Arssh Gupta: Mumbai City FC club footballer, school team captain, represented Mumbai and ISSO at the SGFI National Games). Don't invent specific stats, dates or trophies.
 
 ## Business layer
-The site is presented as a real football training business (MYP project Criterion A learning goal: market research, value proposition, branding, pricing, marketing, customer engagement). Freemium model: Starter free; Plus and Team shown as 'Launching soon'. No payments and no data collection, so paid plans link to the Feedback page's market-research questions. Never invent testimonials or reviews.
+The site is presented as a real football training business (MYP project Criterion A learning goal: market research, value proposition, branding, pricing, marketing, customer engagement). Freemium model: Starter free; Team shown as 'Launching soon'. Never invent testimonials, reviews or sales claims (no "most popular").
+
+## Plus (paid plan)
+- Plus = 10 Plus drills (`plus: true` in `data/drills.js`, 2 per position) + the Weekly Planner (`planner.html` + `planner.js`) + a gold ★ PLUS badge in the header. Gold (`--plus-gold`) is the Plus colour: navy text on gold, gold text only on navy.
+- `plus.js`: `isPlus()` / `setPlus()` (localStorage `pitchpath-plus`), the "Unlock with Plus" popup. `drill-modal.js` refuses Plus drills for non-members, so every route is locked.
+- Only the founder has Plus: switched on per device in studio.html ("My Plus membership"). It is a DEMO LOCK, not real security; real paid access needs payments plus a server.
+- No payment link yet: `PLUS_BUY_LINK` in `data/plans.js` is empty, so buttons say payments open soon. The founder will supply the link. Always tell players to ask a parent before buying.
+
+## Restore point: "BANANA"
+If the user says BANANA, put the site back EXACTLY as it was before Plus: restore `main` to the branch `banana-restore-point` (commit 525f0d1), for example `git checkout banana-restore-point -- . && git clean` of files added since, commit, push, and check the Vercel deploy.
 
 ## Run
 `python3 -m http.server 8000` then open http://localhost:8000
