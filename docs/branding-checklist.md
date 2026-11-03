@@ -95,3 +95,12 @@ Calculated with the WCAG relative-luminance formula.
 | Yellow arrow on navy circle (Start button) | #FFC857 | #0D1B2A | 11.31:1 | PASS |
 | "▶ Video" tag on white drill card | #B8460C | #FFFFFF | 5.36:1 | PASS |
 | Video caption on navy | #F7F9FA | #0D1B2A | 16.47:1 | PASS |
+
+## Version 9 (bolder Home) contrast checks
+| Text / background | Ratio | Result |
+|---|---|---|
+| White on pitch green (step 1, Programmes tile) | 6.5:1 | Pass |
+| Navy on energy orange (ticker, step 2, Drills tile) | 5.7:1+ | Pass |
+| White on night navy (step 3, Fitness tile) | 17:1 | Pass |
+| Navy on yellow (Nutrition tile, "Free to start" banner) | 12:1 | Pass |
+| Green link on white (challenge "How it works") | 6.5:1 | Pass |

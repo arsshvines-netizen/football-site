@@ -52,10 +52,14 @@ function buildChallenge() {
     <span class="eyebrow">Challenge of the month · ${month}</span>
     <h2 id="challenge-title">${escapeHTML(CHALLENGE.title)}</h2>
     <p class="lead">${escapeHTML(CHALLENGE.goal)}</p>
-    <ul class="challenge__steps">
-      <li><strong>How:</strong> ${escapeHTML(CHALLENGE.how)}</li>
-      <li><strong>Reward:</strong> ${escapeHTML(CHALLENGE.reward)}</li>
-    </ul>
+    <!-- The rules are tucked away so the card stays short -->
+    <details class="challenge__more">
+      <summary>How it works and the reward</summary>
+      <ul class="challenge__steps">
+        <li><strong>How:</strong> ${escapeHTML(CHALLENGE.how)}</li>
+        <li><strong>Reward:</strong> ${escapeHTML(CHALLENGE.reward)}</li>
+      </ul>
+    </details>
     <div class="btn-row">
       <a class="btn btn--primary" href="tracker.html#log-session">Log today's session</a>
       ${drillLink}

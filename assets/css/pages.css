@@ -1545,3 +1545,168 @@ h3 { font-size: clamp(1.25rem, 2.6vw, 1.5rem); letter-spacing: -0.02em; }
 }
 .move__watch:hover { background: var(--color-dark); color: var(--text-on-dark); }
 .video-modal .modal__body { padding: var(--space-3); }
+
+/* =========================================================
+   VERSION 9: a bolder, more colourful Home page
+   - giant section headings (no small labels above them)
+   - "How it works" as three big coloured cards
+   - "Everything you need" as a big colourful grid ("bento")
+   - bigger numbers, ticker and position buttons
+   Colour pairs (all pass AA): white on green 6.5:1,
+   navy on orange 6.3:1, white on navy 17:1, navy on yellow 12:1.
+   ========================================================= */
+
+/* ---- Giant headings on Home ---- */
+.home-h2 {
+  font-size: clamp(2.6rem, 7vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin-bottom: var(--space-5);
+}
+.home-section { padding-block: var(--space-6); }
+@media (min-width: 900px) { .home-section { padding-block: 6rem; } }
+.home-section--tint { background: var(--color-tint); }
+
+/* ---- Numbers strip: much bigger numbers ---- */
+.stats-strip { padding: var(--space-5) 0; }
+.count-stat__value { font-size: clamp(3rem, 8vw, 5rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1; }
+.count-stat__label { font-size: 0.95rem; margin-top: 6px; }
+
+/* ---- Moving ticker: orange band, big navy words ---- */
+.ticker { background: var(--color-secondary); color: var(--color-dark); border-block: 0; padding: 18px 0; }
+.ticker__track span { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 900; letter-spacing: -0.02em; padding: 0 22px; gap: 44px; }
+.ticker__track span::after { content: "⚽"; color: inherit; font-size: 1.1rem; }
+
+/* ---- How it works: three big coloured cards ---- */
+.big-steps { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-4); }
+@media (min-width: 800px) { .big-steps { grid-template-columns: repeat(3, 1fr); } }
+.big-steps__item { margin: 0; }
+.big-step {
+  position: relative; overflow: hidden; height: 100%;
+  display: flex; flex-direction: column; gap: var(--space-2);
+  min-height: 300px; padding: var(--space-5) var(--space-4);
+  border-radius: 28px; box-shadow: var(--shadow);
+  transition: transform 0.3s cubic-bezier(0.3, 1.5, 0.5, 1), box-shadow 0.3s;
+}
+.big-step:hover { transform: translateY(-8px) rotate(-1deg); box-shadow: var(--shadow-hover); }
+.big-step--green { background: var(--color-primary); color: var(--color-white); }
+.big-step--orange { background: var(--color-secondary); color: var(--color-dark); }
+.big-step--navy { background: var(--color-dark); color: var(--color-white); }
+/* The giant number in the corner (decoration only) */
+.big-step__num {
+  position: absolute; right: -0.05em; bottom: -0.28em;
+  font-size: 13rem; font-weight: 900; line-height: 1; letter-spacing: -0.06em;
+  color: currentColor; opacity: 0.14; pointer-events: none;
+  transition: transform 0.4s ease;
+}
+.big-step:hover .big-step__num { transform: scale(1.08) rotate(-4deg); }
+.big-step__icon {
+  width: 72px; height: 72px; border-radius: 22px; font-size: 2.4rem;
+  display: grid; place-items: center; margin-bottom: auto;
+  background: rgba(255, 255, 255, 0.18);
+}
+.big-step--orange .big-step__icon { background: rgba(255, 255, 255, 0.35); }
+.big-step__title { position: relative; font-size: clamp(1.8rem, 3.2vw, 2.3rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; margin-top: var(--space-5); }
+.big-step__text { position: relative; font-size: 1.1rem; font-weight: 600; max-width: 22ch; }
+
+/* ---- Everything you need: the bento grid ---- */
+.bento { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-3); grid-template-columns: repeat(2, 1fr); }
+.bento__item { margin: 0; min-width: 0; }
+.bento__item--big { grid-column: 1 / -1; }
+@media (min-width: 800px) {
+  .bento { grid-template-columns: 1.3fr 1fr 1fr; grid-template-rows: repeat(2, 230px); gap: var(--space-4); }
+  .bento__item--big { grid-column: 1; grid-row: 1 / span 2; }
+}
+.bento__tile {
+  position: relative; overflow: hidden; height: 100%; min-height: 170px;
+  display: flex; flex-direction: column; justify-content: flex-start;
+  padding: var(--space-4); border-radius: 28px;
+  text-decoration: none; box-shadow: var(--shadow);
+  transition: transform 0.3s cubic-bezier(0.3, 1.5, 0.5, 1), box-shadow 0.3s;
+}
+.bento__item--big .bento__tile { min-height: 260px; padding: var(--space-5); }
+.bento__tile:hover { transform: translateY(-8px) scale(1.02); box-shadow: var(--shadow-hover); }
+.bento__tile--green { background: var(--color-primary); color: var(--color-white); }
+.bento__tile--orange { background: var(--color-secondary); color: var(--color-dark); }
+.bento__tile--navy { background: var(--color-dark); color: var(--color-white); }
+.bento__tile--yellow { background: var(--color-accent); color: var(--color-dark); }
+.bento__tile--white { background: var(--color-white); color: var(--color-dark); }
+.bento__tile--green:hover, .bento__tile--navy:hover { color: var(--color-white); }
+.bento__tile--orange:hover, .bento__tile--yellow:hover, .bento__tile--white:hover { color: var(--color-dark); }
+.bento__title { position: relative; z-index: 1; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; letter-spacing: -0.03em; line-height: 1.05; overflow-wrap: anywhere; }
+.bento__item--big .bento__title { font-size: clamp(2.2rem, 5vw, 3.4rem); }
+.bento__sub { position: relative; z-index: 1; font-size: 1.15rem; font-weight: 700; margin-top: var(--space-2); }
+/* Round arrow button in the bottom-left corner */
+.bento__go {
+  position: relative; z-index: 1; margin-top: auto;
+  width: 52px; height: 52px; border-radius: 50%;
+  display: grid; place-items: center; font-size: 1.5rem; font-weight: 900;
+  background: var(--color-white); color: var(--color-dark);
+  transition: transform 0.25s;
+}
+.bento__tile--white .bento__go { background: var(--color-dark); color: var(--color-white); }
+.bento__tile:hover .bento__go { transform: translateX(6px); }
+/* Big emoji peeking out of the corner (decoration) */
+.bento__emoji {
+  position: absolute; right: -10px; bottom: -14px;
+  font-size: 6.5rem; line-height: 1; transform: rotate(-12deg);
+  transition: transform 0.45s cubic-bezier(0.3, 1.8, 0.5, 1);
+}
+.bento__item--big .bento__emoji { font-size: 12rem; right: -20px; bottom: -30px; }
+.bento__tile:hover .bento__emoji { transform: rotate(6deg) scale(1.15); }
+.js-motion .bento__item.is-visible .bento__emoji { animation: emoji-float 5s ease-in-out 1s infinite; }
+@keyframes emoji-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -10px; }
+}
+@media (max-width: 480px) {
+  .bento__tile { padding: var(--space-3); min-height: 150px; }
+  .bento__emoji { font-size: 4.8rem; }
+  .bento__item--big .bento__emoji { font-size: 8rem; }
+  .bento__go { width: 44px; height: 44px; font-size: 1.2rem; }
+}
+
+/* ---- Pick your position: bigger buttons ---- */
+.position-box { padding: var(--space-5) var(--space-4); border-radius: 28px; }
+@media (min-width: 800px) { .position-box { padding: var(--space-6) var(--space-5); } }
+.position-box .home-h2 { color: var(--color-white); }
+.position-picker { gap: var(--space-3); }
+.position-picker a { min-height: 170px; text-transform: none; letter-spacing: -0.01em; font-size: 1.2rem; font-weight: 900; border-radius: 22px; }
+.position-picker svg { width: 68px; height: 68px; transition: transform 0.35s cubic-bezier(0.3, 1.8, 0.5, 1); }
+.position-picker a:hover svg { transform: scale(1.15) rotate(-6deg); }
+.quiz-cta { font-size: 1.15rem; font-weight: 700; color: var(--text-on-dark); }
+
+/* ---- Founder: a bigger quote ---- */
+.founder__quote p { font-size: clamp(1.25rem, 2.4vw, 1.6rem); font-weight: 700; line-height: 1.35; }
+
+/* ---- Challenge: big title, rules folded away ---- */
+.challenge h2 { font-size: clamp(2.4rem, 6vw, 4rem); line-height: 1; letter-spacing: -0.04em; }
+.challenge__more { position: relative; z-index: 1; margin-bottom: var(--space-4); }
+.challenge__more summary { cursor: pointer; font-weight: 800; color: var(--color-primary); min-height: 44px; display: inline-flex; align-items: center; }
+.challenge__more summary:hover { text-decoration: underline; }
+.challenge__more .challenge__steps { margin-top: var(--space-2); }
+
+/* ---- "Free to start" banner: bold yellow ---- */
+.plans-banner--bold {
+  background: var(--color-accent); color: var(--color-dark);
+  border-radius: 28px; padding: var(--space-5) var(--space-4);
+  box-shadow: var(--shadow);
+}
+@media (min-width: 800px) { .plans-banner--bold { padding: var(--space-6) var(--space-5); } }
+.plans-banner--bold h2 { color: var(--color-dark); margin-bottom: var(--space-2); }
+.plans-banner--bold p { color: var(--color-dark); font-size: 1.2rem; font-weight: 600; }
+.btn--dark { background: var(--color-dark); color: var(--color-white); }
+.btn--dark:hover { background: var(--color-dark-2); color: var(--color-accent); }
+
+@media (prefers-reduced-motion: reduce) {
+  .big-step, .bento__tile, .bento__emoji, .bento__go, .big-step__num, .position-picker svg { transition: none; }
+  .big-step:hover, .bento__tile:hover { transform: none; }
+  .js-motion .bento__item.is-visible .bento__emoji { animation: none; }
+}
+/* Phones: shorter step cards so the list isn't too long */
+@media (max-width: 799px) {
+  .big-step { min-height: 0; padding: var(--space-4); }
+  .big-step__icon { width: 60px; height: 60px; font-size: 2rem; }
+  .big-step__title { margin-top: var(--space-3); }
+  .big-step__num { font-size: 9rem; }
+}

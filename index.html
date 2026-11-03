@@ -104,30 +104,74 @@
       </div>
     </div>
 
-    <!-- HOW IT WORKS: three quick steps -->
-    <section class="section section--compact" aria-labelledby="how-title">
+    <!-- HOW IT WORKS: three big, bold step cards -->
+    <section class="section home-section" aria-labelledby="how-title">
       <div class="container">
-        <p class="kicker" data-reveal>Simple as 1, 2, 3</p>
-        <h2 id="how-title" data-reveal>How it works</h2>
-        <ol class="how-steps" data-in-view>
-          <li data-reveal><span class="how-steps__num" aria-hidden="true">1</span><strong>Choose your level</strong><span>Beginner, Intermediate or Advanced</span></li>
-          <li data-reveal><span class="how-steps__num" aria-hidden="true">2</span><strong>Pick a programme</strong><span>Ball skills, game smarts or fitness</span></li>
-          <li data-reveal><span class="how-steps__num" aria-hidden="true">3</span><strong>Train and track</strong><span>Tick off sessions and watch yourself improve</span></li>
+        <h2 id="how-title" class="home-h2" data-reveal>How it works</h2>
+        <ol class="big-steps">
+          <li class="big-steps__item" data-reveal><div class="big-step big-step--green">
+            <span class="big-step__num" aria-hidden="true">1</span>
+            <span class="big-step__icon" aria-hidden="true">🎚️</span>
+            <strong class="big-step__title">Pick your level</strong>
+            <span class="big-step__text">Beginner, Intermediate or Advanced</span>
+          </div></li>
+          <li class="big-steps__item" data-reveal><div class="big-step big-step--orange">
+            <span class="big-step__num" aria-hidden="true">2</span>
+            <span class="big-step__icon" aria-hidden="true">🎯</span>
+            <strong class="big-step__title">Choose your goal</strong>
+            <span class="big-step__text">Ball skills, game smarts or fitness</span>
+          </div></li>
+          <li class="big-steps__item" data-reveal><div class="big-step big-step--navy">
+            <span class="big-step__num" aria-hidden="true">3</span>
+            <span class="big-step__icon" aria-hidden="true">🏆</span>
+            <strong class="big-step__title">Train and track</strong>
+            <span class="big-step__text">Tick off sessions. Watch yourself improve.</span>
+          </div></li>
         </ol>
       </div>
     </section>
 
-    <!-- FIVE CONTENT AREAS -->
-    <section class="band band--tint" aria-labelledby="areas-title">
+    <!-- FIVE CONTENT AREAS: a big colourful "bento" grid -->
+    <section class="section home-section home-section--tint" aria-labelledby="areas-title">
       <div class="container">
-        <p class="kicker" data-reveal>All in one place</p>
-        <h2 id="areas-title" data-reveal>Everything you need</h2>
-        <ul class="area-tiles">
-          <li data-reveal><a class="area-tile area-tile--green" href="programmes.html"><span class="area-tile__icon" aria-hidden="true">📋</span><span class="area-tile__title">Programmes</span><span class="area-tile__go" aria-hidden="true">Open →</span></a></li>
-          <li data-reveal><a class="area-tile area-tile--orange" href="drills.html"><span class="area-tile__icon" aria-hidden="true">🎯</span><span class="area-tile__title">Drills</span><span class="area-tile__go" aria-hidden="true">Open →</span></a></li>
-          <li data-reveal><a class="area-tile area-tile--navy" href="fitness.html"><span class="area-tile__icon" aria-hidden="true">⚡</span><span class="area-tile__title">Fitness</span><span class="area-tile__go" aria-hidden="true">Open →</span></a></li>
-          <li data-reveal><a class="area-tile area-tile--yellow" href="nutrition.html"><span class="area-tile__icon" aria-hidden="true">🥗</span><span class="area-tile__title">Nutrition</span><span class="area-tile__go" aria-hidden="true">Open →</span></a></li>
-          <li data-reveal><a class="area-tile area-tile--white" href="tracker.html"><span class="area-tile__icon" aria-hidden="true">📈</span><span class="area-tile__title">Tracker</span><span class="area-tile__go" aria-hidden="true">Open →</span></a></li>
+        <h2 id="areas-title" class="home-h2" data-reveal>Everything you need</h2>
+        <ul class="bento">
+          <li class="bento__item bento__item--big" data-reveal>
+            <a class="bento__tile bento__tile--green" href="programmes.html">
+              <span class="bento__title">Programmes</span>
+              <span class="bento__sub">Your free 4-week plan</span>
+              <span class="bento__go" aria-hidden="true">→</span>
+              <span class="bento__emoji" aria-hidden="true">📋</span>
+            </a>
+          </li>
+          <li class="bento__item" data-reveal>
+            <a class="bento__tile bento__tile--orange" href="drills.html">
+              <span class="bento__title">Drills</span>
+              <span class="bento__go" aria-hidden="true">→</span>
+              <span class="bento__emoji" aria-hidden="true">⚽</span>
+            </a>
+          </li>
+          <li class="bento__item" data-reveal>
+            <a class="bento__tile bento__tile--navy" href="fitness.html">
+              <span class="bento__title">Fitness</span>
+              <span class="bento__go" aria-hidden="true">→</span>
+              <span class="bento__emoji" aria-hidden="true">⚡</span>
+            </a>
+          </li>
+          <li class="bento__item" data-reveal>
+            <a class="bento__tile bento__tile--yellow" href="nutrition.html">
+              <span class="bento__title">Nutrition</span>
+              <span class="bento__go" aria-hidden="true">→</span>
+              <span class="bento__emoji" aria-hidden="true">🍌</span>
+            </a>
+          </li>
+          <li class="bento__item" data-reveal>
+            <a class="bento__tile bento__tile--white" href="tracker.html">
+              <span class="bento__title">Tracker</span>
+              <span class="bento__go" aria-hidden="true">→</span>
+              <span class="bento__emoji" aria-hidden="true">📈</span>
+            </a>
+          </li>
         </ul>
       </div>
     </section>
@@ -136,8 +180,8 @@
     <section class="section" aria-labelledby="position-title">
       <div class="container">
         <div class="position-box on-dark" data-reveal>
-          <h2 id="position-title">Pick your position</h2>
-                    <nav class="position-picker" aria-label="Drills by position">
+          <h2 id="position-title" class="home-h2">Pick your position</h2>
+          <nav class="position-picker" aria-label="Drills by position">
             <a href="drills.html?position=goalkeeper">
               <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M12 40V20c0-3 2-4 4-4V8c0-2 4-2 4 0v7-10c0-2 4-2 4 0v10-8c0-2 4-2 4 0v9-5c0-2 4-2 4 0v16c0 7-4 13-10 13z" fill="#FFC857" stroke="#0D1B2A" stroke-width="2"/></svg>
               Goalkeeper
@@ -159,7 +203,7 @@
               Striker
             </a>
           </nav>
-          <p class="quiz-cta">Not sure where you play best? <button type="button" class="btn btn--primary btn--small" data-open-quiz>Take the 30-second quiz</button></p>
+          <p class="quiz-cta">Not sure? <button type="button" class="btn btn--primary" data-open-quiz>Take the 30-second quiz</button></p>
         </div>
       </div>
     </section>
@@ -193,12 +237,12 @@
     <!-- PLANS (one slim banner) -->
     <section class="section section--compact" aria-labelledby="home-plans-title">
       <div class="container">
-        <div class="plans-banner on-dark" data-reveal>
+        <div class="plans-banner plans-banner--bold" data-reveal>
           <div>
-            <h2 id="home-plans-title">Free to start. Always.</h2>
+            <h2 id="home-plans-title" class="home-h2">Free to start. Always.</h2>
             <p>Every programme, drill and guide is free. No sign-up.</p>
           </div>
-          <a class="btn btn--outline btn--arrow" href="plans.html">Compare plans</a>
+          <a class="btn btn--dark btn--arrow" href="plans.html">Compare plans</a>
         </div>
       </div>
     </section>
