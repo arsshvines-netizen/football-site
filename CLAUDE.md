@@ -17,7 +17,7 @@ Full spec: `website-spec.md`. Read it before big changes.
 ## Structure
 - `*.html`: one file per page. Header and footer are injected by `assets/js/layout.js` into `#site-header` / `#site-footer`, with a `<noscript>` fallback nav.
 - `assets/css/`: `variables.css` (brand), `base.css` (reset/layout), `components.css` (shared pieces), `pages.css` (page-specific + print).
-- `assets/js/`: `config.js` (brand, nav, footer link groups), `layout.js` (header + footer), `nav.js`, `storage.js` (safe localStorage + in-page confirm box), page scripts (`plans.js` for pricing/challenge/FAQ on Home + Plans, `programmes.js`, `planner.js` (Plus), `drills.js`, `diagrams.js`, `fitness.js`, `nutrition.js`, `tracker.js`, `feedback.js`, `sources-page.js`, `studio.js`).
+- `assets/js/`: `config.js` (brand, nav, footer link groups), `layout.js` (header + footer), `nav.js`, `storage.js` (safe localStorage + in-page confirm box), page scripts (`home.js` (Home screen), `plans.js` for pricing/challenge/FAQ on Plans, `programmes.js`, `planner.js` (Plus), `drills.js`, `diagrams.js`, `fitness.js`, `nutrition.js`, `tracker.js`, `feedback.js`, `sources-page.js`, `studio.js`).
 - Shared helpers: `video.js` (video player + popup), `tabs.js` (tabs + level switchers), `effects.js` (animations: scroll reveal, `data-in-view`, counters, progress bar, tilt, back-to-top; always respect prefers-reduced-motion), `drill-modal.js` (drill popup with save + copy link), `favourites.js` (saved drills), `quiz.js` (position quiz popup), `plus.js` (Plus membership + unlock popup), `food-helper.js` (Nutrition chat, Plus).
 - `assets/js/data/`: all editable content (drills, programmes, fitness, nutrition, sources, plans = business model/prices/monthly challenge, feedback = tester questions, quiz = position quiz, videos = training video file names).
 - Videos: clips live in `assets/video/` (MP4, under 1 min, under ~10MB) and are switched on by typing the file name in `assets/js/data/videos.js`. `video.js` shows them in the drill popup, the Fitness warm-up and programme sessions. Empty name = nothing shown. Studio lists missing videos. Only film the founder or players with parental consent.
@@ -26,7 +26,9 @@ Full spec: `website-spec.md`. Read it before big changes.
 - `docs/`: checklists and test results.
 
 ## Keep pages short and tidy
-- Not text heavy: page intros are one short line; Home tiles show icon + title only. Big, bold headings (sizes in pages.css VERSION 8 block).
+- App feel, not an info website. Home (`index.html` + `home.js`) is an app home screen: greeting, a TODAY card (your next programme session from localStorage, or "Get your free plan"), THIS WEEK (days trained, from the tracker), 6 app tiles, challenge + Plus cards, a small founder strip. No long sections on Home.
+- Phones/tablets get a bottom tab bar (Home, Train, Drills, Planner, Tracker) built by `layout.js`.
+- Not text heavy: page intros are one short line. Big, bold headings.
 - The header keeps a fixed height (it must not shrink on scroll: that moves the page). Height lives in `--header-height` (88px desktop, 76px tablet, 70px phone); sticky tabs use it.
 - Long topics use tabs (`tabs.js`): Fitness, Nutrition and Tracker show one topic at a time, and `page.html#panel-id` opens a tab directly.
 - Drills shows 12 cards at a time ("Show more"). The Feedback form is step-by-step.

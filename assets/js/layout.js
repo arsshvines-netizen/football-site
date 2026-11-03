@@ -154,6 +154,25 @@ function setUpPlusLook() {
   setTimeout(() => toast.remove(), 6000);
 }
 
+// Phones and tablets: an app-style tab bar along the bottom
+const TABBAR = [
+  { label: "Home", href: "index.html", icon: "🏠" },
+  { label: "Train", href: "programmes.html", icon: "📋" },
+  { label: "Drills", href: "drills.html", icon: "⚽" },
+  { label: "Planner", href: "planner.html", icon: "🗓️" },
+  { label: "Tracker", href: "tracker.html", icon: "📈" },
+];
+function buildTabBar(currentPage) {
+  const nav = document.createElement("nav");
+  nav.className = "tabbar";
+  nav.setAttribute("aria-label", "Quick links");
+  nav.innerHTML = TABBAR.map((tab) => `
+    <a href="${tab.href}"${tab.href === currentPage ? ' aria-current="page"' : ""}>
+      <span class="tabbar__icon" aria-hidden="true">${tab.icon}</span>${tab.label}
+    </a>`).join("");
+  document.body.appendChild(nav);
+}
+
 function buildLayout() {
   const currentPage = getCurrentPage();
   const headerSlot = document.getElementById("site-header");
@@ -163,6 +182,7 @@ function buildLayout() {
   fillBrandName();
   setUpPlusLook();
   setTitle();
+  if (currentPage !== "studio.html") buildTabBar(currentPage);
   setUpMobileMenu();
   startEffects(); // animations (see effects.js)
 }

@@ -26,8 +26,18 @@ function tidy(text) {
 }
 
 // Does the question contain this key word (at the start of a word)?
+// ("~drink" means the common word "drink")
 function has(question, word) {
-  return question.includes(` ${word}`);
+  return question.includes(` ${word.replace(/^[~!]/, "")}`);
+}
+
+// How much a matching key word counts: longer = more exact.
+// Common words (starting with "~") only count 1, very specific
+// words (starting with "!") count 20.
+function weight(word) {
+  if (word.startsWith("~")) return 1;
+  if (word.startsWith("!")) return 20;
+  return word.trim().length;
 }
 
 // Pick the reply for a question
@@ -39,7 +49,7 @@ export function findReply(rawQuestion) {
   let best = null;
   let bestScore = 0;
   TOPICS.forEach((topic) => {
-    const score = topic.words.filter((word) => has(question, word)).reduce((sum, word) => sum + word.trim().length, 0);
+    const score = topic.words.filter((word) => has(question, word)).reduce((sum, word) => sum + weight(word), 0);
     if (score > bestScore) { best = topic; bestScore = score; }
   });
   return best ? { text: best.reply, tab: best.tab } : { text: NOT_SURE, tab: null };
@@ -47,58 +57,91 @@ export function findReply(rawQuestion) {
 
 // ---------- Drawing the chat ----------
 
+const AVATAR = '<span class="fh-avatar" aria-hidden="true">🍌</span>';
+
 function bubbleHTML(who, text, tab) {
-  const more = tab ? `<a class="chat__more" href="#${tab[0]}">More in the ${escapeHTML(tab[1])} tab ↓</a>` : "";
+  const more = tab ? `<a class="fh-more" href="#${tab[0]}">📖 More in ${escapeHTML(tab[1])}</a>` : "";
   return `
-    <li class="chat__msg chat__msg--${who}">
-      ${who === "bot" ? '<span class="chat__avatar" aria-hidden="true">🍌</span>' : ""}
-      <p class="chat__bubble"><span class="visually-hidden">${who === "bot" ? "Food Helper:" : "You:"}</span> ${escapeHTML(text)}${more ? `<br>${more}` : ""}</p>
+    <li class="fh-msg fh-msg--${who}">
+      ${who === "bot" ? AVATAR : ""}
+      <div class="fh-bubble">
+        <span class="visually-hidden">${who === "bot" ? "Food Helper says:" : "You asked:"}</span>
+        <p>${escapeHTML(text)}</p>
+        ${more}
+      </div>
     </li>`;
 }
 
-function chipsHTML() {
-  return SUGGESTED.map((q) => `<button type="button" class="chat__chip" data-ask="${escapeHTML(q)}">${escapeHTML(q)}</button>`).join("");
+// Big topic cards (before the first question)
+function topicsHTML(disabled) {
+  return SUGGESTED.map((t) => `
+    <button type="button" class="fh-topic" data-ask="${escapeHTML(t.q)}" ${disabled ? 'disabled tabindex="-1"' : ""}>
+      <span class="fh-topic__icon" aria-hidden="true">${t.icon}</span>
+      <span class="fh-topic__text">${escapeHTML(t.short)}</span>
+    </button>`).join("");
 }
 
-function headHTML(locked) {
+// Small chips (after the first question)
+function chipsHTML() {
+  return SUGGESTED.map((t) => `<button type="button" class="fh-chip" data-ask="${escapeHTML(t.q)}"><span aria-hidden="true">${t.icon}</span> ${escapeHTML(t.short)}</button>`).join("");
+}
+
+function headHTML() {
   return `
-    <div class="chat__head">
-      <span class="chat__head-icon" aria-hidden="true">💬</span>
-      <div>
-        <h2 id="food-helper-title" class="chat__title">Ask the Food Helper</h2>
-        <p class="chat__sub">Quick answers about food and drinks for football${locked ? "" : ", any time"}.</p>
+    <header class="fh-head">
+      <span class="fh-head__avatar" aria-hidden="true">🍌</span>
+      <div class="fh-head__text">
+        <h2 id="food-helper-title" class="fh-head__title">Food Helper</h2>
+        <p class="fh-head__sub">Ask anything about food and drinks for football</p>
       </div>
       <span class="plus-tag">★ PLUS</span>
+    </header>`;
+}
+
+function welcomeHTML(disabled) {
+  return `
+    <div class="fh-welcome">
+      <span class="fh-welcome__avatar" aria-hidden="true">🍌</span>
+      <p class="fh-welcome__title">Hi! What do you want to know?</p>
+      <p class="fh-welcome__sub">Tap a topic or type your own question.</p>
+      <div class="fh-topics" aria-label="Topics you can ask about">${topicsHTML(disabled)}</div>
     </div>`;
+}
+
+function inputHTML(disabled) {
+  return `
+    <form class="fh-input" id="chat-form">
+      <label for="chat-input" class="visually-hidden">Type your question</label>
+      <input id="chat-input" type="text" maxlength="120" autocomplete="off" placeholder="Ask about food, drinks, match day…" ${disabled ? "disabled" : ""}>
+      <button type="submit" class="fh-send" aria-label="Send question" ${disabled ? "disabled" : ""}>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l16-8-6 16-2.5-6.5L4 12z" fill="currentColor"/></svg>
+      </button>
+    </form>`;
 }
 
 function openChatHTML() {
   return `
-    ${headHTML(false)}
-    <ol class="chat__log" id="chat-log" role="log" aria-live="polite" aria-label="Chat with the Food Helper">
-      ${bubbleHTML("bot", GREETING)}
-    </ol>
-    <div class="chat__chips" aria-label="Questions you can ask">${chipsHTML()}</div>
-    <form class="chat__form" id="chat-form">
-      <label for="chat-input" class="visually-hidden">Type your question</label>
-      <input id="chat-input" type="text" maxlength="120" autocomplete="off" placeholder="Type a question, e.g. what's a good snack?">
-      <button type="submit" class="btn btn--gold">Ask</button>
-    </form>
-    <p class="chat__note">The Food Helper answers from PITCHPATH's checked nutrition tips. It isn't a person, a doctor or a real AI. Your questions aren't saved or sent anywhere.</p>`;
+    ${headHTML()}
+    <div class="fh-screen" id="chat-screen">
+      ${welcomeHTML(false)}
+      <ol class="fh-log" id="chat-log" role="log" aria-live="polite" aria-label="Chat with the Food Helper" hidden></ol>
+    </div>
+    <div class="fh-chips" id="chat-chips" aria-label="More questions" hidden>${chipsHTML()}</div>
+    ${inputHTML(false)}
+    <p class="fh-note">🔒 Answers come from PITCHPATH's checked nutrition tips. Not a person, a doctor or a real AI. Nothing you type is saved or sent.</p>`;
 }
 
 function lockedChatHTML() {
-  // A real example of what it says, then the "Get Plus" button
-  const example = "What should I eat before training?";
   return `
-    ${headHTML(true)}
-    <ol class="chat__log chat__log--demo" aria-label="Example chat">
-      ${bubbleHTML("user", example)}
-      ${bubbleHTML("bot", findReply(example).text)}
-    </ol>
-    <div class="chat__locked">
-      <p><strong>🔒 The Food Helper is part of Plus.</strong> Ask about breakfasts, match days, water, snacks and more.</p>
-      <a class="btn btn--gold btn--arrow" href="${GET_PLUS_HREF}">Get Plus · ${plusPriceText()}</a>
+    ${headHTML()}
+    <div class="fh-screen fh-screen--locked">
+      <div class="fh-locked-preview" aria-hidden="true">${welcomeHTML(true)}</div>
+      <div class="fh-lock">
+        <span class="fh-lock__icon" aria-hidden="true">🔒</span>
+        <p class="fh-lock__title">Unlock the Food Helper</p>
+        <p class="fh-lock__text">Quick answers about breakfasts, match days, water, snacks and more.</p>
+        <a class="btn btn--gold btn--arrow" href="${GET_PLUS_HREF}">Get Plus · ${plusPriceText()}</a>
+      </div>
     </div>`;
 }
 
@@ -107,18 +150,26 @@ function ask(question) {
   const text = question.trim();
   if (!text) return;
   const log = document.getElementById("chat-log");
+  const screen = document.getElementById("chat-screen");
+  // First question: swap the welcome screen for the conversation
+  if (log.hidden) {
+    screen.querySelector(".fh-welcome").remove();
+    log.hidden = false;
+    document.getElementById("chat-chips").hidden = false;
+    log.insertAdjacentHTML("beforeend", bubbleHTML("bot", GREETING));
+  }
   log.insertAdjacentHTML("beforeend", bubbleHTML("user", text));
   const reply = findReply(text);
   const typing = document.createElement("li");
-  typing.className = "chat__msg chat__msg--bot chat__typing";
-  typing.innerHTML = '<span class="chat__avatar" aria-hidden="true">🍌</span><p class="chat__bubble" aria-hidden="true"><span></span><span></span><span></span></p>';
+  typing.className = "fh-msg fh-msg--bot fh-typing";
+  typing.innerHTML = `${AVATAR}<div class="fh-bubble" aria-hidden="true"><span></span><span></span><span></span></div>`;
   log.appendChild(typing);
-  log.scrollTop = log.scrollHeight;
+  screen.scrollTop = screen.scrollHeight;
   setTimeout(() => {
     typing.remove();
     log.insertAdjacentHTML("beforeend", bubbleHTML("bot", reply.text, reply.tab));
-    log.scrollTop = log.scrollHeight;
-  }, reduceMotion ? 0 : 650);
+    screen.scrollTop = screen.scrollHeight;
+  }, reduceMotion ? 0 : 700);
 }
 
 function start() {
@@ -130,10 +181,11 @@ function start() {
     event.preventDefault();
     ask(input.value);
     input.value = "";
+    input.focus();
   });
   box.addEventListener("click", (event) => {
-    const chip = event.target.closest("[data-ask]");
-    if (chip) ask(chip.dataset.ask);
+    const topic = event.target.closest("[data-ask]");
+    if (topic) { ask(topic.dataset.ask); input.focus(); }
   });
 }
 

@@ -122,3 +122,12 @@ Calculated with the WCAG relative-luminance formula.
 | Gold on navy (Plus popup, planner numbers) | 11.3:1 | Pass |
 | White on navy (Plus cards) | 17:1 | Pass |
 | Light grey on navy (popup text) | 9.8:1 | Pass |
+
+## Version 14 (app home, Food Helper) contrast checks
+| Text / background | Ratio | Result |
+|---|---|---|
+| White on lightest green of the Today card | 5.12:1 | Pass |
+| Dark orange text on white (today's day name) | 5.36:1 | Pass |
+| Grey text on the chat background | 6.69:1 | Pass |
+| White on green (your chat bubbles) | 6.25:1 | Pass |
+| Light grey on navy (tab bar labels) | 9.8:1 | Pass |

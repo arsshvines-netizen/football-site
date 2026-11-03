@@ -11,8 +11,7 @@
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/pages.css">
   <script type="module" src="assets/js/layout.js"></script>
-  <script type="module" src="assets/js/plans.js"></script>
-  <script type="module" src="assets/js/quiz.js"></script>
+  <script type="module" src="assets/js/home.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -25,228 +24,100 @@
   </noscript>
 
   <main id="main" tabindex="-1">
-    <!-- HERO -->
-    <section class="hero on-dark" aria-labelledby="hero-title">
-      <!-- Pitch lines behind the text: a big centre circle frames the headline -->
-      <svg class="hero__pitch" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
-        <g fill="none" stroke="#F7F9FA" stroke-width="4">
-          <rect class="draw" x="40" y="40" width="1120" height="520"/>
-          <circle class="draw" cx="600" cy="300" r="250"/>
-          <rect class="draw" x="40" y="170" width="160" height="260"/>
-          <rect class="draw" x="1000" y="170" width="160" height="260"/>
-          <path class="draw" d="M40 70 A30 30 0 0 0 70 40 M1130 40 A30 30 0 0 0 1160 70 M1160 530 A30 30 0 0 0 1130 560 M70 560 A30 30 0 0 0 40 530"/>
+    <!-- APP HOME: everything useful is on the first screen.
+         home.js fills in the Today card, This week and the challenge
+         from what's saved on this device. Without JavaScript the
+         "Get your free plan" version below still works. -->
+    <section class="ah-top on-dark" aria-labelledby="ah-title">
+      <svg class="ah-top__pitch" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="#F7F9FA" stroke-width="3">
+          <circle cx="600" cy="200" r="150"/><line x1="600" y1="0" x2="600" y2="400"/>
+          <rect x="-2" y="90" width="150" height="220"/><rect x="1052" y="90" width="150" height="220"/>
         </g>
       </svg>
-      <!-- Everything is centred, like kick-off from the centre spot -->
-      <div class="container hero__center">
-        <span class="hero__badge hero-in" style="--delay:0ms">⚽ Founded by a Mumbai City FC player</span>
-        <!-- Each word rises in one after another (see .hero-word in pages.css) -->
-        <h1 id="hero-title" class="hero-title">
-          <span class="hero-word" style="--i:0">Train</span> <span class="hero-word" style="--i:1">smarter.</span>
-          <span class="highlight"><span class="hero-word" style="--i:2">Play</span> <span class="hero-word" style="--i:3">better.</span></span>
-        </h1>
-        <p class="lead hero-in" style="--delay:750ms">Football plans, drills and fitness for players aged 12-15.</p>
-        <div class="hero__actions hero-in" style="--delay:900ms">
-          <!-- The big main button: the one thing we want every visitor to press -->
-          <a class="btn-start" href="programmes.html">
-            <span class="btn-start__ball" aria-hidden="true">⚽</span>
-            <span class="btn-start__text">Start training <small>Free · no sign-up</small></span>
-            <span class="btn-start__arrow" aria-hidden="true">→</span>
-          </a>
-          <a class="hero__link" href="tracker.html">or track my progress</a>
+      <div class="container ah-top__inner">
+        <div class="ah-hello">
+          <p class="ah-hello__greet" id="ah-greet">Hey player 👋</p>
+          <h1 id="ah-title" class="ah-hello__title">Ready to <span>train?</span></h1>
+        </div>
+
+        <div class="ah-cards">
+          <!-- TODAY -->
+          <article class="ah-today ah-pop" style="--i:0" id="ah-today" aria-labelledby="ah-today-title">
+            <p class="ah-label">⚽ Start here</p>
+            <h2 id="ah-today-title" class="ah-today__title">Get your free 4-week plan</h2>
+            <p class="ah-today__text">Two quick questions. Then press start and go.</p>
+            <a class="btn-start" href="programmes.html">
+              <span class="btn-start__ball" aria-hidden="true">⚽</span>
+              <span class="btn-start__text">Start training <small>Free · no sign-up</small></span>
+              <span class="btn-start__arrow" aria-hidden="true">→</span>
+            </a>
+          </article>
+
+          <!-- THIS WEEK -->
+          <article class="ah-week ah-pop" style="--i:1" aria-labelledby="ah-week-title">
+            <div class="ah-week__head">
+              <h2 id="ah-week-title" class="ah-week__title">This week</h2>
+              <a class="ah-week__link" href="tracker.html">Tracker →</a>
+            </div>
+            <ol class="ah-days" id="ah-days" aria-label="Days you trained this week"></ol>
+            <div class="ah-week__stats">
+              <div><strong id="ah-week-sessions">0</strong><span>sessions</span></div>
+              <div><strong id="ah-week-minutes">0</strong><span>minutes</span></div>
+            </div>
+            <p class="ah-week__count" id="ah-week-count">Log a session to start your streak.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- NUMBERS (count up when they scroll into view) -->
-    <section class="stats-strip" aria-label="PITCHPATH in numbers">
-      <div class="container stats-strip__grid">
-        <div class="count-stat" data-reveal><span class="count-stat__value" data-count="9">9</span><span class="count-stat__label">Programmes</span></div>
-        <div class="count-stat" data-reveal><span class="count-stat__value" data-count="35">35</span><span class="count-stat__label">Position drills</span></div>
-        <div class="count-stat" data-reveal><span class="count-stat__value" data-count="108">108</span><span class="count-stat__label">Planned sessions</span></div>
-        <div class="count-stat" data-reveal><span class="count-stat__value" data-count="5">5</span><span class="count-stat__label">Positions covered</span></div>
-      </div>
-    </section>
-
-    <!-- MOVING TICKER -->
-    <div class="ticker" aria-hidden="true">
-      <div class="ticker__track">
-        <span>Technical skills</span><span>Game understanding</span><span>Speed and agility</span><span>Strength</span><span>Nutrition</span><span>Goalkeepers</span><span>Defenders</span><span>Midfielders</span><span>Wingers</span><span>Strikers</span>
-        <span>Technical skills</span><span>Game understanding</span><span>Speed and agility</span><span>Strength</span><span>Nutrition</span><span>Goalkeepers</span><span>Defenders</span><span>Midfielders</span><span>Wingers</span><span>Strikers</span>
-      </div>
-    </div>
-
-    <!-- HOW IT WORKS: three big, bold step cards -->
-    <section class="section home-section" aria-labelledby="how-title">
+    <section class="ah-section" aria-labelledby="ah-apps-title">
       <div class="container">
-        <h2 id="how-title" class="home-h2" data-reveal>How it works</h2>
-        <ol class="big-steps">
-          <li class="big-steps__item" data-reveal><div class="big-step big-step--green">
-            <span class="big-step__num" aria-hidden="true">1</span>
-            <span class="big-step__icon" aria-hidden="true">🎚️</span>
-            <strong class="big-step__title">Pick your level</strong>
-            <span class="big-step__text">Beginner, Intermediate or Advanced</span>
-          </div></li>
-          <li class="big-steps__item" data-reveal><div class="big-step big-step--orange">
-            <span class="big-step__num" aria-hidden="true">2</span>
-            <span class="big-step__icon" aria-hidden="true">🎯</span>
-            <strong class="big-step__title">Choose your goal</strong>
-            <span class="big-step__text">Ball skills, game smarts or fitness</span>
-          </div></li>
-          <li class="big-steps__item" data-reveal><div class="big-step big-step--navy">
-            <span class="big-step__num" aria-hidden="true">3</span>
-            <span class="big-step__icon" aria-hidden="true">🏆</span>
-            <strong class="big-step__title">Train and track</strong>
-            <span class="big-step__text">Tick off sessions. Watch yourself improve.</span>
-          </div></li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- FIVE CONTENT AREAS: a big colourful "bento" grid -->
-    <section class="section home-section home-section--tint" aria-labelledby="areas-title">
-      <div class="container">
-        <h2 id="areas-title" class="home-h2" data-reveal>Everything you need</h2>
-        <ul class="bento">
-          <li class="bento__item bento__item--big" data-reveal>
-            <a class="bento__tile bento__tile--green" href="programmes.html">
-              <span class="bento__title">Programmes</span>
-              <span class="bento__sub">Your free 4-week plan</span>
-              <span class="bento__go" aria-hidden="true">→</span>
-              <span class="bento__emoji" aria-hidden="true">📋</span>
-            </a>
-          </li>
-          <li class="bento__item" data-reveal>
-            <a class="bento__tile bento__tile--orange" href="drills.html">
-              <span class="bento__title">Drills</span>
-              <span class="bento__go" aria-hidden="true">→</span>
-              <span class="bento__emoji" aria-hidden="true">⚽</span>
-            </a>
-          </li>
-          <li class="bento__item" data-reveal>
-            <a class="bento__tile bento__tile--navy" href="fitness.html">
-              <span class="bento__title">Fitness</span>
-              <span class="bento__go" aria-hidden="true">→</span>
-              <span class="bento__emoji" aria-hidden="true">⚡</span>
-            </a>
-          </li>
-          <li class="bento__item" data-reveal>
-            <a class="bento__tile bento__tile--yellow" href="nutrition.html">
-              <span class="bento__title">Nutrition</span>
-              <span class="bento__go" aria-hidden="true">→</span>
-              <span class="bento__emoji" aria-hidden="true">🍌</span>
-            </a>
-          </li>
-          <li class="bento__item" data-reveal>
-            <a class="bento__tile bento__tile--white" href="tracker.html">
-              <span class="bento__title">Tracker</span>
-              <span class="bento__go" aria-hidden="true">→</span>
-              <span class="bento__emoji" aria-hidden="true">📈</span>
-            </a>
-          </li>
+        <h2 id="ah-apps-title" class="ah-h2">Everything you need</h2>
+        <ul class="ah-apps">
+          <li class="ah-pop" style="--i:2"><a class="ah-app ah-app--green" href="programmes.html"><span class="ah-app__icon" aria-hidden="true">📋</span><span class="ah-app__name">Programmes</span><span class="ah-app__sub">Your 4-week plan</span></a></li>
+          <li class="ah-pop" style="--i:3"><a class="ah-app ah-app--orange" href="drills.html"><span class="ah-app__icon" aria-hidden="true">⚽</span><span class="ah-app__name">Drills</span><span class="ah-app__sub">35 drills · <span class="ah-star">★ Plus</span></span></a></li>
+          <li class="ah-pop" style="--i:4"><a class="ah-app ah-app--navy" href="fitness.html"><span class="ah-app__icon" aria-hidden="true">⚡</span><span class="ah-app__name">Fitness</span><span class="ah-app__sub">Warm-up, speed, strength</span></a></li>
+          <li class="ah-pop" style="--i:5"><a class="ah-app ah-app--yellow" href="nutrition.html"><span class="ah-app__icon" aria-hidden="true">🍌</span><span class="ah-app__name">Nutrition</span><span class="ah-app__sub">Food tips + Food Helper</span></a></li>
+          <li class="ah-pop" style="--i:6"><a class="ah-app ah-app--white" href="tracker.html"><span class="ah-app__icon" aria-hidden="true">📈</span><span class="ah-app__name">Tracker</span><span class="ah-app__sub">Log and see progress</span></a></li>
+          <li class="ah-pop" style="--i:7"><a class="ah-app ah-app--gold" href="planner.html"><span class="ah-app__icon" aria-hidden="true">🗓️</span><span class="ah-app__name">Planner</span><span class="ah-app__sub">Plan your week · <span class="ah-star">★ Plus</span></span></a></li>
         </ul>
-      </div>
-    </section>
 
-    <!-- PICK YOUR POSITION -->
-    <section class="section" aria-labelledby="position-title">
-      <div class="container">
-        <div class="position-box on-dark" data-reveal>
-          <h2 id="position-title" class="home-h2">Pick your position</h2>
-          <nav class="position-picker" aria-label="Drills by position">
-            <a href="drills.html?position=goalkeeper">
-              <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M12 40V20c0-3 2-4 4-4V8c0-2 4-2 4 0v7-10c0-2 4-2 4 0v10-8c0-2 4-2 4 0v9-5c0-2 4-2 4 0v16c0 7-4 13-10 13z" fill="#FFC857" stroke="#0D1B2A" stroke-width="2"/></svg>
-              Goalkeeper
-            </a>
-            <a href="drills.html?position=defender">
-              <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M22 4l15 6v11c0 9-7 16-15 19C14 37 7 30 7 21V10z" fill="#0B6E4F" stroke="#F7F9FA" stroke-width="2.5"/></svg>
-              Defender
-            </a>
-            <a href="drills.html?position=midfielder">
-              <svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="17" fill="none" stroke="#F7F9FA" stroke-width="3"/><path d="M22 9l5 13-5 13-5-13z" fill="#F26B21"/></svg>
-              Midfielder
-            </a>
-            <a href="drills.html?position=winger">
-              <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M6 34C14 30 20 22 24 12l-6 1 12-9 3 14-4-5c-3 10-10 18-23 21z" fill="#FFC857"/></svg>
-              Winger
-            </a>
-            <a href="drills.html?position=striker">
-              <svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="17" fill="none" stroke="#F7F9FA" stroke-width="3"/><circle cx="22" cy="22" r="10" fill="none" stroke="#F26B21" stroke-width="3"/><circle cx="22" cy="22" r="4" fill="#FFC857"/></svg>
-              Striker
-            </a>
-          </nav>
-          <p class="quiz-cta">Not sure? <button type="button" class="btn btn--primary" data-open-quiz>Take the 30-second quiz</button></p>
-        </div>
-      </div>
-    </section>
+        <div class="ah-row">
+          <!-- Challenge of the month (home.js fills it in) -->
+          <article class="ah-challenge ah-pop" style="--i:8" id="challenge" aria-labelledby="ah-challenge-title">
+            <p class="ah-label">🏆 Challenge of the month</p>
+            <h2 id="ah-challenge-title" class="ah-challenge__title">This month's challenge</h2>
+            <a class="btn btn--primary btn--arrow" href="tracker.html#log-session">Log today's session</a>
+          </article>
 
-    <!-- FOUNDER -->
-    <section class="band band--dark on-dark" aria-labelledby="founder-title">
-      <div class="container founder">
-        <div class="founder__media" data-reveal>
-          <img class="founder__photo" src="assets/img/founder-action.jpg" alt="Arssh Gupta wearing number 9 and the captain's armband during a match" width="1200" height="800" loading="lazy">
-          <span class="founder__tag">Mumbai City FC</span>
-        </div>
-        <div data-reveal>
-          <span class="eyebrow">Meet the founder</span>
-          <h2 id="founder-title">Built by a player who's been there</h2>
-          <blockquote class="founder__quote">
-            <p>"Young players starting out can't find a plan for their age, position and level. So I built one."</p>
-          </blockquote>
-          <p class="founder__name"><strong><span class="founder-name">Arssh Gupta</span></strong> · Mumbai City FC · Represented Mumbai and ISSO at the SGFI National Games</p>
-          <a class="btn btn--outline btn--arrow" href="about.html">My story</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- CHALLENGE OF THE MONTH -->
-    <section class="section" aria-labelledby="challenge-title">
-      <div class="container">
-        <div class="challenge" id="challenge" data-reveal></div>
-      </div>
-    </section>
-
-    <!-- PLUS: the paid plan, shown to everyone. Plus members see a
-         "thanks" version instead (body.is-plus, set by layout.js) -->
-    <section class="section home-section" aria-labelledby="plus-title">
-      <div class="container">
-        <div class="plus-promo" data-reveal>
-          <div>
-            <span class="plus-tag">★ PITCHPATH PLUS</span>
-            <h2 id="plus-title" class="home-h2">Go <span>Plus</span></h2>
+          <!-- Plus: "Go Plus" for everyone, "You're Plus" for members -->
+          <article class="ah-plus ah-pop" style="--i:9" aria-labelledby="ah-plus-title">
             <div class="plus-promo__buy">
-              <p>Every drill. Your own weekly planner. A food chat helper. Just ₹99 a month.</p>
-              <a class="btn btn--gold btn--big btn--arrow" href="plans.html#plans-title">See Plus</a>
+              <p class="ah-label ah-label--gold">★ PITCHPATH PLUS</p>
+              <h2 id="ah-plus-title" class="ah-plus__title">Go <span>Plus</span> · ₹99/month</h2>
+              <ul class="ah-plus__perks">
+                <li>⚽ All 35 drills</li><li>🗓️ Weekly Planner</li><li>💬 Food Helper</li>
+              </ul>
+              <a class="btn btn--gold btn--arrow" href="plans.html#plans-title">See Plus</a>
             </div>
             <div class="plus-promo__member">
-              <p>You're a Plus member. Every drill, the Planner and the Food Helper are unlocked.</p>
-              <a class="btn btn--gold btn--big btn--arrow" href="planner.html">Open my Planner</a>
+              <p class="ah-label ah-label--gold">★ PLUS MEMBER</p>
+              <h2 class="ah-plus__title">You're <span>Plus</span></h2>
+              <p class="ah-plus__text">Every drill, the Planner and the Food Helper are unlocked.</p>
+              <a class="btn btn--gold btn--arrow" href="planner.html">Open my Planner</a>
             </div>
-          </div>
-          <ul class="plus-perks">
-            <li><span aria-hidden="true">⚽</span> All 35 drills, with diagrams</li>
-            <li><span aria-hidden="true">🗓️</span> Weekly Planner</li>
-            <li><span aria-hidden="true">💬</span> Food Helper chat</li>
-            <li><span aria-hidden="true">★</span> Plus member badge</li>
-          </ul>
+          </article>
         </div>
+
+        <!-- Founder: one small strip (the full story is on About) -->
+        <a class="ah-founder ah-pop" style="--i:10" href="about.html">
+          <img src="assets/img/founder-action.jpg" alt="" width="1200" height="800" loading="lazy">
+          <span class="ah-founder__text"><strong>Made by Arssh Gupta</strong> Mumbai City FC player · Read my story</span>
+          <span class="ah-founder__go" aria-hidden="true">→</span>
+        </a>
       </div>
     </section>
-
-    <!-- PLANS (one slim banner) -->
-    <section class="section section--compact" aria-labelledby="home-plans-title">
-      <div class="container">
-        <div class="plans-banner plans-banner--bold" data-reveal>
-          <div>
-            <h2 id="home-plans-title" class="home-h2">Free to start. Always.</h2>
-            <p>All programmes, fitness and nutrition guides and the tracker are free. No sign-up.</p>
-          </div>
-          <a class="btn btn--dark btn--arrow" href="plans.html">Compare plans</a>
-        </div>
-      </div>
-    </section>
-
-
   </main>
 
   <div id="site-footer"></div>

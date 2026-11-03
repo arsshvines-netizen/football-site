@@ -20,14 +20,14 @@ const myth = (start) => MYTHS.find((m) => m.myth.startsWith(start)).fact;
 const plate = (label) => PLATE.find((p) => p.label === label).examples;
 const meal = (day, name, n = 0) => SAMPLE_DAYS[day].filter((m) => m.meal.startsWith(name))[n];
 
-// The question buttons shown under the chat
+// The topic cards shown before the first question (and as chips after)
 export const SUGGESTED = [
-  "What should I eat before training?",
-  "What should I eat after a match?",
-  "How do I know if I'm drinking enough?",
-  "Do I need protein shakes?",
-  "What's a good breakfast?",
-  "Are energy drinks OK?",
+  { icon: "🏃", short: "Before training", q: "What should I eat before training?" },
+  { icon: "🍽️", short: "After a match", q: "What should I eat after a match?" },
+  { icon: "💧", short: "Am I drinking enough?", q: "How do I know if I'm drinking enough?" },
+  { icon: "🥤", short: "Protein shakes?", q: "Do I need protein shakes?" },
+  { icon: "🍳", short: "Breakfast ideas", q: "What's a good breakfast?" },
+  { icon: "⚡", short: "Energy drinks?", q: "Are energy drinks OK?" },
 ];
 
 export const GREETING =
@@ -58,7 +58,9 @@ export const SAFETY_REPLIES = [
 ];
 
 // ---------- Topics ----------
-// words: key words to look for (the more that match, the better)
+// words: key words to look for (the more that match, the better).
+// A word starting with "~" is very common, so it only counts a little.
+// A word starting with "!" is very specific, so it counts a lot.
 // tab: which tab on the Nutrition page has more (opened by the link)
 export const TOPICS = [
   {
@@ -93,13 +95,13 @@ export const TOPICS = [
   },
   {
     id: "water",
-    words: ["water", "drink", "hydrat", "thirst", "sweat", "bottle"],
+    words: ["water", "~drink", "hydrat", "thirst", "sweat", "bottle"],
     reply: "Sip water all day, not just at training. Have a drink in the hour or two before, sip at every break, and keep drinking afterwards to replace what you sweated out. On hot days, drink more. Water is the best choice.",
     tab: ["hydration", "Hydration"],
   },
   {
     id: "energy-drinks",
-    words: ["energy drink", "red bull", "caffeine", "monster", "sting", "coffee", "fizzy"],
+    words: ["energy drink", "red bull", "caffeine", "monster", "sting", "coffee"],
     reply: myth("Energy drinks"),
     tab: ["myths", "Myths"],
   },
@@ -117,7 +119,7 @@ export const TOPICS = [
   },
   {
     id: "carbs",
-    words: ["carb", "rice", "pasta", "bread", "potato", "roti", "chapati", "energy", "tired", "fuel"],
+    words: ["carb", "rice", "pasta", "bread", "potato", "roti", "chapati", "~energy", "tired", "fuel"],
     reply: `${myth("Carbohydrates")} Good choices: ${plate("Carbohydrates").toLowerCase()}.`,
     tab: ["plate", "Your plate"],
   },
@@ -141,7 +143,7 @@ export const TOPICS = [
   },
   {
     id: "plate",
-    words: ["plate", "balanced", "healthy", "meal", "lunch", "dinner", "food"],
+    words: ["plate", "balanced", "healthy", "~meal", "lunch", "dinner", "~food"],
     reply: `Fill your plate roughly like this: about a third carbohydrates (${plate("Carbohydrates").toLowerCase()}), about a third fruit and vegetables, some protein (${plate("Protein").toLowerCase()}), and a little dairy and healthy fats. No measuring needed.`,
     tab: ["plate", "Your plate"],
   },
@@ -153,8 +155,8 @@ export const TOPICS = [
   },
   {
     id: "treats",
-    words: ["treat", "junk", "sweet", "chocolate", "sugar", "fast food", "pizza", "burger", "chips", "ice cream", "cake"],
-    reply: "No food is \"banned\". Enjoy treats sometimes, as part of a varied diet. Most of the time, choose normal balanced meals, and drink water instead of sugary drinks.",
+    words: ["treat", "junk", "sweet", "chocolate", "sugar", "fast food", "pizza", "burger", "chips", "ice cream", "cake", "!coke", "!cola", "!pepsi", "!sprite", "!soda", "!fizzy", "!soft drink"],
+    reply: "No food is \"banned\". Enjoy treats sometimes, as part of a varied diet. Fizzy and sugary drinks are treats too. For training and matches, water is the best drink. Most of the time, choose normal balanced meals.",
     tab: ["myths", "Myths"],
   },
   {
