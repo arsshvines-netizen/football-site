@@ -27,61 +27,33 @@
   <main id="main" tabindex="-1">
     <!-- HERO -->
     <section class="hero on-dark" aria-labelledby="hero-title">
+      <!-- Pitch lines behind the text: a big centre circle frames the headline -->
       <svg class="hero__pitch" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
         <g fill="none" stroke="#F7F9FA" stroke-width="4">
           <rect class="draw" x="40" y="40" width="1120" height="520"/>
-          <line class="draw" x1="600" y1="40" x2="600" y2="560"/>
-          <circle class="draw" cx="600" cy="300" r="110"/>
+          <circle class="draw" cx="600" cy="300" r="250"/>
           <rect class="draw" x="40" y="170" width="160" height="260"/>
           <rect class="draw" x="1000" y="170" width="160" height="260"/>
+          <path class="draw" d="M40 70 A30 30 0 0 0 70 40 M1130 40 A30 30 0 0 0 1160 70 M1160 530 A30 30 0 0 0 1130 560 M70 560 A30 30 0 0 0 40 530"/>
         </g>
       </svg>
-      <div class="container hero__grid">
-        <div class="hero__text">
-          <span class="eyebrow hero-in" style="--delay:0ms">Founded by a Mumbai City FC player</span>
-          <!-- Each word rises in one after another (see .hero-word in pages.css) -->
-          <h1 id="hero-title" class="hero-title">
-            <span class="hero-word" style="--i:0">Train</span> <span class="hero-word" style="--i:1">smarter.</span>
-            <span class="highlight"><span class="hero-word" style="--i:2">Play</span> <span class="hero-word" style="--i:3">better.</span></span>
-          </h1>
-          <p class="lead hero-in" style="--delay:750ms">Football plans, drills and fitness for players aged 12-15.</p>
-          <div class="hero__actions hero-in" style="--delay:900ms">
-            <!-- The big main button: the one thing we want every visitor to press -->
-            <a class="btn-start" href="programmes.html">
-              <span class="btn-start__ball" aria-hidden="true">⚽</span>
-              <span class="btn-start__text">Start training <small>Free · takes 1 minute</small></span>
-              <span class="btn-start__arrow" aria-hidden="true">→</span>
-            </a>
-            <a class="hero__link" href="tracker.html">or track my progress</a>
-          </div>
-        </div>
-        <!-- Hero visual: the animated ball path, with floating "app" cards
-             that show what using PITCHPATH looks like -->
-        <div class="hero__visual" aria-hidden="true">
-        <svg class="hero__art" viewBox="0 0 380 380" aria-hidden="true" focusable="false">
-            <circle cx="190" cy="190" r="170" fill="#0B6E4F"/>
-            <circle class="spin-slow" cx="190" cy="190" r="110" fill="none" stroke="#F7F9FA" stroke-width="6" opacity="0.5" stroke-dasharray="40 18"/>
-            <line x1="190" y1="20" x2="190" y2="360" stroke="#F7F9FA" stroke-width="5" opacity="0.3"/>
-            <path id="ball-path" d="M70 290 C130 280 140 200 200 170 S280 120 300 90" fill="none" stroke="#F26B21" stroke-width="16" stroke-linecap="round" stroke-dasharray="2 26" class="dash-move"/>
-            <polygon class="arrow-pulse" points="280,60 330,70 305,115" fill="#F26B21"/>
-            <polygon points="120,250 108,276 132,276" fill="#FFC857" stroke="#0D1B2A" stroke-width="3"/>
-            <polygon points="200,150 188,176 212,176" fill="#FFC857" stroke="#0D1B2A" stroke-width="3"/>
-            <g class="rolling-ball">
-              <circle r="22" fill="#F7F9FA" stroke="#0D1B2A" stroke-width="4"/>
-              <polygon points="0,-11 10,-4 6,9 -6,9 -10,-4" fill="#0D1B2A"/>
-              <animateMotion dur="3.6s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.75;1" calcMode="linear" rotate="auto">
-                <mpath href="#ball-path"/>
-              </animateMotion>
-            </g>
-          </svg>
-          <div class="float-card float-card--plan">
-            <span class="float-card__label">Today's session</span>
-            <strong>Receiving and turning</strong>
-            <span class="float-card__meta">⏱ 55 min · Week 1</span>
-            <span class="float-card__bar"><span></span></span>
-          </div>
-          <div class="float-chip float-chip--done">✓ Session done!</div>
-          <div class="float-chip float-chip--streak">🔥 3 in a row</div>
+      <!-- Everything is centred, like kick-off from the centre spot -->
+      <div class="container hero__center">
+        <span class="hero__badge hero-in" style="--delay:0ms">⚽ Founded by a Mumbai City FC player</span>
+        <!-- Each word rises in one after another (see .hero-word in pages.css) -->
+        <h1 id="hero-title" class="hero-title">
+          <span class="hero-word" style="--i:0">Train</span> <span class="hero-word" style="--i:1">smarter.</span>
+          <span class="highlight"><span class="hero-word" style="--i:2">Play</span> <span class="hero-word" style="--i:3">better.</span></span>
+        </h1>
+        <p class="lead hero-in" style="--delay:750ms">Football plans, drills and fitness for players aged 12-15.</p>
+        <div class="hero__actions hero-in" style="--delay:900ms">
+          <!-- The big main button: the one thing we want every visitor to press -->
+          <a class="btn-start" href="programmes.html">
+            <span class="btn-start__ball" aria-hidden="true">⚽</span>
+            <span class="btn-start__text">Start training <small>Free · no sign-up</small></span>
+            <span class="btn-start__arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="hero__link" href="tracker.html">or track my progress</a>
         </div>
       </div>
     </section>

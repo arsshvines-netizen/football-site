@@ -207,9 +207,13 @@ function sessionNumber(letter) { return LETTERS.indexOf(letter) + 1; }
 function weekPickerHTML(programme, viewWeek) {
   return programme.weeks.map((_, w) => {
     const week = w + 1;
-    const allDone = LETTERS.every((letter) => isDone(programme, week, letter));
+    const doneThisWeek = LETTERS.filter((letter) => isDone(programme, week, letter)).length;
+    const allDone = doneThisWeek === LETTERS.length;
     return `<button type="button" class="week-pick ${allDone ? "is-done" : ""}" data-view-week="${week}"
-      aria-pressed="${week === viewWeek}">${allDone ? "✓ " : ""}Week ${week}</button>`;
+      aria-pressed="${week === viewWeek}">
+        <span class="week-pick__name">${allDone ? "✓ " : ""}Week ${week}</span>
+        <span class="week-pick__count">${doneThisWeek}/${LETTERS.length} done</span>
+      </button>`;
   }).join("");
 }
 
@@ -229,8 +233,9 @@ function sessionRowsHTML(programme, week, next) {
         <span class="session-row__num" aria-hidden="true">${finished ? "✓" : sessionNumber(letter)}</span>
         <span class="session-row__text">
           <span class="session-row__aim">${escapeHTML(session.aim)}</span>
-          <span class="session-row__meta">Session ${sessionNumber(letter)} · ${total} min · <span class="pill pill--${status === "Done" ? "done" : status === "Up next" ? "next" : "later"}">${status}</span></span>
+          <span class="session-row__meta">Session ${sessionNumber(letter)} · ⏱ ${total} min</span>
         </span>
+        <span class="pill pill--${status === "Done" ? "done" : status === "Up next" ? "next" : "later"}">${status}</span>
         ${action}
       </li>`;
   }).join("");
@@ -242,7 +247,7 @@ function weekViewHTML(programme, viewWeek, next) {
   const weekChange = programme.weeks[viewWeek - 1].split(":").slice(1).join(":").trim();
   return `
     <div class="week-picks" role="group" aria-label="Choose a week">${weekPickerHTML(programme, viewWeek)}</div>
-    <p class="week-note"><strong>Week ${viewWeek}:</strong> ${escapeHTML(weekChange)}</p>
+    <p class="week-note"><span class="week-note__tag">Week ${viewWeek} focus</span> ${escapeHTML(weekChange)}</p>
     <ol class="session-rows">${sessionRowsHTML(programme, viewWeek, next)}</ol>`;
 }
 
@@ -259,15 +264,23 @@ function planScreenHTML() {
   if (next) {
     const { session, steps, total: minutes } = buildSteps(programme, next.week, next.letter);
     // A short "what you'll do" timeline: warm-up, each activity, cool-down
-    const timeline = steps.map((step) => `<li><span>${escapeHTML(step.title)}</span><span class="today__min">${step.minutes} min</span></li>`).join("");
+    // A short "what you'll do" row: warm-up, each activity, cool-down
+    const timeline = steps.map((step) => `
+      <li class="today__step">
+        <span class="today__step-name">${escapeHTML(step.title)}</span>
+        <span class="today__min">${step.minutes} min</span>
+      </li>`).join("");
     nextCard = `
       <section class="today" aria-labelledby="today-title">
         <div class="today__head">
           <p class="today__label">Today · Week ${next.week}, session ${sessionNumber(next.letter)} of 3</p>
           <h3 class="today__title" id="today-title">${escapeHTML(session.aim)}</h3>
-          <p class="today__meta">⏱ ${minutes} minutes in total</p>
-          <button type="button" class="btn btn--primary btn--big btn--arrow" data-start="${next.week}-${next.letter}">Start session</button>
+          <ul class="today__chips">
+            <li>⏱ ${minutes} min</li>
+            <li>📋 ${steps.length} steps</li>
+          </ul>
         </div>
+        <button type="button" class="btn btn--primary btn--big btn--arrow today__start" data-start="${next.week}-${next.letter}">Start session</button>
         <div class="today__plan">
           <p class="today__plan-title">What you'll do</p>
           <ol class="today__steps">${timeline}</ol>
@@ -306,9 +319,11 @@ function planScreenHTML() {
       ${nextCard}
 
       <section class="plan-section" aria-labelledby="weeks-title">
-        <h3 id="weeks-title">Your 4 weeks</h3>
+        <div class="plan-section__head">
+          <h3 id="weeks-title">Your 4 weeks</h3>
+          <p class="muted">3 sessions a week, with a rest day in between</p>
+        </div>
         <div id="week-view">${weekViewHTML(programme, viewWeek, next)}</div>
-        <p class="muted">Do 3 sessions a week with a rest day in between.</p>
       </section>
 
       <details class="plan-extra">

@@ -104,3 +104,13 @@ Calculated with the WCAG relative-luminance formula.
 | White on night navy (step 3, Fitness tile) | 17:1 | Pass |
 | Navy on yellow (Nutrition tile, "Free to start" banner) | 12:1 | Pass |
 | Green link on white (challenge "How it works") | 6.5:1 | Pass |
+
+## Version 10 (centred banner, plan screen) contrast checks
+| Text / background | Ratio | Result |
+|---|---|---|
+| Navy on orange (Start training, Start session) | 5.72:1 | Pass |
+| White on pitch green (Today card) | 6.25:1 | Pass |
+| White on dark green (step tiles, chips) | 8.6:1 | Pass |
+| Yellow on dark green (step minutes) | 5.59:1 | Pass |
+| Yellow on navy (banner badge) | 11.3:1 | Pass |
+| Note: yellow on pitch green is only 4.07:1, so it is NOT used for text there. | | |

@@ -1710,3 +1710,176 @@ h3 { font-size: clamp(1.25rem, 2.6vw, 1.5rem); letter-spacing: -0.02em; }
   .big-step__title { margin-top: var(--space-3); }
   .big-step__num { font-size: 9rem; }
 }
+
+/* =========================================================
+   VERSION 10: centred Home banner + a tidier plan screen
+   ========================================================= */
+
+/* ---- Home banner: centred, on a "mown grass" navy pitch ---- */
+.hero {
+  background:
+    repeating-linear-gradient(90deg, transparent 0 120px, rgba(255, 255, 255, 0.025) 120px 240px),
+    var(--color-dark);
+  text-align: center;
+}
+.hero__pitch { opacity: 0.12; }
+.hero__center { display: flex; flex-direction: column; align-items: center; }
+.hero__badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 18px; border-radius: 999px; margin-bottom: var(--space-4);
+  background: rgba(255, 200, 87, 0.12); border: 2px solid rgba(255, 200, 87, 0.45);
+  color: var(--color-accent); font-weight: 800; font-size: 0.95rem;   /* yellow on navy: 11:1 */
+}
+.hero-title { font-size: clamp(3.4rem, 10vw, 7.4rem); margin-inline: auto; }
+.hero h1 .highlight { display: block; }
+.hero h1 .highlight::after { left: 0.2em; right: 0.3em; }
+.hero .lead { margin-inline: auto; max-width: 34ch; margin-bottom: var(--space-5); }
+.hero__actions { flex-direction: column; justify-content: center; gap: var(--space-3); margin-bottom: 0; }
+
+/* ---- The Start button: huge, chunky, with a "press" effect ---- */
+.btn-start {
+  min-height: 104px; gap: 20px; padding: 14px 16px 14px 14px;
+  font-size: clamp(1.6rem, 4vw, 2.3rem); letter-spacing: -0.03em;
+  border: 4px solid #FF8A47;
+  /* a solid darker edge underneath makes it look pressable, like a game button */
+  box-shadow: 0 8px 0 #A8440F, 0 22px 40px rgba(0, 0, 0, 0.35);
+}
+.btn-start:hover, .btn-start:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 11px 0 #A8440F, 0 28px 48px rgba(0, 0, 0, 0.4);
+}
+.btn-start:active { transform: translateY(6px); box-shadow: 0 2px 0 #A8440F, 0 10px 20px rgba(0, 0, 0, 0.3); }
+.btn-start::before { inset: -10px; border-width: 3px; }
+.btn-start__ball { width: 72px; height: 72px; font-size: 2.6rem; box-shadow: inset 0 -4px 0 rgba(13, 27, 42, 0.12); }
+.btn-start__ball { animation: ball-idle 3s ease-in-out 2s infinite; }
+@keyframes ball-idle {
+  0%, 70%, 100% { transform: rotate(0); }
+  80% { transform: rotate(-25deg); }
+  90% { transform: rotate(15deg); }
+}
+.btn-start__text { text-align: left; }
+.btn-start__text small { font-size: 0.9rem; letter-spacing: 0; }
+.btn-start__arrow { width: 64px; height: 64px; font-size: 1.8rem; margin-left: 12px; }
+.hero__link { font-size: 1.05rem; }
+@media (max-width: 600px) {
+  .btn-start { min-height: 88px; gap: 12px; }
+  .btn-start__ball { width: 56px; height: 56px; font-size: 2rem; }
+  .btn-start__arrow { width: 50px; height: 50px; font-size: 1.4rem; }
+  .hero__badge { font-size: 0.85rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn-start__ball { animation: none; }
+  .btn-start:active { transform: none; }
+}
+
+/* ---- Plan screen: three clear blocks (plan, today, 4 weeks) ---- */
+.plan-screen { gap: var(--space-5); }
+
+/* 1. The plan header (navy) */
+.plan-screen .plan-hero { border-radius: 28px; padding: var(--space-5); }
+.plan-hero__tag {
+  display: inline-block; padding: 6px 14px; border-radius: 999px;
+  background: rgba(255, 200, 87, 0.14); text-transform: none; letter-spacing: 0; font-size: 0.95rem;
+}
+.plan-hero__title { font-size: clamp(2.2rem, 6vw, 3.6rem); letter-spacing: -0.04em; line-height: 1; margin-top: var(--space-2); }
+
+/* 2. Today: one bold green card */
+.plan-screen .today {
+  display: grid; gap: var(--space-4); align-items: end;
+  background: var(--color-primary); color: var(--color-white);   /* white on green: 6.25:1 */
+  border: 0; border-radius: 28px; padding: var(--space-5);
+  box-shadow: 0 18px 40px rgba(11, 110, 79, 0.28);
+}
+@media (min-width: 761px) { .plan-screen .today { grid-template-columns: 1fr auto; } }
+.plan-screen .today__label {
+  display: inline-block; padding: 6px 14px; border-radius: 999px; margin-bottom: var(--space-3);
+  background: var(--color-primary-dark); color: var(--color-white); letter-spacing: 0.06em;
+}
+.plan-screen .today__title { color: var(--color-white); font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.02; letter-spacing: -0.04em; margin-bottom: var(--space-3); }
+.today__chips { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.today__chips li { margin: 0; padding: 6px 14px; border-radius: 999px; background: var(--color-primary-dark); font-weight: 800; }
+.today__start { min-height: 72px; padding-inline: var(--space-5); font-size: 1.35rem; box-shadow: 0 6px 0 #A8440F; }
+.today__start:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #A8440F; }
+.today__start:active { transform: translateY(4px); box-shadow: 0 2px 0 #A8440F; }
+/* "What you'll do": equal tiles in one neat row */
+.plan-screen .today__plan { grid-column: 1 / -1; background: none; padding: var(--space-4) 0 0; border-top: 2px solid rgba(255, 255, 255, 0.2); border-radius: 0; }
+.plan-screen .today__plan-title { color: var(--color-white); font-size: 1.1rem; margin-bottom: var(--space-3); }
+.plan-screen .today__steps { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-3); }
+.plan-screen .today__steps li {
+  display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-2);
+  background: var(--color-primary-dark); color: var(--color-white);   /* 8.6:1 */
+  border-radius: 18px; padding: var(--space-3);
+}
+.plan-screen .today__steps li::before { width: 34px; height: 34px; font-size: 1rem; background: var(--color-accent); color: var(--color-dark); }
+.today__step-name { font-weight: 800; line-height: 1.2; flex: 1; }
+.plan-screen .today__min { color: var(--color-accent); font-size: 0.95rem; }   /* yellow on dark green: 5.6:1 */
+.plan-screen .today--complete { grid-template-columns: 1fr; }
+.plan-screen .today--complete p { color: var(--color-white); }
+
+/* 3. Your 4 weeks */
+.plan-screen .plan-section { border-radius: 28px; padding: var(--space-5); }
+.plan-section__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-1) var(--space-3); margin-bottom: var(--space-4); }
+.plan-section__head h3 { font-size: clamp(1.8rem, 4vw, 2.4rem); letter-spacing: -0.03em; margin: 0; }
+.plan-section__head p { margin: 0; font-weight: 600; }
+/* Week buttons: four equal tabs in one bar */
+.plan-screen .week-picks {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;
+  padding: 6px; border-radius: 20px; background: var(--color-light); border: 2px solid var(--color-border);
+  margin-bottom: var(--space-4);
+}
+.plan-screen .week-pick {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  min-height: 64px; padding: 6px; border: 0; border-radius: 14px; background: transparent;
+}
+.week-pick__name { font-size: 1.1rem; font-weight: 900; }
+.week-pick__count { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); }
+.plan-screen .week-pick:hover { background: var(--color-white); }
+.plan-screen .week-pick[aria-pressed="true"] { background: var(--color-dark); color: var(--color-white); box-shadow: var(--shadow); }
+.plan-screen .week-pick[aria-pressed="true"] .week-pick__count { color: var(--text-muted-on-dark); }
+/* What this week is about */
+.plan-screen .week-note {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3);
+  background: var(--color-tint); border-radius: 16px; padding: var(--space-3); margin-bottom: var(--space-4);
+  font-weight: 600;
+}
+.week-note__tag { padding: 4px 12px; border-radius: 999px; background: var(--color-primary-dark); color: var(--color-white); font-weight: 800; font-size: 0.85rem; white-space: nowrap; }
+/* Session rows: number | session | status | button, all lined up */
+.plan-screen .session-rows { margin: 0; gap: var(--space-3); }
+.plan-screen .session-row {
+  display: grid; grid-template-columns: 52px 1fr 96px 120px; align-items: center; gap: var(--space-3);
+  border-radius: 18px; padding: var(--space-3);
+}
+.plan-screen .session-row__num { width: 52px; height: 52px; font-size: 1.3rem; }
+.plan-screen .session-row__aim { font-size: 1.15rem; line-height: 1.25; }
+.plan-screen .session-row .pill { justify-self: center; padding: 6px 12px; font-size: 0.85rem; white-space: nowrap; }
+.plan-screen .session-row .btn, .plan-screen .session-row__undo { width: 100%; justify-content: center; }
+.plan-screen .session-row.is-next { border-width: 3px; }
+/* Phones: number + text on top, status + button underneath */
+@media (max-width: 600px) {
+  .plan-screen .plan-hero, .plan-screen .today, .plan-screen .plan-section { padding: var(--space-4); border-radius: 22px; }
+  .plan-screen .session-row { grid-template-columns: 44px 1fr auto; }
+  .plan-screen .session-row__num { width: 44px; height: 44px; font-size: 1.1rem; }
+  .plan-screen .session-row .pill { grid-column: 3; grid-row: 1; align-self: start; }
+  .plan-screen .session-row .btn, .plan-screen .session-row__undo { grid-column: 1 / -1; }
+  .plan-screen .week-pick { min-height: 56px; }
+  .week-pick__name { font-size: 0.95rem; }
+  .week-pick__count { font-size: 0.72rem; }
+  .plan-screen .today__steps { grid-template-columns: 1fr 1fr; }
+  .today__start { width: 100%; }
+}
+.plan-screen .plan-extra { border-radius: 22px; }
+/* Phones: give the session name the full width */
+@media (max-width: 600px) {
+  .plan-screen .session-row {
+    grid-template-columns: 44px 1fr;
+    grid-template-areas: "num text" "num pill" "btn btn";
+    row-gap: var(--space-2);
+  }
+  .plan-screen .session-row__num { grid-area: num; align-self: start; }
+  .plan-screen .session-row__text { grid-area: text; }
+  .plan-screen .session-row .pill { grid-area: pill; grid-column: auto; grid-row: auto; justify-self: start; }
+  .plan-screen .session-row .btn, .plan-screen .session-row__undo { grid-area: btn; width: 100%; }
+  .plan-screen .week-pick { padding: 4px 2px; }
+  .week-pick__name, .week-pick__count { white-space: nowrap; }
+  .plan-screen .today__steps li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
