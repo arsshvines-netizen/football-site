@@ -59,7 +59,7 @@ function buildHeader(currentPage) {
 // so it never points to the page you are already on.
 function footerCallToAction(currentPage) {
   if (currentPage === "programmes.html") {
-    return { title: "Want drills for your position?", text: "25 drills for keepers, defenders, midfielders, wingers and strikers.", label: "Browse drills", href: "drills.html" };
+    return { title: "Want drills for your position?", text: "35 drills for keepers, defenders, midfielders, wingers and strikers, with Plus.", label: "Browse drills", href: "drills.html" };
   }
   if (currentPage === "tracker.html") {
     return { title: "Time for your next session?", text: "Your plan remembers where you got to.", label: "Open my plan", href: "programmes.html" };
@@ -149,7 +149,7 @@ function setUpPlusLook() {
   const toast = document.createElement("div");
   toast.className = "plus-toast";
   toast.setAttribute("role", "status");
-  toast.innerHTML = `<span aria-hidden="true">★</span> Welcome to Plus! Your Plus drills and Planner are unlocked.`;
+  toast.innerHTML = `<span aria-hidden="true">★</span> Welcome to Plus! Every drill, the Planner and the Food Helper are unlocked.`;
   document.body.appendChild(toast);
   setTimeout(() => toast.remove(), 6000);
 }

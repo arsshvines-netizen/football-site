@@ -18,7 +18,7 @@ Full spec: `website-spec.md`. Read it before big changes.
 - `*.html`: one file per page. Header and footer are injected by `assets/js/layout.js` into `#site-header` / `#site-footer`, with a `<noscript>` fallback nav.
 - `assets/css/`: `variables.css` (brand), `base.css` (reset/layout), `components.css` (shared pieces), `pages.css` (page-specific + print).
 - `assets/js/`: `config.js` (brand, nav, footer link groups), `layout.js` (header + footer), `nav.js`, `storage.js` (safe localStorage + in-page confirm box), page scripts (`plans.js` for pricing/challenge/FAQ on Home + Plans, `programmes.js`, `planner.js` (Plus), `drills.js`, `diagrams.js`, `fitness.js`, `nutrition.js`, `tracker.js`, `feedback.js`, `sources-page.js`, `studio.js`).
-- Shared helpers: `video.js` (video player + popup), `tabs.js` (tabs + level switchers), `effects.js` (animations: scroll reveal, `data-in-view`, counters, progress bar, tilt, back-to-top; always respect prefers-reduced-motion), `drill-modal.js` (drill popup with save + copy link), `favourites.js` (saved drills), `quiz.js` (position quiz popup), `plus.js` (Plus membership + unlock popup).
+- Shared helpers: `video.js` (video player + popup), `tabs.js` (tabs + level switchers), `effects.js` (animations: scroll reveal, `data-in-view`, counters, progress bar, tilt, back-to-top; always respect prefers-reduced-motion), `drill-modal.js` (drill popup with save + copy link), `favourites.js` (saved drills), `quiz.js` (position quiz popup), `plus.js` (Plus membership + unlock popup), `food-helper.js` (Nutrition chat, Plus).
 - `assets/js/data/`: all editable content (drills, programmes, fitness, nutrition, sources, plans = business model/prices/monthly challenge, feedback = tester questions, quiz = position quiz, videos = training video file names).
 - Videos: clips live in `assets/video/` (MP4, under 1 min, under ~10MB) and are switched on by typing the file name in `assets/js/data/videos.js`. `video.js` shows them in the drill popup, the Fitness warm-up and programme sessions. Empty name = nothing shown. Studio lists missing videos. Only film the founder or players with parental consent.
 - `studio.html` + `studio.js`: creator-only page (brand kit, business plan, tester results, sources still to check). Unlinked, noindex, simple code gate. NOT real security: never put private info there.
@@ -27,7 +27,7 @@ Full spec: `website-spec.md`. Read it before big changes.
 
 ## Keep pages short and tidy
 - Not text heavy: page intros are one short line; Home tiles show icon + title only. Big, bold headings (sizes in pages.css VERSION 8 block).
-- The header keeps a fixed height (it must not shrink on scroll: that moves the page).
+- The header keeps a fixed height (it must not shrink on scroll: that moves the page). Height lives in `--header-height` (88px desktop, 76px tablet, 70px phone); sticky tabs use it.
 - Long topics use tabs (`tabs.js`): Fitness, Nutrition and Tracker show one topic at a time, and `page.html#panel-id` opens a tab directly.
 - Drills shows 12 cards at a time ("Show more"). The Feedback form is step-by-step.
 - Notes for the creator (to-dos, flags) go on studio.html, never on public pages.
@@ -45,7 +45,9 @@ Public pages are customer-facing only. Brand kit, colours, marketing strategy an
 The site is presented as a real football training business (MYP project Criterion A learning goal: market research, value proposition, branding, pricing, marketing, customer engagement). Freemium model: Starter free; Team shown as 'Launching soon'. Never invent testimonials, reviews or sales claims (no "most popular").
 
 ## Plus (paid plan)
-- Plus = 10 Plus drills (`plus: true` in `data/drills.js`, 2 per position) + the Weekly Planner (`planner.html` + `planner.js`) + a gold ★ PLUS badge in the header. Gold (`--plus-gold`) is the Plus colour: navy text on gold, gold text only on navy.
+- Plus (₹99/month, monthly only) = ALL 35 drills on the Drills page (25 normal + 10 Plus-only, `plus: true` in `data/drills.js`) + the Weekly Planner (`planner.html` + `planner.js`) + the Food Helper chat on Nutrition (`food-helper.js` + `data/food-helper.js`) + a gold ★ PLUS badge in the header. Gold (`--plus-gold`) is the Plus colour: navy text on gold, gold text only on navy.
+- Free players: Drills page cards are locked, BUT drills inside Programme sessions stay free (`openDrillModal(id, opener, { free: true })` in programmes.js). Nutrition tips, Fitness, Programmes and Tracker are free.
+- Food Helper is NOT a real AI: keyword matching over answers built from `data/nutrition.js`. Nothing is saved or sent. Safety replies (weight, dieting, calories, health worries) are checked first. Keep every answer sourced and conservative.
 - `plus.js`: `isPlus()` / `setPlus()` (localStorage `pitchpath-plus`), the "Unlock with Plus" popup. `drill-modal.js` refuses Plus drills for non-members, so every route is locked.
 - Only the founder has Plus: switched on per device in studio.html ("My Plus membership"). It is a DEMO LOCK, not real security; real paid access needs payments plus a server.
 - No payment link yet: `PLUS_BUY_LINK` in `data/plans.js` is empty, so buttons say payments open soon. The founder will supply the link. Always tell players to ask a parent before buying.

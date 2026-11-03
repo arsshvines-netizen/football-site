@@ -118,8 +118,9 @@ function getFilteredDrills() {
 // ---------- Cards ----------
 
 function cardHTML(drill) {
-  // Plus drills are locked unless Plus is switched on
-  const locked = drill.plus && !PLUS_MEMBER;
+  // Every drill on this page is locked unless Plus is switched on
+  // (drills inside programme sessions stay free: see programmes.js)
+  const locked = !PLUS_MEMBER;
   const classes = ["drill-card", drill.plus ? "drill-card--plus" : "", locked ? "is-locked" : ""].join(" ").trim();
   const label = locked ? ` aria-label="${escapeHTML(drill.name)} (Plus drill, locked)"` : "";
   return `
@@ -164,7 +165,7 @@ function render() {
 
 function buildDrillOfTheDay() {
   const dayNumber = Math.floor(Date.now() / 86400000); // changes every day
-  const pool = PLUS_MEMBER ? DRILLS : DRILLS.filter((d) => !d.plus);
+  const pool = DRILLS.filter((d) => !d.plus); // a normal drill (it's a teaser for free users)
   const drill = pool[dayNumber % pool.length];
   document.getElementById("drill-of-the-day").innerHTML = `
     <div class="daily__thumb" aria-hidden="true">${drawDiagram(drill.diagram, drill.name)}</div>
@@ -173,7 +174,7 @@ function buildDrillOfTheDay() {
       <h2 class="daily__name">${escapeHTML(drill.name)}</h2>
       <p class="daily__meta">${POSITION_LABELS[drill.position]} · ${LEVEL_LABELS[drill.level]} · ${drill.durationMin} min</p>
     </div>
-    <button type="button" class="btn btn--primary btn--arrow" data-drill="${drill.id}">Try it</button>`;
+    <button type="button" class="btn ${PLUS_MEMBER ? "btn--primary" : "btn--gold"} btn--arrow" data-drill="${drill.id}">${PLUS_MEMBER ? "Try it" : "🔒 Unlock"}</button>`;
 }
 
 // ---------- Plus strip (above the drills) ----------
@@ -183,9 +184,9 @@ function buildPlusStrip() {
   if (!strip) return;
   const plusCount = DRILLS.filter((d) => d.plus).length;
   strip.innerHTML = PLUS_MEMBER
-    ? `<p class="plus-strip__text"><span class="plus-tag">★ PLUS</span> You've unlocked ${plusCount} extra Plus drills.</p>
-       <button type="button" class="btn btn--gold btn--small" data-show-plus>Show my Plus drills</button>`
-    : `<p class="plus-strip__text"><span class="plus-tag">★ PLUS</span> ${plusCount} more drills are waiting for you.</p>
+    ? `<p class="plus-strip__text"><span class="plus-tag">★ PLUS</span> All ${DRILLS.length} drills unlocked, including ${plusCount} Plus-only drills.</p>
+       <button type="button" class="btn btn--gold btn--small" data-show-plus>Show Plus-only drills</button>`
+    : `<p class="plus-strip__text"><span class="plus-tag">★ PLUS</span> Unlock all ${DRILLS.length} drills with Plus. Drills in your programme sessions stay free.</p>
        <a class="btn btn--gold btn--small btn--arrow" href="${GET_PLUS_HREF}">Unlock with Plus</a>`;
 }
 

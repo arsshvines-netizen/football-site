@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="assets/css/pages.css">
   <script type="module" src="assets/js/layout.js"></script>
   <script type="module" src="assets/js/nutrition.js"></script>
+  <script type="module" src="assets/js/food-helper.js"></script>
 </head>
 <body data-title="Nutrition">
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -29,11 +30,6 @@
           <span class="eyebrow">Nutrition</span>
           <h1>Fuel your game</h1>
           <p>Simple food and water tips to fuel your game. No diets, no counting.</p>
-          <ul class="hero-chips">
-            <li>Real food first</li>
-            <li>Water is best</li>
-            <li>Never skip breakfast</li>
-          </ul>
         </div>
         <!-- Animated illustration: a spinning plate and a water bottle with bubbles -->
         <svg class="hero-art" viewBox="0 0 360 260" aria-hidden="true" focusable="false">
@@ -67,8 +63,20 @@
       </div>
     </section>
 
-    <div class="container section--tight">
-      <p class="notice notice--warning nutrition-note"><strong>Good to know:</strong> supplements, energy drinks and protein powders are <strong>not needed</strong> for young players. Normal, balanced meals give you everything you need.</p>
+    <div class="container section--tight nutrition-page">
+      <!-- The 4 golden rules: big, bold and quick to read -->
+      <h2 class="visually-hidden">The golden rules</h2>
+      <ul class="food-rules">
+        <li class="food-rule food-rule--green" data-reveal><span class="food-rule__icon" aria-hidden="true">🍽️</span><strong>Real food first</strong><span>Regular meals and snacks fuel you.</span></li>
+        <li class="food-rule food-rule--orange" data-reveal><span class="food-rule__icon" aria-hidden="true">💧</span><strong>Water is best</strong><span>Sip all day, and at every break.</span></li>
+        <li class="food-rule food-rule--navy" data-reveal><span class="food-rule__icon" aria-hidden="true">🍳</span><strong>Never skip breakfast</strong><span>You're training and growing.</span></li>
+        <li class="food-rule food-rule--yellow" data-reveal><span class="food-rule__icon" aria-hidden="true">🚫</span><strong>No supplements</strong><span>Shakes, powders and energy drinks aren't needed.</span></li>
+      </ul>
+
+      <!-- Food Helper chat (Plus). Built by food-helper.js -->
+      <section class="food-helper" id="food-helper" aria-labelledby="food-helper-title"></section>
+
+      <h2 class="nutrition-tabs-title">Explore</h2>
 
       <div class="tabset" data-tabs>
         <div class="tabset__list" role="tablist" aria-label="Nutrition topics">

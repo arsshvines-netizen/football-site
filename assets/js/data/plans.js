@@ -28,7 +28,7 @@ export const PLANS = [
     highlight: false,
     features: [
       "All 9 training programmes (3 levels)",
-      "All 25 position drills with diagrams",
+      "Drills inside every programme session",
       "Fitness and nutrition guides",
       "Progress tracker with charts",
       "Monthly challenge and badges",
@@ -38,16 +38,16 @@ export const PLANS = [
   {
     id: "plus",
     name: "Plus",
-    price: 199,
+    price: 99,
     period: "per month",
-    yearly: "or ₹1,499 per year (save 37%)",
     tagline: "More drills and your own weekly planner, for players who want more.",
     status: "available",
     highlight: true,
     features: [
       "Everything in Starter",
-      "10 extra Plus drills (2 for every position)",
+      "All 35 position drills with diagrams (10 are Plus-only)",
       "Weekly Planner: build your whole training week",
+      "Food Helper: ask nutrition questions any time",
       "Plus member badge and gold look",
     ],
     // The button text. Where it goes is PLUS_BUY_LINK below.
@@ -89,7 +89,7 @@ export const FAQS = [
   },
   {
     q: "What do I get with Plus?",
-    a: "Plus adds 10 extra drills (2 for every position), the Weekly Planner where you build your whole training week, and a Plus member badge. Everything in Starter stays free. Payments open soon: always ask a parent before buying anything online.",
+    a: "Plus unlocks all 35 drills on the Drills page (including 10 Plus-only drills), the Weekly Planner, the Food Helper chat on the Nutrition page, and a Plus member badge. Programmes, fitness, nutrition tips and the tracker stay free. Payments open soon: always ask a parent before buying anything online.",
   },
   {
     q: "Why is Team 'launching soon'?",

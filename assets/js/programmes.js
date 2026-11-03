@@ -589,7 +589,7 @@ app.addEventListener("click", (event) => {
   } else if (b.dataset.effort) {
     setEffort(Number(b.dataset.effort));
   } else if (b.dataset.openDrill) {
-    openDrillModal(b.dataset.openDrill, b);
+    openDrillModal(b.dataset.openDrill, b, { free: true }); // programme drills are free
   } else if (b.id === "timer-toggle") {
     toggleTimer();
   }

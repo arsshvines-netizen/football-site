@@ -38,7 +38,7 @@ export const PLUS_PLAN = PLANS.find((plan) => plan.id === "plus");
 // data/plans.js, they go to the price cards on the Plans page.
 export const GET_PLUS_HREF = PLUS_BUY_LINK || "plans.html#plans-title";
 
-// A short price line, e.g. "₹199 per month"
+// A short price line, e.g. "₹99 per month"
 export function plusPriceText() {
   return `${CURRENCY}${PLUS_PLAN.price} ${PLUS_PLAN.period}`;
 }
@@ -62,8 +62,9 @@ function createPopup() {
       <h2 id="plus-popup-title" class="plus-popup__title"></h2>
       <p class="plus-popup__text"></p>
       <ul class="plus-perks">
-        <li><span aria-hidden="true">⚽</span> 10 extra Plus drills</li>
+        <li><span aria-hidden="true">⚽</span> All 35 drills, with diagrams</li>
         <li><span aria-hidden="true">🗓️</span> Weekly Planner</li>
+        <li><span aria-hidden="true">💬</span> Food Helper chat</li>
         <li><span aria-hidden="true">★</span> Plus member badge</li>
       </ul>
       <a class="btn btn--gold btn--big btn--arrow" href="${GET_PLUS_HREF}">Get Plus · ${plusPriceText()}</a>

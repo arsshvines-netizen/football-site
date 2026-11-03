@@ -2126,3 +2126,171 @@ body.is-plus .plus-promo__member { display: block; }
   body.is-plus .brand img { width: 34px; height: 34px; }
   body.is-plus .brand { gap: 6px; }
 }
+
+/* =========================================================
+   VERSION 12: a bigger, bolder header
+   ========================================================= */
+.site-header {
+  background:
+    radial-gradient(400px 120px at 8% 0%, rgba(11, 110, 79, 0.45), transparent 70%),
+    linear-gradient(180deg, #0F2134, var(--color-dark));
+  border-bottom: 0;
+}
+/* A two-colour stripe along the bottom (gold for Plus members) */
+.site-header::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -5px; height: 5px;
+  background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
+}
+body.is-plus .site-header::after { background: linear-gradient(90deg, var(--plus-gold-2), #FFE29A, var(--plus-gold-2)); }
+.site-header .container { max-width: 1360px; }
+
+/* Logo: bigger icon and name */
+.brand { gap: 14px; }
+.brand img { width: 60px; height: 60px; border-radius: 16px; transition: transform 0.35s cubic-bezier(0.3, 1.6, 0.5, 1); }
+.brand:hover img { transform: rotate(-8deg) scale(1.06); }
+.brand__name { font-size: 2.1rem; letter-spacing: -0.03em; }
+.brand__tagline { font-size: 0.85rem; margin-top: 5px; }
+
+/* Menu: bigger, bolder pills */
+@media (min-width: 1025px) {
+  .main-nav ul { gap: 4px; }
+  .main-nav a { min-height: 48px; padding: 0 16px; border-radius: 999px; font-size: 1.05rem; font-weight: 800; }
+  .main-nav a:hover { background: rgba(255, 255, 255, 0.08); color: var(--color-white); }
+  .main-nav a[aria-current="page"] { box-shadow: 0 4px 0 #C99A35; }
+  .main-nav a:not([aria-current])::after { bottom: 8px; left: 16px; right: 16px; }
+  .plus-badge { min-height: 46px; padding: 0 20px; font-size: 1rem; }
+}
+/* Smaller laptops: still fit everything on one line */
+@media (min-width: 1025px) and (max-width: 1340px) {
+  .brand__tagline { display: none; }
+  .brand img { width: 50px; height: 50px; }
+  .brand__name { font-size: 1.7rem; }
+  .main-nav a { padding: 0 10px; font-size: 0.98rem; }
+}
+@media (min-width: 1025px) and (max-width: 1180px) {
+  .brand__name { font-size: 1.4rem; }
+  .brand img { width: 44px; height: 44px; }
+  .main-nav a { padding: 0 7px; font-size: 0.92rem; }
+  .plus-badge { padding: 0 12px; font-size: 0.85rem; }
+}
+/* Tablets and phones: a slightly shorter header */
+@media (max-width: 1024px) {
+  :root { --header-height: 76px; }
+  .brand img { width: 50px; height: 50px; }
+  .brand__name { font-size: 1.75rem; }
+  .nav-toggle { min-height: 48px; border-radius: 14px; font-size: 1.05rem; }
+  .main-nav a { font-size: 1.1rem; min-height: 54px; }
+}
+@media (max-width: 480px) {
+  :root { --header-height: 70px; }
+  .brand img { width: 44px; height: 44px; }
+  .brand__name { font-size: 1.5rem; }
+}
+@media (min-width: 1025px) { .main-nav { background: transparent; } }
+
+/* =========================================================
+   VERSION 12b: a bolder Nutrition page + Food Helper chat
+   Colour pairs: white on green 6.25:1, navy on orange 5.7:1,
+   white on navy 17:1, navy on yellow 11.3:1.
+   ========================================================= */
+
+/* ---- The 4 golden rules ---- */
+.food-rules { list-style: none; padding: 0; margin: 0 0 var(--space-5); display: grid; gap: var(--space-3); grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 900px) { .food-rules { grid-template-columns: repeat(4, 1fr); gap: var(--space-4); } }
+.food-rule {
+  margin: 0; display: flex; flex-direction: column; gap: 6px;
+  padding: var(--space-4); border-radius: 26px; min-height: 200px;
+  box-shadow: var(--shadow); transition: transform 0.3s cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+.food-rule:hover { transform: translateY(-6px) rotate(-1deg); }
+.food-rule__icon { font-size: 2.6rem; line-height: 1; margin-bottom: auto; }
+.food-rule strong { font-size: clamp(1.25rem, 2.6vw, 1.6rem); font-weight: 900; letter-spacing: -0.02em; line-height: 1.1; margin-top: var(--space-3); }
+.food-rule span:last-child { font-weight: 600; font-size: 0.98rem; }
+.food-rule--green { background: var(--color-primary); color: var(--color-white); }
+.food-rule--orange { background: var(--color-secondary); color: var(--color-dark); }
+.food-rule--navy { background: var(--color-dark); color: var(--color-white); }
+.food-rule--yellow { background: var(--color-accent); color: var(--color-dark); }
+@media (max-width: 480px) { .food-rule { min-height: 170px; padding: var(--space-3); border-radius: 20px; } .food-rule__icon { font-size: 2rem; } }
+
+/* ---- Food Helper chat ---- */
+.food-helper {
+  margin-bottom: var(--space-6); border-radius: 28px; overflow: hidden;
+  background: var(--color-dark); color: var(--color-white);
+  border: 3px solid var(--plus-gold); box-shadow: 0 24px 50px rgba(13, 27, 42, 0.25);
+}
+.chat__head { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4); border-bottom: 1px solid rgba(255, 255, 255, 0.12); flex-wrap: wrap; }
+.chat__head-icon { width: 60px; height: 60px; border-radius: 18px; display: grid; place-items: center; font-size: 2rem; background: var(--color-dark-2); }
+.chat__head > div { flex: 1; min-width: 180px; }
+.chat__title { color: var(--color-white); font-size: clamp(1.6rem, 4vw, 2.4rem); margin: 0; }
+.chat__sub { margin: 4px 0 0; color: var(--text-muted-on-dark); font-weight: 600; }
+.chat__log {
+  list-style: none; margin: 0; padding: var(--space-4);
+  display: flex; flex-direction: column; gap: var(--space-3);
+  max-height: 420px; overflow-y: auto; scroll-behavior: smooth;
+  background: radial-gradient(400px 200px at 100% 0%, rgba(255, 200, 87, 0.08), transparent 70%);
+}
+.chat__msg { display: flex; align-items: flex-end; gap: var(--space-2); margin: 0; max-width: 85%; animation: chat-pop 0.3s ease both; }
+@keyframes chat-pop { from { opacity: 0; transform: translateY(8px) scale(0.98); } }
+.chat__msg--user { align-self: flex-end; }
+.chat__avatar { width: 36px; height: 36px; flex: none; border-radius: 50%; display: grid; place-items: center; background: var(--plus-gold); font-size: 1.1rem; }
+.chat__bubble { margin: 0; padding: 12px 16px; border-radius: 20px; line-height: 1.5; font-size: 1.02rem; }
+.chat__msg--bot .chat__bubble { background: var(--color-dark-2); color: var(--color-white); border-bottom-left-radius: 6px; }
+.chat__msg--user .chat__bubble { background: var(--plus-gold); color: var(--color-dark); font-weight: 700; border-bottom-right-radius: 6px; }
+.chat__more { display: inline-flex; margin-top: 6px; color: var(--plus-gold); font-weight: 800; text-underline-offset: 3px; }
+.chat__more:hover { color: var(--color-white); }
+/* "typing..." dots */
+.chat__typing .chat__bubble { display: flex; gap: 5px; padding: 16px; }
+.chat__typing .chat__bubble span { width: 8px; height: 8px; border-radius: 50%; background: var(--text-muted-on-dark); animation: typing-dot 1s ease-in-out infinite; }
+.chat__typing .chat__bubble span:nth-child(2) { animation-delay: 0.15s; }
+.chat__typing .chat__bubble span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes typing-dot { 50% { transform: translateY(-5px); opacity: 0.5; } }
+.chat__chips { display: flex; gap: var(--space-2); padding: 0 var(--space-4) var(--space-3); overflow-x: auto; scrollbar-width: none; }
+.chat__chips::-webkit-scrollbar { display: none; }
+.chat__chip {
+  flex: none; min-height: 44px; padding: 0 16px; border-radius: 999px; cursor: pointer;
+  background: transparent; color: var(--color-white); border: 2px solid rgba(255, 200, 87, 0.6);
+  font: inherit; font-weight: 700; font-size: 0.92rem; white-space: nowrap;
+}
+.chat__chip:hover { background: var(--plus-gold); color: var(--color-dark); border-color: var(--plus-gold); }
+.chat__form { display: flex; gap: var(--space-2); padding: var(--space-3) var(--space-4); background: var(--color-dark-2); }
+.chat__form input {
+  flex: 1; min-width: 0; min-height: 52px; padding: 0 18px; border-radius: 999px;
+  border: 2px solid transparent; background: var(--color-white); color: var(--color-dark); font: inherit; font-size: 1rem;
+}
+.chat__form input:focus { outline: none; border-color: var(--plus-gold); box-shadow: 0 0 0 3px rgba(255, 200, 87, 0.4); }
+.chat__form .btn { min-height: 52px; padding: 0 26px; }
+.chat__note { margin: 0; padding: var(--space-2) var(--space-4) var(--space-3); background: var(--color-dark-2); color: var(--text-muted-on-dark); font-size: 0.85rem; }
+/* Locked (not Plus) */
+.chat__log--demo { opacity: 0.85; max-height: none; }
+.chat__locked {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3);
+  padding: var(--space-4); background: var(--color-dark-2);
+}
+.chat__locked p { margin: 0; flex: 1 1 280px; color: var(--color-white); }
+@media (max-width: 480px) {
+  .chat__msg { max-width: 95%; }
+  .chat__head, .chat__log { padding: var(--space-3); }
+  .chat__form { padding: var(--space-3); }
+  .chat__form .btn { padding: 0 18px; }
+}
+
+/* ---- Bolder tabs and panels on Nutrition ---- */
+.nutrition-tabs-title { font-size: clamp(2.2rem, 6vw, 3.4rem); letter-spacing: -0.04em; margin-bottom: var(--space-3); }
+.nutrition-page .tabset__list { padding: 8px; }
+.nutrition-page .tabset__list [role="tab"] { min-height: 54px; font-size: 1.05rem; padding: 0 var(--space-4); }
+.nutrition-page .tabset__list [role="tab"] .tab-icon { font-size: 1.4rem; }
+.nutrition-page [role="tabpanel"] { background: var(--color-white); border-radius: 28px; box-shadow: var(--shadow); padding: var(--space-5) var(--space-4); }
+@media (min-width: 800px) { .nutrition-page [role="tabpanel"] { padding: var(--space-5); } }
+.nutrition-page .panel-title { font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -0.04em; line-height: 1.02; }
+.nutrition-page .panel-intro { font-size: 1.15rem; font-weight: 600; color: var(--text-muted); max-width: 60ch; }
+.nutrition-page .tile { border-radius: 22px; padding: var(--space-4); }
+.nutrition-page .tile h3 { font-size: 1.35rem; font-weight: 900; }
+.nutrition-page .drink-steps li { font-size: 1.05rem; padding: var(--space-3); border-radius: 16px; }
+.nutrition-page .drink-steps__when { font-size: 0.9rem; }
+.nutrition-page .timeline__item::before { width: 30px; height: 30px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .chat__msg, .chat__typing .chat__bubble span { animation: none; }
+  .food-rule:hover { transform: none; }
+  .chat__log { scroll-behavior: auto; }
+}

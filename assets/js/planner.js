@@ -79,7 +79,8 @@ function lockedHTML() {
         <p>Build your whole training week in one place, and tick things off as you go.</p>
         <ul class="plus-perks">
           <li><span aria-hidden="true">🗓️</span> Weekly Planner</li>
-          <li><span aria-hidden="true">⚽</span> 10 extra Plus drills</li>
+          <li><span aria-hidden="true">⚽</span> All 35 drills, with diagrams</li>
+          <li><span aria-hidden="true">💬</span> Food Helper chat</li>
           <li><span aria-hidden="true">★</span> Plus member badge</li>
         </ul>
         <a class="btn btn--gold btn--big btn--arrow" href="${GET_PLUS_HREF}">Get Plus · ${plusPriceText()}</a>

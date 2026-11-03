@@ -106,13 +106,17 @@ function createModal() {
   });
 }
 
-export function openDrillModal(id, opener) {
+// options.free = true: open the drill for everyone. Programme sessions
+// use this, because drills inside a programme are free.
+// Everywhere else (the Drills page), drills are for Plus members only.
+export function openDrillModal(id, opener, options = {}) {
   const drill = findDrill(id);
   if (!drill) return;
-  // Plus drills only open for Plus members. Everyone else sees the
-  // "Unlock with Plus" popup instead (see plus.js).
-  if (drill.plus && !isPlus()) {
-    openPlusPopup(drill.name, "This is a Plus drill. Get Plus to unlock it and 9 more.", opener);
+  if (!options.free && !isPlus()) {
+    const text = drill.plus
+      ? "This is a Plus-only drill. Get Plus to unlock all 35 drills."
+      : "The Drills page is part of Plus. Drills inside your programme sessions stay free.";
+    openPlusPopup(drill.name, text, opener);
     return;
   }
   if (!modal) createModal();

@@ -52,5 +52,5 @@
   --focus-ring: 3px solid #0D1B2A;
   --angle: 0px;                   /* diagonal section edges: 0 = straight (version 7). Try 4vw for angled. */
   --max-width: 1160px;
-  --header-height: 68px;
+  --header-height: 88px;          /* bigger header (version 12); 72px on phones, see pages.css */
 }
